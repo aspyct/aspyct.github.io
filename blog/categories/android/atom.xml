@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: android | Aspyct.org]]></title>
+  <link href="http://aspyct.github.com/aspyct/blog/categories/android/atom.xml" rel="self"/>
+  <link href="http://aspyct.github.com/aspyct/"/>
+  <updated>2014-02-09T21:36:31+01:00</updated>
+  <id>http://aspyct.github.com/aspyct/</id>
+  <author>
+    <name><![CDATA[Antoine d'Otreppe]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Android: detecting charge state]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2013/05/16/android-detecting-charge-state/"/>
+    <updated>2013-05-16T22:14:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2013/05/16/android-detecting-charge-state</id>
+    <content type="html"><![CDATA[<p>Battery is expensive. Not to say that you can't buy one, but you really should use resources wisely when you develop a mobile application. Yet sometimes you need to do some long run process or heavy calculation.</p>
+
+<p>For that matter, Android allows us to detect whether the device is plugged in and charging. Let's see how.</p>
+
+<!-- more -->
+
+
+<p>One thing we can do is ask whether the device is plugged-in. That can easily be done with a few lines of code.</p>
+
+<p>```java
+public void checkBatteryState(View sender) {</p>
+
+<pre><code>IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+Intent batteryStatus = registerReceiver(null, filter);
+
+int chargeState = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+String strState;
+
+switch (chargeState) {
+    case BatteryManager.BATTERY_STATUS_CHARGING:
+    case BatteryManager.BATTERY_STATUS_FULL:
+        strState = "charging";
+        break;
+    default:
+        strState = "not charging";
+}
+
+TextView tv = (TextView) findViewById(R.id.textView);
+tv.setText(strState);
+</code></pre>
+
+<p>}
+```</p>
+
+<p>Note that charge efficiency may change according to the type of power source. You may want to investigate the <code>BatteryManager.EXTRA_PLUGGED</code> to get more information.</p>
+
+<p>Astute readers will notice that we used a sticky broadcast to get the status. It means we can also create a <a href="http://developer.android.com/reference/android/content/BroadcastReceiver.html">BroadcastReceiver</a> to monitor changes for the battery status. This is left as an exercise to you, dear reader :)</p>
+
+<p>You can checkout the <a href="https://github.com/aspyct/android-batterycheck">example on github</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Android: Switch wifi on/off]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2013/05/04/android-switch-wifi-on-off/"/>
+    <updated>2013-05-04T11:30:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2013/05/04/android-switch-wifi-on-off</id>
+    <content type="html"><![CDATA[<p>Sometime you simply need more than HTTP requests or buttons. Sometimes you need to play with device state, switch the wifi on for example. Android provide a very easy API to do that.</p>
+
+<!-- more -->
+
+
+<p>And to do that, we need to use the <a href="http://developer.android.com/reference/android/net/wifi/WifiManager.html">WifiManager</a>. As any other system service, we can get it through the context, usually our activity.</p>
+
+<p>Let's write some code to toggle the wifi state. It involves 1. getting the current state and 2. changing it to the other state. But first things first, we need the permissions.</p>
+
+<p>```xml</p>
+
+<!--  Add these permissions to your android manifest -->
+
+
+<p><uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+<uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+```</p>
+
+<p>And now that we have the permissions, finally, the code!</p>
+
+<p>```java
+public void toggleWifi() {</p>
+
+<pre><code>// Get the WifiManager service from the context
+WifiManager wm = (WifiManager) this.getSystemService(Context.WIFI_SERVICE);
+
+// Read the current state. True is On, False is Off
+boolean currentState = wm.isWifiEnabled();
+
+// And now, switch to the other state
+wm.setWifiEnabled(!currentState);
+
+// You're done :)
+// Note that it can take some time for the wifi to reconnect
+// when you switch it on.
+</code></pre>
+
+<p>}
+```</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: APServiceBox | Aspyct.org]]></title>
+  <link href="http://aspyct.github.com/aspyct/blog/categories/apservicebox/atom.xml" rel="self"/>
+  <link href="http://aspyct.github.com/aspyct/"/>
+  <updated>2014-02-09T21:36:31+01:00</updated>
+  <id>http://aspyct.github.com/aspyct/</id>
+  <author>
+    <name><![CDATA[Antoine d'Otreppe]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[APServiceBox update: self-injection]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/08/31/apservicebox-update-self-injection/"/>
+    <updated>2012-08-31T01:10:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/08/31/apservicebox-update-self-injection</id>
+    <content type="html"><![CDATA[<p>Small update to APServiceBox, adding the <code>NSObject+APServiceBox</code> category and the <code>defaultBox</code> method. These two allow you to make objects that will themselves ask for dependencies. This contributes to reduce the amount of code, and in some cases facilitates some difficult situations.</p>
+
+<!-- more -->
+
+
+<p>Read more about APServiceBox on <a href="/apservicebox">its dedicated page</a>.</p>
+
+<p>The first thing you should do is register your services and other dependencies into the default service box.</p>
+
+<p>```objective-c
+AnalyticsManager *analyticsManager = [[AnalyticsManager alloc] init];
+[[APServiceBox defaultBox] registerDependency:analyticsManager as:@"analyticsManager"];</p>
+
+<p>// Or you can create your own box
+APServiceBox *myBox = [[APServiceBox alloc] init];
+```</p>
+
+<p>Then call the <code>fillWithDependencies</code> method in the <code>init</code> of an object. This will use the default service box to fill the current object.</p>
+
+<p>```objective-c
+@interface MyViewController
+@property (strong, nonatomic) AnalyticsService *analyticsService;
+@end</p>
+
+<h1>import "NSObject+APServiceBox.h"</h1>
+
+<p>@implementation MyViewController</p>
+
+<ul>
+<li><p>(id)init {
+  self = [super init];</p>
+
+<p>  if (self) {</p>
+
+<pre><code>  // This will ask the [APServiceBox defaultBox] to provide available dependencies
+  [self fillWithDependencies];
+</code></pre>
+
+<p>  }</p>
+
+<p>  return self;
+}</p></li>
+</ul>
+
+
+<p>@end</p>
+
+<p>```</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[APServiceBox: cross-dependency injection]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/08/29/apservicebox-cross-dependency-injection/"/>
+    <updated>2012-08-29T22:03:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/08/29/apservicebox-cross-dependency-injection</id>
+    <content type="html"><![CDATA[<p>APServiceBox had a little update today (v12.08.29). Now, when you call the <code>fill:</code> method for the first time, APServiceBox will first scan all its dependencies and fill them as well. Thus, you can have dependencies that depend on each other. All you have to do is register both dependencies into the container before you <code>fill:</code> your first object. Read on for an example.</p>
+
+<!-- more -->
+
+
+<p>```objective-c StorageManager
+@interface StorageManager</p>
+
+<p>@end
+```</p>
+
+<p>```objective-c PreferenceManager
+@interface PreferenceManager</p>
+
+<p>@property (strong, nonatomic) StorageManager *storageManager;</p>
+
+<p>@end
+```</p>
+
+<p>```objective-c Usage example
+APServiceBox *box = [[APServiceBox alloc] init];
+[box registerDependency:preferenceManger as:@"preferenceManager"];
+[box registerDependency:storageManger as:@"storageManager"];</p>
+
+<p>// And if you invoke...
+[box fill:myObject];</p>
+
+<p>// ...then the following is true:
+preferenceManager.storageManager == storageManager;
+```</p>
+
+<p><a href="/apservicebox">More about APServiceBox</a>.</p>
+]]></content>
+  </entry>
+  
+</feed>

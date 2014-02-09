@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: pathfinding | Aspyct.org]]></title>
+  <link href="http://aspyct.github.com/aspyct/blog/categories/pathfinding/atom.xml" rel="self"/>
+  <link href="http://aspyct.github.com/aspyct/"/>
+  <updated>2014-02-09T21:36:31+01:00</updated>
+  <id>http://aspyct.github.com/aspyct/</id>
+  <author>
+    <name><![CDATA[Antoine d'Otreppe]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[The A*  algorithm explained]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/07/20/the-a-star-algorithm-explained/"/>
+    <updated>2012-07-20T10:51:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/07/20/the-a-star-algorithm-explained</id>
+    <content type="html"><![CDATA[<p>I just spent the whole day implementing a pathfinding algorithm: A*. The A* algorithm is based on Dijkstra, with the addition of a heuristic (estimation) that allows to favor one path rather than another.</p>
+
+<p><img class="center" src="/media/astar.png" title="Illustration of a time-optimized A* algorithm" ></p>
+
+<p>The A* algorithm also has an interesting property: you can easily alter the estimates to make it more accurate or faster (not both, of course ;). That's why the path depicted above is not actually the shortest one. That's also why I spent the whole day searching why my implementation of A* was slower than the one I found on the web...</p>
+
+<p>This is all properly explained on <a href="http://theory.stanford.edu/~amitp/GameProgramming/">Amit's A* pages</a>. You can also find an example implementation and training material in Java on the <a href="http://memoization.com/2008/11/30/a-star-algorithm-in-java/">Memoization</a> blog. Thanks to these two people for their excellent content :)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The Seven Bridges of Königsberg]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/07/19/the-seven-bridges-of-konigsberg/"/>
+    <updated>2012-07-19T16:00:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/07/19/the-seven-bridges-of-konigsberg</id>
+    <content type="html"><![CDATA[<p>Have you heard of it? The problem was to find a path through the city that would cross each bridge once and only once. Well it is probably the origin of graph theory :)</p>
+
+<p><img class="center" src="http://upload.wikimedia.org/wikipedia/commons/5/5d/Konigsberg_bridges.png" title="Courtesy of Wikipedia" ></p>
+
+<p>So yes, today's theory: graphs. And I'm starting with <a href="http://www.cs.princeton.edu/~rs/AlgsDS07/11UndirectedGraphs.pdf">these slides from the Princeton University</a>. Pretty interesting :)</p>
+]]></content>
+  </entry>
+  
+</feed>

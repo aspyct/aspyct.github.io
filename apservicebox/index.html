@@ -1,0 +1,437 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>APServiceBox - Aspyct.org</title>
+  <meta name="author" content="Antoine d'Otreppe">
+
+  
+  <meta name="description" content="APServiceBox Aug 15th, 2012 Source Zipball What is it ? APServiceBox is a dependency injection container that can be used in your iOS or other &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://aspyct.github.com/aspyct/apservicebox/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Aspyct.org" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-33734142-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Aspyct.org</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:aspyct.github.com/aspyct" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/praline">Praliné</a></li>
+  <li><a href="/apservicebox">APServiceBox</a></li>
+  <li><a href="/webmanner">webmanner</a></li>
+  <li><a href="/aspyct">aspyct</a></li>
+  <li><a href="http://nakedman.aspyct.org">naked_man</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article role="article">
+  
+  <header>
+    <h1 class="entry-title">APServiceBox</h1>
+    <p class="meta">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-15T11:21:00+02:00" pubdate data-updated="true">Aug 15<span>th</span>, 2012</time></p>
+    <ul class="project-links">
+      
+        
+          <li><a class="button" href="http://github.com/aspyct/apservicebox">Source</a></li>
+        
+      
+        
+          <li><a class="button" href="http://github.com/aspyct/apservicebox/zipball/master">Zipball</a></li>
+        
+      
+    </ul>
+  </header>
+  
+  <h2>What is it ?</h2>
+
+<p>APServiceBox is a dependency injection container that can be used in your iOS or other Objective-C projects. It can be compared in some way to containers such as <a href="http://www.springsource.org/">Spring</a>, but a much more simple one.</p>
+
+<p>Use this box when you have services or objects that must be available throughout the application. For example, if all your *ViewControllers need to report analytics, or depend on a single data source.</p>
+
+<p>APServiceBox is open-source (MIT licensed) and therefore free to use.</p>
+
+<h2>How to use</h2>
+
+<p>Grab the whole thing from its <a href="https://github.com/aspyct/APServiceBox/">github repository</a> or <a href="http://github.com/aspyct/apservicebox/zipball/master">download the zipball</a>, and drop the classes into your project.</p>
+
+<h2>Usage example</h2>
+
+<p>The first thing you should do is register your services and other dependencies into the default service box.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">AnalyticsManager</span> <span class="o">*</span><span class="n">analyticsManager</span> <span class="o">=</span> <span class="p">[[</span><span class="n">AnalyticsManager</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
+</span><span class='line'><span class="p">[[</span><span class="n">APServiceBox</span> <span class="n">defaultBox</span><span class="p">]</span> <span class="nl">registerDependency:</span><span class="n">analyticsManager</span> <span class="nl">as:</span><span class="s">@&quot;analyticsManager&quot;</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Or you can create your own box</span>
+</span><span class='line'><span class="n">APServiceBox</span> <span class="o">*</span><span class="n">myBox</span> <span class="o">=</span> <span class="p">[[</span><span class="n">APServiceBox</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Self-injection</strong></p>
+
+<p>The easiest way to inject dependencies is to call the <code>fillWithDependencies</code> method in the <code>init</code> of an object. This will use the default service box to fill the current object.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">@interface</span> <span class="nc">MyViewController</span>
+</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">AnalyticsService</span> <span class="o">*</span><span class="n">analyticsService</span><span class="p">;</span>
+</span><span class='line'><span class="k">@end</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="cp">#import &quot;NSObject+APServiceBox.h&quot;</span>
+</span><span class='line'><span class="k">@implementation</span> <span class="nc">MyViewController</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nf">init</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">self</span> <span class="o">=</span> <span class="p">[</span><span class="n">super</span> <span class="n">init</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// This will ask the [APServiceBox defaultBox] to provide available dependencies</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">self</span> <span class="n">fillWithDependencies</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">self</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Injection conditions</strong></p>
+
+<p>There are two conditions for a dependency to be injected:</p>
+
+<ol>
+<li>the @property name corresponds to the name given when registering the service</li>
+<li>the @property type matches the registered service, that is (one of the following):
+
+<ul>
+<li>service.class == @property.class</li>
+<li>[service isKindOfClass:@property.class]</li>
+<li>[service.class conformsToProtocol:@property.protocol]</li>
+</ul>
+</li>
+</ol>
+
+
+<p>Thus, the following two forms of properties are valid:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// Will match any AnalyticsService (or subclass) object</span>
+</span><span class='line'><span class="k">@property</span> <span class="p">(...)</span> <span class="n">AnalyticsService</span> <span class="o">*</span><span class="n">analyticsService</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Will match any object that conforms to &lt;AnalyticsService&gt; protocol</span>
+</span><span class='line'><span class="k">@property</span> <span class="p">(...)</span> <span class="kt">id</span><span class="o">&lt;</span><span class="n">AnalyticsService</span><span class="o">&gt;</span> <span class="o">*</span><span class="n">analyticsService</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Inject from outside the class</strong></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// Create the box</span>
+</span><span class='line'><span class="n">APServiceBox</span> <span class="o">*</span><span class="n">box</span> <span class="o">=</span> <span class="p">[</span><span class="n">APServiceBox</span> <span class="n">defaultBox</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Register some services in it, here a fictive AnalyticsService object</span>
+</span><span class='line'><span class="p">[</span><span class="n">box</span> <span class="nl">registerDependency:</span><span class="n">analyticsService</span> <span class="nl">as:</span><span class="s">@&quot;analyticsService&quot;</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Use the box to inject dependencies into object&#39;s properties</span>
+</span><span class='line'><span class="c1">// The dependencies will be injected based on names and classes/protocols</span>
+</span><span class='line'><span class="p">[</span><span class="n">box</span> <span class="nl">fill:</span><span class="n">myViewController</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// For example, if myViewController has a property defined as follow:</span>
+</span><span class='line'><span class="k">@property</span> <span class="p">(...)</span> <span class="n">AnalyticsService</span> <span class="o">*</span><span class="n">analyticsService</span><span class="p">;</span>
+</span><span class='line'><span class="c1">// then the analyticsService from above will be injected.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Inject the box itself</strong></p>
+
+<p>If you need to inject the box itself into one of the objects (typically a UIViewController that will create other UIViewControllers), you can simply add a @property of type APServiceBox and named &#8220;serviceBox&#8221;.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">APServiceBox</span> <span class="o">*</span><span class="n">serviceBox</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Cross-dependency injection</strong></p>
+
+<p>When you call <code>fill:</code> for the first time, APServiceBox will scan and fill each of the registered dependencies. This allows the following scenario:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">@interface</span> <span class="nc">StorageManager</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">@interface</span> <span class="nc">PreferenceManager</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">StorageManager</span> <span class="o">*</span><span class="n">storageManager</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">APServiceBox</span> <span class="o">*</span><span class="n">box</span> <span class="o">=</span> <span class="p">[[</span><span class="n">APServiceBox</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="n">box</span> <span class="nl">registerDependency:</span><span class="n">preferenceManger</span> <span class="nl">as:</span><span class="s">@&quot;preferenceManager&quot;</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="n">box</span> <span class="nl">registerDependency:</span><span class="n">storageManger</span> <span class="nl">as:</span><span class="s">@&quot;storageManager&quot;</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// And if you invoke...</span>
+</span><span class='line'><span class="p">[</span><span class="n">box</span> <span class="nl">fill:</span><span class="n">myObject</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// ...then the following is true:</span>
+</span><span class='line'><span class="n">preferenceManager</span><span class="p">.</span><span class="n">storageManager</span> <span class="o">==</span> <span class="n">storageManager</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Need more?</strong></p>
+
+<p>If you need more insights on how this works, have a look at the <a href="https://github.com/aspyct/APServiceBox/blob/master/APServiceBoxTests/TestCases/APServiceBoxTest.m">test file</a>: it&#8217;s short and clear!
+Or contact me ;)</p>
+
+<h2>Report bugs</h2>
+
+<p>You can either</p>
+
+<ul>
+<li>fork the <a href="https://github.com/aspyct/APServiceBox/">repository</a>, fix and make a pull request (don&#8217;t forget the unit tests)</li>
+<li>create a new ticket in the <a href="https://github.com/aspyct/APServiceBox/issues">issue tracker</a></li>
+<li>send me a mail to <a href="mailto:a.dotreppe@aspyct.org">a.dotreppe@aspyct.org</a></li>
+<li>contact me via twitter: <a href="http://twitter.com/aspyct">@aspyct</a></li>
+</ul>
+
+
+<h2>License</h2>
+
+<p>Feel free to use this for commercial works, and I&#8217;d be glad to hear from you, or why not see my name in a &#8220;thanks&#8221; section :)</p>
+
+<p>This code is available under the MIT license.</p>
+
+<p>Hope you like this little utility. Have fun!</p>
+
+  
+    <footer>
+      <p class="meta">
+        
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-15T11:21:00+02:00" pubdate data-updated="true">Aug 15<span>th</span>, 2012</time>
+        
+      </p>
+      
+        <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://aspyct.github.com/aspyct/apservicebox/index.html" data-via="" data-counturl="http://aspyct.github.com/aspyct/apservicebox/index.html" >Tweet</a>
+  
+  
+  
+</div>
+
+      
+    </footer>
+  
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Contact me</h1>
+  <p>
+  	Name's Antoine :)<br />
+  	via mail: <a href="mailto:a.dotreppe@aspyct.org">a.dotreppe@aspyct.org</a><br />
+  	or twitter: <a href="http://twitter.com/aspyct">@aspyct</a>
+  </p>
+</section>
+<section>
+    <h1>Gists</h1>
+    <ul>
+        <li><a href="https://gist.github.com/aspyct/5517026">Android: Switch wifi on/off</a></li>
+        <li><a href="https://gist.github.com/3118858">UNIX semaphores example</a></li>
+        <li><a href="/blog/2012/08/25/unix-signal-handling-example/">UNIX signals example</a></li>
+        <li><a href="https://gist.github.com/2995609">Tiny javascript IoC container</a></li>
+        <li><a href="https://gist.github.com/3129371">Left Leaning Red/Black Tree in Java</a></li>
+        <li><a href="https://gist.github.com/3194882">View doubles as binary</a></li>
+        <li><a href="https://gist.github.com/3428688">Binomial heap in ruby</a></li>
+        <li><a href="https://gist.github.com/3433278">Sorting &amp; searching arrays in ruby</a></li>
+    </ul>
+</section>
+<section>
+  <h1>Older stuff</h1>
+  <ul>
+  	<li><a href="http://old.aspyct.org/doku.php?id=aspyct">aspyct</a>, the AOP library that gave its name to the whole thing</li>
+  	<li><a href="http://old.aspyct.org/doku.php?id=pysh">pysh</a>, a shell that mixes Python and Bash syntax</li>
+  	<li><a href="http://httpforge.aspyct.org/">httpforge</a> lets you forge, send and analyze HTTP messages right from your command line.</li>
+  	<li><a href="http://old.aspyct.org/">More...</a></li>
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Antoine d'Otreppe -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: signal | Aspyct.org]]></title>
+  <link href="http://aspyct.github.com/aspyct/blog/categories/signal/atom.xml" rel="self"/>
+  <link href="http://aspyct.github.com/aspyct/"/>
+  <updated>2014-02-09T21:36:31+01:00</updated>
+  <id>http://aspyct.github.com/aspyct/</id>
+  <author>
+    <name><![CDATA[Antoine d'Otreppe]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Unix signal handling example]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/08/25/unix-signal-handling-example/"/>
+    <updated>2012-08-25T09:42:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/08/25/unix-signal-handling-example</id>
+    <content type="html"><![CDATA[<p>UNIX signals can occur in various situations. For example, when you hit ctrl-C in the terminal, a <code>SIGINT</code> (interrupt) is sent to the process. Likewise, when you want to kill for sure a process, you'll send it the <code>SIGKILL</code> signal. Read below for an example of signal handling on UNIX systems, including <code>sigaction</code>, <code>sigsuspend</code>, <code>sigprocmask</code> et al.</p>
+
+<!-- more -->
+
+
+<p>```c UNIX signal handling example https://gist.github.com/3462238 View on Gist</p>
+
+<h1>include &lt;stdio.h></h1>
+
+<h1>include &lt;stdlib.h></h1>
+
+<h1>include &lt;signal.h> // sigaction(), sigsuspend(), sig*()</h1>
+
+<h1>include &lt;unistd.h> // alarm()</h1>
+
+<p>void handle_signal(int signal);
+void handle_sigalrm(int signal);
+void do_sleep(int seconds);</p>
+
+<p>/<em> Usage example
+ *
+ * First, compile and run this program:
+ *     $ gcc signal.c
+ *     $ ./a.out
+ *
+ * It will print out its pid. Use it from another terminal to send signals
+ *     $ kill -HUP <pid>
+ *     $ kill -USR1 <pid>
+ *     $ kill -ALRM <pid>
+ *
+ * Exit the process with ^C ( = SIGINT) or SIGKILL, SIGTERM
+ </em>/
+int main() {</p>
+
+<pre><code>struct sigaction sa;
+
+// Print pid, so that we can send signals from other shells
+printf("My pid is: %d\n", getpid());
+
+// Setup the sighub handler
+sa.sa_handler = &amp;handle_signal;
+
+// Restart the system call, if at all possible
+sa.sa_flags = SA_RESTART;
+
+// Block every signal during the handler
+sigfillset(&amp;sa.sa_mask);
+
+// Intercept SIGHUP and SIGINT
+if (sigaction(SIGHUP, &amp;sa, NULL) == -1) {
+    perror("Error: cannot handle SIGHUP"); // Should not happen
+}
+
+if (sigaction(SIGUSR1, &amp;sa, NULL) == -1) {
+    perror("Error: cannot handle SIGUSR1"); // Should not happen
+}
+
+// Will always fail, SIGKILL is intended to force kill your process
+if (sigaction(SIGKILL, &amp;sa, NULL) == -1) {
+    perror("Cannot handle SIGKILL"); // Will always happen
+    printf("You can never handle SIGKILL anyway...\n");
+}
+
+if (sigaction(SIGINT, &amp;sa, NULL) == -1) {
+    perror("Error: cannot handle SIGINT"); // Should not happen
+}
+
+for (;;) {
+    printf("\nSleeping for ~3 seconds\n");
+    do_sleep(3); // Later to be replaced with a SIGALRM
+}
+</code></pre>
+
+<p>}</p>
+
+<p>void handle_signal(int signal) {</p>
+
+<pre><code>/*
+ * Please note that printf et al. are NOT safe to use in signal handlers.
+ * Look for async safe functions.
+ */
+const char *signal_name;
+sigset_t pending;
+
+// Find out which signal we're handling
+switch (signal) {
+    case SIGHUP:
+        signal_name = "SIGHUP";
+        break;
+    case SIGUSR1:
+        signal_name = "SIGUSR1";
+        break;
+    case SIGINT:
+        printf("Caught SIGINT, exiting now\n");
+        exit(0);
+    default:
+        fprintf(stderr, "Caught wrong signal: %d\n", signal);
+        return;
+}
+
+printf("Caught %s, sleeping for ~3 seconds\n"
+       "Try sending another SIGHUP / SIGINT / SIGALRM "
+       "(or more) meanwhile\n", signal_name);
+/*
+ * Indeed, all signals are blocked during this handler
+ * But, at least on OSX, if you send 2 other SIGHUP,
+ * only one will be delivered: signals are not queued
+ * However, if you send HUP, INT, HUP,
+ * you'll see that both INT and HUP are queued
+ * Even more, on my system, HUP has priority over INT
+ */
+do_sleep(3);
+printf("Done sleeping for %s\n", signal_name);
+
+// So what did you send me while I was asleep?
+sigpending(&amp;pending);
+if (sigismember(&amp;pending, SIGHUP)) {
+    printf("A SIGHUP is waiting\n");
+}
+if (sigismember(&amp;pending, SIGUSR1)) {
+    printf("A SIGUSR1 is waiting\n");
+}
+
+printf("Done handling %s\n\n", signal_name);
+</code></pre>
+
+<p>}</p>
+
+<p>void handle_sigalrm(int signal) {</p>
+
+<pre><code>if (signal != SIGALRM) {
+    fprintf(stderr, "Caught wrong signal: %d\n", signal);
+}
+
+printf("Got sigalrm, do_sleep() will end\n");
+</code></pre>
+
+<p>}</p>
+
+<p>void do_sleep(int seconds) {</p>
+
+<pre><code>struct sigaction sa;
+sigset_t mask;
+
+sa.sa_handler = &amp;handle_sigalrm; // Intercept and ignore SIGALRM
+sa.sa_flags = SA_RESETHAND; // Remove the handler after first signal
+sigfillset(&amp;sa.sa_mask);
+sigaction(SIGALRM, &amp;sa, NULL);
+
+// Get the current signal mask
+sigprocmask(0, NULL, &amp;mask);
+
+// Unblock SIGALRM
+sigdelset(&amp;mask, SIGALRM);
+
+// Wait with this mask
+alarm(seconds);
+sigsuspend(&amp;mask);
+
+printf("sigsuspend() returned\n");
+</code></pre>
+
+<p>}
+```</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,396 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Spitfire project, day #1 - Aspyct.org</title>
+  <meta name="author" content="Antoine d'Otreppe">
+
+  
+  <meta name="description" content="So we moved in with a few friends. A bunch of geeks just like me&#8230; fine move :) We call our house the &#8220;Geekarium&#8221;. And of course, we &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://aspyct.github.com/aspyct/blog/2013/07/15/spitfire-project-day-number-1/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Aspyct.org" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-33734142-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Aspyct.org</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:aspyct.github.com/aspyct" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/praline">Praliné</a></li>
+  <li><a href="/apservicebox">APServiceBox</a></li>
+  <li><a href="/webmanner">webmanner</a></li>
+  <li><a href="/aspyct">aspyct</a></li>
+  <li><a href="http://nakedman.aspyct.org">naked_man</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Spitfire project, day #1</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-15T00:00:00+02:00" pubdate data-updated="true">Jul 15<span>th</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>So we moved in with a few friends. A bunch of geeks just like me&#8230; fine move :) We call our house the &#8220;Geekarium&#8221;. And of course, we play video games. Or more specifically, we play <a href="http://warthunder.com/">War Thunder</a>, a WW2 airplane simulation.</p>
+
+<p>I like to pretend these planes are real, and the keyboard is not enough. Arduino to the rescue :)</p>
+
+<!-- more -->
+
+
+<h2>A bit of history</h2>
+
+<p>The Supermarine Spitfire is probably one of the best known aircraft out there. A legend, dare I say.</p>
+
+<p><img class="center" src="/media/spitfire/spitfire_side_view.jpg" width="480" height="360" title="'A spitfire seen from its side'" ></p>
+
+<p>Created a bit before WW2, the Spitfire was used along the Hurricane during the Battle of Britain, to successfully deflect german bombers.</p>
+
+<p>It was fitted with a Merlin engine and beautiful elliptical wings, which made him very recognisable among the other airplanes.</p>
+
+<p><img class="center" src="/media/spitfire/spitfire_bottom_view.jpg" width="457" height="480" title="'A spitfire seen from bottom'" ></p>
+
+<p>Read more about this masterpiece of history on <a href="http://en.wikipedia.org/wiki/Supermarine_Spitfire">its wikipedia page</a>.</p>
+
+<h2>So I started building this panel&#8230;</h2>
+
+<p>So yes, I&#8217;ve fallen in love again with airplanes. So much that I actually decided to supplement my joystick with a custom control panel. You know, for all those things that usually remain on the keyboard: start engine, landing gear control, flaps etc.</p>
+
+<p><img class="center" src="/media/spitfire/arduino_spitfire.jpg" width="480" height="388" title="'The early arduino prototype'" ></p>
+
+<p>No blueprints yet, only experimenting some stuff with my arduino. Roughly, what I came up with until now is a sketch that monitors one or more digital inputs, and reports on the serial port.</p>
+
+<p>Also available on github: <a href="https://github.com/aspyct/spitfire">https://github.com/aspyct/spitfire</a>.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="cp">#define INPUT_COUNT 2</span>
+</span><span class='line'><span class="cp">#define TIMEGUARD 100 </span><span class="c1">// numper of milliseconds before a new input is taken into account</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">int</span> <span class="n">inputs</span><span class="p">[</span><span class="n">INPUT_COUNT</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>  <span class="mi">2</span><span class="p">,</span>
+</span><span class='line'>  <span class="mi">6</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">int</span> <span class="n">states</span><span class="p">[</span><span class="n">INPUT_COUNT</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">char</span> <span class="n">keymap</span><span class="p">[</span><span class="n">INPUT_COUNT</span> <span class="o">*</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>  <span class="sc">&#39;d&#39;</span><span class="p">,</span> <span class="sc">&#39;g&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="sc">&#39;6&#39;</span><span class="p">,</span> <span class="sc">&#39;\0&#39;</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">fired</span><span class="p">[</span><span class="n">INPUT_COUNT</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="nf">setup</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">9600</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">INPUT_COUNT</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">pinMode</span><span class="p">(</span><span class="n">inputs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">INPUT</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">states</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">readState</span><span class="p">(</span><span class="n">inputs</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+</span><span class='line'>    <span class="n">fired</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">// Wait for serial connection to be established</span>
+</span><span class='line'>  <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">Serial</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">int</span> <span class="nf">readState</span><span class="p">(</span><span class="kt">int</span> <span class="n">pin</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">digitalRead</span><span class="p">(</span><span class="n">pin</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">INPUT_COUNT</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">time</span> <span class="o">=</span> <span class="n">millis</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">pin</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">val</span> <span class="o">=</span> <span class="n">readState</span><span class="p">(</span><span class="n">pin</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">val</span> <span class="o">!=</span> <span class="n">states</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="n">time</span> <span class="o">-</span> <span class="n">fired</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">TIMEGUARD</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">states</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
+</span><span class='line'>      <span class="n">fired</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="kt">char</span> <span class="n">response</span> <span class="o">=</span> <span class="n">keymap</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">val</span> <span class="o">==</span> <span class="n">HIGH</span><span class="p">)];</span>
+</span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="n">response</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">response</span><span class="p">);</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>To be continued</h2>
+
+<p>As you can see, this is far from finished&#8230; Read the <a href="/blog/2013/07/16/spitfire-project-day-number-2-box-prototype/">post for day #2</a>.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Antoine d'Otreppe</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-15T00:00:00+02:00" pubdate data-updated="true">Jul 15<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/airplane/'>airplane</a>, <a class='category' href='/blog/categories/arduino/'>arduino</a>, <a class='category' href='/blog/categories/electronics/'>electronics</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://aspyct.github.com/aspyct/blog/2013/07/15/spitfire-project-day-number-1/" data-via="" data-counturl="http://aspyct.github.com/aspyct/blog/2013/07/15/spitfire-project-day-number-1/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/05/16/android-detecting-charge-state/" title="Previous Post: Android: detecting charge state">&laquo; Android: detecting charge state</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/07/16/spitfire-project-day-number-2-box-prototype/" title="Next Post: Spitfire project, day #2: the box prototype">Spitfire project, day #2: the box prototype &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Contact me</h1>
+  <p>
+  	Name's Antoine :)<br />
+  	via mail: <a href="mailto:a.dotreppe@aspyct.org">a.dotreppe@aspyct.org</a><br />
+  	or twitter: <a href="http://twitter.com/aspyct">@aspyct</a>
+  </p>
+</section>
+<section>
+    <h1>Gists</h1>
+    <ul>
+        <li><a href="https://gist.github.com/aspyct/5517026">Android: Switch wifi on/off</a></li>
+        <li><a href="https://gist.github.com/3118858">UNIX semaphores example</a></li>
+        <li><a href="/blog/2012/08/25/unix-signal-handling-example/">UNIX signals example</a></li>
+        <li><a href="https://gist.github.com/2995609">Tiny javascript IoC container</a></li>
+        <li><a href="https://gist.github.com/3129371">Left Leaning Red/Black Tree in Java</a></li>
+        <li><a href="https://gist.github.com/3194882">View doubles as binary</a></li>
+        <li><a href="https://gist.github.com/3428688">Binomial heap in ruby</a></li>
+        <li><a href="https://gist.github.com/3433278">Sorting &amp; searching arrays in ruby</a></li>
+    </ul>
+</section>
+<section>
+  <h1>Older stuff</h1>
+  <ul>
+  	<li><a href="http://old.aspyct.org/doku.php?id=aspyct">aspyct</a>, the AOP library that gave its name to the whole thing</li>
+  	<li><a href="http://old.aspyct.org/doku.php?id=pysh">pysh</a>, a shell that mixes Python and Bash syntax</li>
+  	<li><a href="http://httpforge.aspyct.org/">httpforge</a> lets you forge, send and analyze HTTP messages right from your command line.</li>
+  	<li><a href="http://old.aspyct.org/">More...</a></li>
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Antoine d'Otreppe -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'aspyct';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://aspyct.github.com/aspyct/blog/2013/07/15/spitfire-project-day-number-1/';
+        var disqus_url = 'http://aspyct.github.com/aspyct/blog/2013/07/15/spitfire-project-day-number-1/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

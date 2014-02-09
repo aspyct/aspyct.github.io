@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: blueprints | Aspyct.org]]></title>
+  <link href="http://aspyct.github.com/aspyct/blog/categories/blueprints/atom.xml" rel="self"/>
+  <link href="http://aspyct.github.com/aspyct/"/>
+  <updated>2014-02-09T21:36:31+01:00</updated>
+  <id>http://aspyct.github.com/aspyct/</id>
+  <author>
+    <name><![CDATA[Antoine d'Otreppe]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Spitfire project, day #3: the box blueprints]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2013/07/20/spitfire-project-day-number-3-the-box-blueprints/"/>
+    <updated>2013-07-20T15:45:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2013/07/20/spitfire-project-day-number-3-the-box-blueprints</id>
+    <content type="html"><![CDATA[<p>Now that I have a nice box prototype made of cardboard, it's time to make actual blueprints and size calculations, refining the prototype with some ideas.</p>
+
+<!-- more -->
+
+
+<p>If you're new here, and wish to read the whole project, start on <a href="/blog/2013/07/15/spitfire-project-day-number-1/">day #1 of this project</a>.</p>
+
+<h2>The blueprints</h2>
+
+<p>As I said above, I made some arrangements to the original prototype. For example, I found a way to hide hinges. Apart from some screws, not too much clutter should be visible from the outside.</p>
+
+<p><img src="/media/spitfire/box-blueprints.png" alt="The box blueprints" /></p>
+
+<p><a href="/media/spitfire/box-blueprints.pdf">Download blueprints as PDF</a>.</p>
+
+<h2>Size calculations</h2>
+
+<p>I started on a base control panel size of 20cm width and 15cm height. But to be honest, I don't really know the required size... At least I have the formulas.</p>
+
+<h3>Parameters</h3>
+
+<pre><code>height inside = 3cm
+panel width = 20cm
+panel height = 15cm
+panel horizontal border = 2cm
+panel vertical border = 3cm
+panel angle = pi / 9 
+wood thickness = 0.5cm
+stiffener thickness = 1.5cm
+saw width = 0.1cm
+</code></pre>
+
+<h3>Intermediary products and functions</h3>
+
+<pre><code>surface = width * height
+
+panel climb = sin(panel angle) * panel height
+            =&gt; 5.13cm
+
+base width = panel width
+base height = cos(panel angle) * panel height
+           =&gt; 14.1cm
+
+front height = height inside + wood thickness
+back height = front height + panel climb
+
+climb on back stiffener = tan(panel angle) * stiffener thickness
+                        =&gt; 0.55cm
+
+max(x, y) = if x &gt; y then x else y
+min(x, y) = if x &lt; y then x else y
+</code></pre>
+
+<h3>Resulting measurements</h3>
+
+<p>Part 1: back vertical stiffener</p>
+
+<pre><code>p1 length = back height - climb on back stiffener - wood thickness
+          =&gt; 7.58cm
+</code></pre>
+
+<p>Part 2: front vertical stiffener</p>
+
+<pre><code>p2 length = front height - wood thickness
+          =&gt; 3cm
+</code></pre>
+
+<p>Part 3: side stiffener</p>
+
+<pre><code>p3 length = base height - 2 * (stiffener thickness + wood thickness)
+          =&gt; 10.1cm
+</code></pre>
+
+<p>Part 4: back stiffener</p>
+
+<pre><code>p4 length = base width - 2 * (stiffener thickness + wood thickness)
+          =&gt; 16cm
+</code></pre>
+
+<p>Part 5: side board</p>
+
+<pre><code>p5 width = base height
+         =&gt; 14.1cm
+p5 front height = front height + wood thickness
+                =&gt; 4cm
+p5 back height = height inside + panel climb + wood thickness
+               =&gt; 8.63cm
+</code></pre>
+
+<p>Part 6: back board</p>
+
+<pre><code>p6 width = base width - 2 * wood thickness
+         =&gt; 19cm
+p6 height = back height
+          =&gt; 8.63cm
+</code></pre>
+
+<p>Part 7: front board</p>
+
+<pre><code>p7 width = base width - 2 * wood thickness
+         =&gt; 19cm
+p7 height = front height
+          =&gt; 3.5cm
+</code></pre>
+
+<p>Part 9: bottom board</p>
+
+<pre><code>p9 width = base width - 2 * wood thickness
+         =&gt; 19cm
+p9 height = base height - 2 * wood thickness
+          =&gt; 13.1cm
+</code></pre>
+
+<p>Part 10: panel</p>
+
+<pre><code>p10 width = panel width + 2 * panel horizontal border
+          =&gt; 24cm
+p10 height = panel height + 2 * panel vertical border
+           =&gt; 21cm
+</code></pre>
+
+<p>Board surface</p>
+
+<pre><code>p5 height diff = p5 back height - p5 front height
+               =&gt; 4.63cm
+
+p5 surface = p5 width * p5 front height + (p5 width * p5 height diff) / 2
+           =&gt; 89.01cm^2
+
+p6 surface = p6 width * p6 height
+p7 surface = p7 width * p7 height
+p9 surface = p9 width * p9 height
+p10 surface = p10 width * p10 height
+</code></pre>
+
+<p>Totals &amp; required material</p>
+
+<pre><code>total stiffener length = p1 length + p2 length + p3 length + p4 length + 3 * saw width
+                       =&gt; 36.98cm
+
+total board surface = p5 surface + p6 surface + p7 surface + p9 surface + p10 surface
+                    =&gt; 1072.3cm^2
+
+
+base board required width = max(base width/cm, min(p10 width/cm, p10 height/cm)) * cm
+                          =&gt; 21cm
+base board required height = p5 front height + p5 back height # the two side plates
+                           + p6 height + p7 height + p9 height
+                           + max(p10 width/cm, p10 height/cm) * cm
+                           + 5 * saw width
+                           =&gt; 62.36cm
+</code></pre>
+
+<p>If you find something wrong in here, please tell me :)</p>
+
+<h2>Find it on github</h2>
+
+<p>As usual, all of this can be found in the <a href="https://github.com/aspyct/spitfire">github repository of the project</a>. Please note that you'll need <a href="http://www.omnigroup.com/products/omnigraffle/">Omnigraffle</a> to open the blueprints. The calculations markdown file can be opened with <a href="http://calca.io/">Calca</a> for better results.</p>
+
+<h2>To be continued</h2>
+
+<p>The arduino leonardo I needed for this project recently arrived. Next time we'll try to interface that with War Thunder :)</p>
+]]></content>
+  </entry>
+  
+</feed>

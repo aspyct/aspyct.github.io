@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: blog life | Aspyct.org]]></title>
+  <link href="http://aspyct.github.com/aspyct/blog/categories/blog-life/atom.xml" rel="self"/>
+  <link href="http://aspyct.github.com/aspyct/"/>
+  <updated>2014-02-09T21:36:31+01:00</updated>
+  <id>http://aspyct.github.com/aspyct/</id>
+  <author>
+    <name><![CDATA[Antoine d'Otreppe]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Custom page layout with Jekyll and Octopress]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/09/15/custom-page-layout-with-octopress-jekyll/"/>
+    <updated>2012-09-15T22:06:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/09/15/custom-page-layout-with-octopress-jekyll</id>
+    <content type="html"><![CDATA[<p>When you write a Jekyll (or Octopress) page, you may chose to use a custom layout. For example, the <a href="/praline">page for Praliné</a> sports a few buttons at the top, linking to important project resources. Let's walk through an example with this project layout.</p>
+
+<!-- more -->
+
+
+<h2>Creating the custom layout</h2>
+
+<p>First, let's create our custom layout. Since it is pretty similar to a simple page, we'll just copy the page layout first. The following commands assume you're working with octopress, but they should be pretty similar for jekyll.</p>
+
+<p><code>sh
+cp source/_layouts/page.html source/_layouts/project.html
+</code></p>
+
+<p>We also need to select the <code>project</code> layout in our project page. In my case, we're talking about <code>praline/index.markdown</code>. So change the <code>layout</code> attribute in the yaml front-matter.</p>
+
+<p><code>
+layout: project
+title: "Praliné"
+</code></p>
+
+<p>Now, next time you generate the article, the <code>project</code> layout will be used instead of <code>page</code>. Go ahead and do a simple test by writing some funny text in the new layout.</p>
+
+<h2>Adding data to your page</h2>
+
+<p>Of course, you probably want to add some metadata to your page, and use it to render the final html. In my case, I wanted to add custom links. Simply add this information in the yaml front-matter.</p>
+
+<p>```
+layout: project
+title: "Praliné"
+date: 2012-09-15 00:53
+links:
+  - Source: https://github.com/aspyct/praline
+  - Documentation: http://rubydoc.info/gems/praline/frames
+  - Rubygems: https://rubygems.org/gems/praline
+  - Zipball: https://github.com/aspyct/praline/zipball/master</p>
+
+<p>```</p>
+
+<p>And this data can be retreived through the <code>page</code> object in your layout. For example, to access the links, I need to access <code>page.links</code>. I'm using these links to create buttons in my layout with the following code:</p>
+
+<p>```html
+<ul class="project-links">
+  {% for link_hash in page.links %}</p>
+
+<pre><code>{% for link in link_hash %}
+  &lt;li&gt;&lt;a class="button" href="{{ link[1] }}"&gt;{{ link[0] }}&lt;/a&gt;&lt;/li&gt;
+{% endfor %}
+</code></pre>
+
+<p>  {% endfor %}
+</ul>
+```</p>
+
+<h2>Do it with style</h2>
+
+<p>But these links do not look good, definitely... We need to add some css styling. The easiest way to do so is edit the <code>sass/custom/_styles.scss</code> file, and add the following:</p>
+
+<p>```sass
+ul.project-links {</p>
+
+<pre><code>margin-top: 10px;
+list-style-type: none;
+
+li {
+    display: inline;
+}
+
+a {
+    background: darken($main-bg, 5);
+    display: inline-block;
+    padding: .4em .8em;
+    margin-right: .5em;
+    border: 1px solid lighten($link-color-hover, 10);
+    text-decoration: none;
+    color: mix($text-color, $text-color-light);
+    @extend .serif;
+    @include transition(background-color .5s);
+    &amp;:hover {
+      background: $link-color-hover;
+      text-shadow: none;
+      color: $main-bg;
+    }
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>But if you want to do it clean, I invite you to create your own style pack. Look around in the <code>sass</code> directory for directions.</p>
+
+<h2>A last note</h2>
+
+<p>We worked directly in the <code>source</code> and <code>sass</code> directories of Octopress. That way, we had instant feedback on our work. But if you try to install another theme, all your good work could be lost instantly. You should definitely save it into the <code>.themes</code> directory.</p>
+
+<p>Hope this is useful :)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Introducing the naked_man]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/09/09/introducing-the-naked-man/"/>
+    <updated>2012-09-09T23:51:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/09/09/introducing-the-naked-man</id>
+    <content type="html"><![CDATA[<p>Read &amp; search the man pages online with the <a href="http://nakedman.aspyct.org">naked_man</a>. This is still beta software: please bear with me as I improve the service. Please do send me any remark or suggestion you would have :) See the sidebar here for contact info.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Setting up HTTP cache and gzip with nginx]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/08/20/setting-up-http-cache-and-gzip-with-nginx/"/>
+    <updated>2012-08-20T21:28:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/08/20/setting-up-http-cache-and-gzip-with-nginx</id>
+    <content type="html"><![CDATA[<p>Spending a little time on the <a href="https://developers.google.com/speed/pagespeed/insights">PageSpeed</a> utility from Google made me realize that I could probably finetune my webserver to serve pages even faster :) The two main tracks were 1) enable gzip compression and 2) use HTTP caching.</p>
+
+<!-- more -->
+
+
+<p>I won't delve into details here, but only give you the solution. You will find the source links at the end of this post.</p>
+
+<p>First, let's enable the gzip compression at the server level. Write the following in your nginx.conf file:</p>
+
+<p><code>
+gzip  on;
+gzip_http_version 1.1;
+gzip_vary on;
+gzip_comp_level 6;
+gzip_proxied any;
+gzip_types text/plain text/html text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript application/javascript text/x-js;
+gzip_buffers 16 8k;
+gzip_disable "MSIE [1-6]\.(?!.*SV1)";
+</code></p>
+
+<p>Way to go, reload nginx config and refresh the pagespeed analytics. Hooray, we just won 8 points on the scale! (at least I did ;) And now for the HTTP caching (put this in your sites-available/ config file):</p>
+
+<p>```
+location ~* .html$ {</p>
+
+<pre><code>expires -1;
+</code></pre>
+
+<p>}</p>
+
+<p>location ~* .(css|js|gif|jpe?g|png)$ {</p>
+
+<pre><code>expires 168h;
+add_header Pragma public;
+add_header Cache-Control "public, must-revalidate, proxy-revalidate";
+</code></pre>
+
+<p>}
+```</p>
+
+<p>You can see that I disabled expire on the .html files, otherwise you could be stuck with this version of aspyct.org until the end of time... However, I put one week (7 * 24h) for css, js and images. They don't change often, so this could be bigger, but this lets me a chance to change it anyway.</p>
+
+<p>So, what is your trick to speed up your nginx powered website?</p>
+
+<p>Sources:</p>
+
+<ul>
+<li><a href="http://www.howtoforge.com/how-to-save-traffic-with-nginxs-httpgzipmodule-debian-squeeze">http://www.howtoforge.com/how-to-save-traffic-with-nginxs-httpgzipmodule-debian-squeeze</a></li>
+<li><a href="http://kbeezie.com/view/nginx-configuration-examples/">http://kbeezie.com/view/nginx-configuration-examples/</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Migrating to Octopress]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/08/14/migrating-to-octopress/"/>
+    <updated>2012-08-14T23:06:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/08/14/migrating-to-octopress</id>
+    <content type="html"><![CDATA[<p>Change is going on here! The web recently brought to me something I've been looking for a long time: a good static website generator. And the winner is...</p>
+
+<!-- more -->
+
+
+<p><a href="http://octopress.org">Octopress</a>. Ok, you read it in the title already... So what is Octopress? Well it's roughly the equivalent of Wordpress, except that it generates static content, and therefore requires no PHP / other setup on your server. All you have to do is rsync the generated content to your webserver (who said <a href="http://nginx.com">nginx</a>?).</p>
+
+<p>They state it clearly: "a blogging framework for hackers". Content is stored in text files: hassle free, content oriented, versionable... A perfect fit for me!</p>
+
+<p>So as you can see the blog sports the default look of Octopress, without even the beloved Aspyct logo, but it'll come back soon :) Meanwhile, if you spot any mistake in the new blog, you'd be kind to tell me.</p>
+
+<p>Hope you like this new website, (hey, noticed you can now post comments ? :D)</p>
+
+<p>Antoine_935</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Webserver is now under monitoring]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/06/25/webserver-is-now-under-monitoring/"/>
+    <updated>2012-06-25T19:00:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/06/25/webserver-is-now-under-monitoring</id>
+    <content type="html"><![CDATA[<p>You want to be sure to be warned when your webserver crashes...</p>
+
+<p>For that reason, I just created a tiny pair of scripts to monitor the server. It's ran by the hourly cron. If the server does not answer with the expected HTTP code (200 OK, for example), a mail is sent to warn me :)</p>
+
+<p>You too can keep cool with these scripts, see my gist for these <a href="https://gist.github.com/2988999">webserver monitoring scripts</a>.</p>
+]]></content>
+  </entry>
+  
+</feed>

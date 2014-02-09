@@ -1,0 +1,297 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>The day is over - Aspyct.org</title>
+  <meta name="author" content="Antoine d'Otreppe">
+
+  
+  <meta name="description" content="Yep, the day is over. It&#8217;s time for me to stop working on the &#8220;One Day Server&#8221; (cfr. previous post). The project is an HTTP server &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://aspyct.github.com/aspyct/blog/2012/07/16/the-day-is-over/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Aspyct.org" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-33734142-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Aspyct.org</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:aspyct.github.com/aspyct" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/praline">Praliné</a></li>
+  <li><a href="/apservicebox">APServiceBox</a></li>
+  <li><a href="/webmanner">webmanner</a></li>
+  <li><a href="/aspyct">aspyct</a></li>
+  <li><a href="http://nakedman.aspyct.org">naked_man</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">The day is over</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-16T23:00:00+02:00" pubdate data-updated="true">Jul 16<span>th</span>, 2012</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Yep, the day is over. It&#8217;s time for me to stop working on the &#8220;One Day Server&#8221; (cfr. previous post). The project is an HTTP server running on UNIX environments, developed in C. See the <a href="https://github.com/aspyct/ods">sources on github</a>.</p>
+
+<p>So&#8230; What has been done ?</p>
+
+<ol>
+<li><p>An <strong>asynchronous server base</strong>, primarily intended to serve static files over HTTP. The server is based on epoll(7), and therefore currently available for Linux only. But there is a wrapper around the epoll system, so it shouldn&#8217;t be too hard to port to other platforms.</p></li>
+<li><p>An <strong>abstraction around the epoll() mechanism</strong>, as explained above. It should be easily portable to other systems as well. Have a look at it :)</p></li>
+<li><p>An <strong>incremental HTTP parser</strong> that you can feed as you get the data from your client. It will parse the request as it comes, making information available as soon as possible.</p></li>
+</ol>
+
+
+<p>Yes, but&#8230;</p>
+
+<p>Ok, it&#8217;s not really functional yet. First, it doesn&#8217;t give you back the files, but only a text summary of you request&#8230;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>aspyct@mothbuster:~/[...]$ telnet localhost 3000
+</span><span class='line'>Trying 127.0.0.1...
+</span><span class='line'>Connected to localhost.
+</span><span class='line'>Escape character is '^]'.
+</span><span class='line'>GET /hello/world HTTP/1.1
+</span><span class='line'>Taking care of your request:
+</span><span class='line'>  Method:  GET
+</span><span class='line'>  URI:     /hello/world
+</span><span class='line'>  Version: HTTP/1.1
+</span><span class='line'>Connection closed by foreign host.</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Also, the HTTP request parser is not complete yet, and the system as a whole probably has some memory leaks and security issues&#8230; But OK, it&#8217;s a one-day dev :P And I&#8217;m not that far from a working system.</p>
+
+<p>Now what ?</p>
+
+<p>Well I probably won&#8217;t have time to further develop this server in the next few weeks. But who knows, I might resume development after that :) I&#8217;ll keep you posted ! Thanks for following me :)</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Antoine d'Otreppe</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-16T23:00:00+02:00" pubdate data-updated="true">Jul 16<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/unix/'>UNIX</a>, <a class='category' href='/blog/categories/network/'>network</a>, <a class='category' href='/blog/categories/open-source/'>open source</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://aspyct.github.com/aspyct/blog/2012/07/16/the-day-is-over/" data-via="" data-counturl="http://aspyct.github.com/aspyct/blog/2012/07/16/the-day-is-over/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/07/16/one-day-server-challenge/" title="Previous Post: One Day Server challenge">&laquo; One Day Server challenge</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/07/17/left-leaning-red-slash-black-tree/" title="Next Post: Left Leaning Red/Black Tree">Left Leaning Red/Black Tree &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Contact me</h1>
+  <p>
+  	Name's Antoine :)<br />
+  	via mail: <a href="mailto:a.dotreppe@aspyct.org">a.dotreppe@aspyct.org</a><br />
+  	or twitter: <a href="http://twitter.com/aspyct">@aspyct</a>
+  </p>
+</section>
+<section>
+    <h1>Gists</h1>
+    <ul>
+        <li><a href="https://gist.github.com/aspyct/5517026">Android: Switch wifi on/off</a></li>
+        <li><a href="https://gist.github.com/3118858">UNIX semaphores example</a></li>
+        <li><a href="/blog/2012/08/25/unix-signal-handling-example/">UNIX signals example</a></li>
+        <li><a href="https://gist.github.com/2995609">Tiny javascript IoC container</a></li>
+        <li><a href="https://gist.github.com/3129371">Left Leaning Red/Black Tree in Java</a></li>
+        <li><a href="https://gist.github.com/3194882">View doubles as binary</a></li>
+        <li><a href="https://gist.github.com/3428688">Binomial heap in ruby</a></li>
+        <li><a href="https://gist.github.com/3433278">Sorting &amp; searching arrays in ruby</a></li>
+    </ul>
+</section>
+<section>
+  <h1>Older stuff</h1>
+  <ul>
+  	<li><a href="http://old.aspyct.org/doku.php?id=aspyct">aspyct</a>, the AOP library that gave its name to the whole thing</li>
+  	<li><a href="http://old.aspyct.org/doku.php?id=pysh">pysh</a>, a shell that mixes Python and Bash syntax</li>
+  	<li><a href="http://httpforge.aspyct.org/">httpforge</a> lets you forge, send and analyze HTTP messages right from your command line.</li>
+  	<li><a href="http://old.aspyct.org/">More...</a></li>
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Antoine d'Otreppe -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'aspyct';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://aspyct.github.com/aspyct/blog/2012/07/16/the-day-is-over/';
+        var disqus_url = 'http://aspyct.github.com/aspyct/blog/2012/07/16/the-day-is-over/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

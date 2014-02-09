@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: testing | Aspyct.org]]></title>
+  <link href="http://aspyct.github.com/aspyct/blog/categories/testing/atom.xml" rel="self"/>
+  <link href="http://aspyct.github.com/aspyct/"/>
+  <updated>2014-02-09T21:36:31+01:00</updated>
+  <id>http://aspyct.github.com/aspyct/</id>
+  <author>
+    <name><![CDATA[Antoine d'Otreppe]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Functional web testing with selenium and ruby]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/09/09/functional-web-testing-with-selenium-and-ruby/"/>
+    <updated>2012-09-09T19:40:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/09/09/functional-web-testing-with-selenium-and-ruby</id>
+    <content type="html"><![CDATA[<p>I can see two reasons to use automation: 1) because you're <del>lazy</del> a good developer and don't want to do a task by hand twice, and 2) because you prefer turning a boring task into a neat scripting challenge :) Well, next time you do anything related to a web interface, think about selenium and ruby!</p>
+
+<!-- more -->
+
+
+<p>Let's not wait longer, you will need the <code>selenium-webdriver</code> gem. I personally use <a href="http://rvm.io">RVM</a>, and therefore some commands will be slightly different. If you don't use it yet, well you should probably, it's great!</p>
+
+<p><code>bash
+rvm all do gem install selenium-webdriver
+</code></p>
+
+<p>And let's start by opening an interactive ruby shell and play somewhat with the selenium API (some output lines are stripped for clarity).</p>
+
+<p>```ruby
+$ irb</p>
+
+<blockquote><p>require 'selenium-webdriver'
+browser = Selenium::WebDriver.for(:firefox)
+```</p></blockquote>
+
+<p>By this time, firefox should be opening and soon ready. If you don't have firefox installed on your machine, now is the time ;) So let's open the google homepage.</p>
+
+<p>```ruby</p>
+
+<blockquote><p>browser.get('http://www.google.be')
+```</p></blockquote>
+
+<p>Make a search, for "aspyct" for example. Of course you will first need to locate the input. You're probably familiar with firebug or equivalent, so find the <code>id</code> of that input. If not, simply right click the input and "inspect element".</p>
+
+<p><img class="center" src="/media/ruby-selenium/firefox-google.png"></p>
+
+<p>So, for me, the <code>id</code> is <code>gbqfq</code>. Now grab this element from our script, and send some text to it. And by the way, click on the search button.</p>
+
+<p>```ruby</p>
+
+<blockquote><p>input = browser.find_element(:id, 'gbqfq')
+input.send_keys('aspyct')
+button = browser.find_element(:id, 'gbqfb')
+button.click
+```</p></blockquote>
+
+<p><img class="center" src="/media/ruby-selenium/google-aspyct.png"></p>
+
+<p>Now that you've found such a wonderful website (that is, aspyct.org), for sure you want to visit it! Click the link named "Aspyct.org":</p>
+
+<p>```ruby</p>
+
+<blockquote><p>link = browser.find_element(:link, 'Aspyct.org')
+link.click
+```</p></blockquote>
+
+<p>And you probably want to make sure that you landed on the correct website. You could check the page title, or browse the DOM with <a href="http://www.w3schools.com/xpath/xpath_syntax.asp">XPath</a>.</p>
+
+<p>```ruby</p>
+
+<blockquote><p>browser.title
+ => "Aspyct.org"
+browser.find_element(:xpath, '//h1').text
+ => "Aspyct.org"
+```</p></blockquote>
+
+<p>Now you know what to do next time you have to fill the fields with the data from an CSV file ;) But most importantly, you can automate your functional tests and develop safer and faster. Have fun!</p>
+
+<p>See also: <a href="http://seleniumhq.org/docs/03_webdriver.html">Selenium WebDriver documentation</a>.</p>
+]]></content>
+  </entry>
+  
+</feed>

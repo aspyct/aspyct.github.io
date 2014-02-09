@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: virtual machines | Aspyct.org]]></title>
+  <link href="http://aspyct.github.com/aspyct/blog/categories/virtual-machines/atom.xml" rel="self"/>
+  <link href="http://aspyct.github.com/aspyct/"/>
+  <updated>2014-02-09T21:36:31+01:00</updated>
+  <id>http://aspyct.github.com/aspyct/</id>
+  <author>
+    <name><![CDATA[Antoine d'Otreppe]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Open OVA files with Parallels]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/08/17/open-ova-files-with-parallels/"/>
+    <updated>2012-08-17T20:29:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/08/17/open-ova-files-with-parallels</id>
+    <content type="html"><![CDATA[<p>Today a friend of mine told me about something nice: <a href="http://exploit-exercises.com/">Exploit Exercises</a>. While I don't feel like a black hat hacker, I believe this kind of challenge is a good way to learn more in-depth. Exploit Exercises provide linux virtual machines in OVA files, which are not that easy to open with Parallels Desktop...</p>
+
+<!-- more -->
+
+
+<p>Downloaded the OVA (Open Virtual Appliance, standard format for virtual machines), open it from Parallels Deskt... wait, why is it greyed out? Are you telling me I can't open this with Parallels?</p>
+
+<p>But there's a solution! Download the <a href="http://communities.vmware.com/community/vmtn/server/vsphere/automationtools/ovf">ovftool from VMWare</a> and install it on your computer. Once this is done, you can convert the OVA to .vmx format with this command:</p>
+
+<p>```bash</p>
+
+<h1>I had to type the full path, as the tool is not in the $PATH</h1>
+
+<h1>The --lax option allows the skip the error reported</h1>
+
+<p>/Applications/VMware\ OVF\ Tool/ovftool --lax exploit-exercises-nebula-4.ova exploit.vmx
+```</p>
+
+<p>Now, you have a .vmx file that you can open and migrate with Parallels. Enjoy :)</p>
+
+<p>NB: I had to update Parallels to the latest version, otherwise trying to open the .vmx file would crash it.</p>
+]]></content>
+  </entry>
+  
+</feed>

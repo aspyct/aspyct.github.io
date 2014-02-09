@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: utils | Aspyct.org]]></title>
+  <link href="http://aspyct.github.com/aspyct/blog/categories/utils/atom.xml" rel="self"/>
+  <link href="http://aspyct.github.com/aspyct/"/>
+  <updated>2014-02-09T21:36:31+01:00</updated>
+  <id>http://aspyct.github.com/aspyct/</id>
+  <author>
+    <name><![CDATA[Antoine d'Otreppe]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[shutils to the rescue]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/08/29/shutils-to-the-rescue/"/>
+    <updated>2012-08-29T22:59:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/08/29/shutils-to-the-rescue</id>
+    <content type="html"><![CDATA[<p>Today I had to import about ~150 file entries into an XML file. Being a good lazy geek, I could not resign myself to copy/paste this over. With the help of Rake and some custom-tailored scripts, I made it through in no time :)</p>
+
+<!-- more -->
+
+
+<p>All these files had the same format:</p>
+
+<p><code>
+chapter1_slide1_fr.png
+chapter1_slide2_fr.png
+...
+chapter1_slide19_fr.png
+chapter2_slide1_fr.png
+</code></p>
+
+<p>Of course, when I tried to sort them with the <code>sort</code> command, it did not really work as expected... Because this is a lexicographical sort, and not the natural sort we would expect.</p>
+
+<p><code>
+chapter1_slide19_fr.png
+chapter1_slide1_fr.png
+</code></p>
+
+<p>I needed a natural sort, just like the <a href="http://php.net/manual/en/function.natsort.php">natsort() function from PHP</a>. Actually, I also needed a small program that would list the contents of a directory and print its naturally-sorted contents.</p>
+
+<p>These scripts are available on <a href="https://github.com/aspyct/shutils">my github</a>. You can easily install them for your user by running the <code>shutil_install.sh</code> script. You may have to <code>chmod +x</code> the scripts however. Read more on these scripts on their <a href="/shutils">dedicated page</a>.</p>
+
+<p>Hope you'll find this useful, feel free to contribute your own scripts (via pull requests, for example :)</p>
+]]></content>
+  </entry>
+  
+</feed>

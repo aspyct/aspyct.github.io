@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: ios | Aspyct.org]]></title>
+  <link href="http://aspyct.github.com/aspyct/blog/categories/ios/atom.xml" rel="self"/>
+  <link href="http://aspyct.github.com/aspyct/"/>
+  <updated>2014-02-09T21:36:31+01:00</updated>
+  <id>http://aspyct.github.com/aspyct/</id>
+  <author>
+    <name><![CDATA[Antoine d'Otreppe]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Bugfix in APServiceBox]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/08/20/bugfix-in-apservicebox/"/>
+    <updated>2012-08-20T20:28:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/08/20/bugfix-in-apservicebox</id>
+    <content type="html"><![CDATA[<p>Today I spotted a memory-related bug in the APServiceBox library. That bug would never occur when the process is linked to a debugger, and was therefore stealth during unit-testing...</p>
+
+<p>There, I fixed it! It is highly recommended to grab the latest version from the <a href="https://github.com/aspyct/APServiceBox">github repository</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[XCode4 hell: PBXFileReference buildPhase]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/08/17/xcode-pbxfilereference-buildphase-hell/"/>
+    <updated>2012-08-17T08:21:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/08/17/xcode-pbxfilereference-buildphase-hell</id>
+    <content type="html"><![CDATA[<p>We're used to have troubles with the .xcodeproj file. This file actually behaves pretty bad when several people are working on the same project, stored in SVN. This is usually quite easy to solve, but yesterday it went worse...</p>
+
+<!-- more -->
+
+
+<p>Everytime you want to add (remove, rename...) a file to the project, you should first update the .xcodeproj file from SVN, add your files as soon as possible and commit the project file. If you don't do that, you could end up with several people adding files to the .xcodeproj at the same time, ending up in merge conflicts. Trust me, you don't want that!</p>
+
+<p>But usually this kind of conflict is easy to solve: open the .xcodeproj with a text editor, fix conflicts manually, all good. This time, it went worse:</p>
+
+<p><img class="center" src="/media/xcode-bug.png" title="XCode not building anymore" ></p>
+
+<p>So what happened? When you add a file to XCode, it generates a hash for this file. I don't know how they calculate this hash, but it occurred that two of these hashes (mine and the one from my colleague) were colliding.</p>
+
+<p>To fix this, we had to find the colliding hashes. Look for recently added files, look for anything weird in the .xcodeproj file. In our case, some comments were missing from the file. Based on that info, we found the colliding hashes, removed them and took a deep breath while reopening the project.</p>
+
+<p>"Fixed" :) Good luck if you stumble on this problem. Please post a comment on how you solved this.</p>
+
+<p>And, by the way, what is <strong>your</strong> trick to avoid problems with this file?</p>
+]]></content>
+  </entry>
+  
+</feed>

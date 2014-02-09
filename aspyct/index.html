@@ -1,0 +1,531 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>aspyct - Aspyct.org</title>
+  <meta name="author" content="Antoine d'Otreppe">
+
+  
+  <meta name="description" content="aspyct Sep 1st, 2012 Well I guess this library deserves its own page :) Because, before being the name of this website and behind all this stuff, &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://aspyct.github.com/aspyct/aspyct/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Aspyct.org" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-33734142-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Aspyct.org</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:aspyct.github.com/aspyct" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/praline">Praliné</a></li>
+  <li><a href="/apservicebox">APServiceBox</a></li>
+  <li><a href="/webmanner">webmanner</a></li>
+  <li><a href="/aspyct">aspyct</a></li>
+  <li><a href="http://nakedman.aspyct.org">naked_man</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article role="article">
+  
+  <header>
+    <h1 class="entry-title">aspyct</h1>
+    <p class="meta">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-01T19:16:00+02:00" pubdate data-updated="true">Sep 1<span>st</span>, 2012</time></p>
+  </header>
+  
+  <p>Well I guess this library deserves its own page :) Because, before being the name of this website and behind all this stuff, aspyct used to be the name of a small, ahead-of-time library.</p>
+
+<p>If you&#8217;d like to read more about the aspyct library and download it, please refer to the <a href="http://old.aspyct.org/doku.php?id=aspyct">old aspyct wiki</a>.</p>
+
+<p>The development of it is currently discontinued. Why that? Because what aspyct allows you to do is actually quite easy with python! Basically, aspyct did two things:</p>
+
+<ol>
+<li>wrap functions with custom behavior, like transaction handling or security enforcement;</li>
+<li>cut through modules and classes to apply these behaviors.</li>
+</ol>
+
+
+<p>Aspyct was and will always be a major step in my developer&#8217;s life, so it makes me a little sad to say that it&#8217;s not really added value! But still, it&#8217;s true, so let&#8217;s see what python can do for us :)</p>
+
+<h2>Using python decorators</h2>
+
+<p>The first thing is really easy to do with <a href="http://wiki.python.org/moin/PythonDecorators">decorators</a>. Let me tell you about them.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c"># Basically, a decorator is a function that returns a function.</span>
+</span><span class='line'><span class="c"># They usually take another function as argument, however, and wrap the latter</span>
+</span><span class='line'><span class="c"># with some behavior.</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># Create our decorator</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">simple_decorator</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+</span><span class='line'>    <span class="c"># This is were your neurons should start heating up...</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">():</span>
+</span><span class='line'>        <span class="sd">&#39;&#39;&#39;Prints &quot;before&quot; and &quot;after&quot; around `func`&#39;&#39;&#39;</span>
+</span><span class='line'>        <span class="k">print</span><span class="p">(</span><span class="s">&quot;before&quot;</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">func</span><span class="p">()</span>
+</span><span class='line'>        <span class="k">print</span><span class="p">(</span><span class="s">&quot;after&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">wrapper</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># Still alive? See, was easy ;)</span>
+</span><span class='line'><span class="c"># All we did is create a function that call the given `func`,</span>
+</span><span class='line'><span class="c"># and return this new function</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># Now decorate a function with the &#39;@&#39; sign</span>
+</span><span class='line'><span class="nd">@simple_decorator</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">test</span><span class="p">():</span>
+</span><span class='line'>    <span class="k">print</span><span class="p">(</span><span class="s">&quot;inside&quot;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now try &amp; run this <code>test</code> function.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="n">test</span><span class="p">()</span>
+</span><span class='line'><span class="n">before</span>
+</span><span class='line'><span class="n">inside</span>
+</span><span class='line'><span class="n">after</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># By the way, what do you think is the result of this line? Why?</span>
+</span><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="n">test</span><span class="o">.</span><span class="n">__name__</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># And when you got it, have a look at functools.wraps ;)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So what can we do with that? Imagine we need to handle database transactions: before the method is called, start a transaction. If everything goes right, commit, otherwise rollback. We could create a class for this.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">class</span> <span class="nc">TransactionHandler</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">wrap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+</span><span class='line'>        <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span> <span class="c"># Standard python varargs notation</span>
+</span><span class='line'>            <span class="bp">self</span><span class="o">.</span><span class="n">start_transaction</span><span class="p">()</span>
+</span><span class='line'>            <span class="k">try</span><span class="p">:</span>
+</span><span class='line'>                <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span><span class='line'>                <span class="bp">self</span><span class="o">.</span><span class="n">commit_transaction</span><span class="p">()</span>
+</span><span class='line'>            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span><span class='line'>                <span class="bp">self</span><span class="o">.</span><span class="n">rollback_transaction</span><span class="p">()</span>
+</span><span class='line'>                <span class="k">raise</span> <span class="n">e</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">return</span> <span class="n">wrapper</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">start_transaction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>        <span class="k">print</span><span class="p">(</span><span class="s">&quot;Starting transaction&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">commit_transaction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>        <span class="k">print</span><span class="p">(</span><span class="s">&quot;Commit&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">rollback_transaction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>        <span class="k">print</span><span class="p">(</span><span class="s">&quot;Rollback&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="c"># And later...</span>
+</span><span class='line'><span class="n">tx_handler</span> <span class="o">=</span> <span class="n">TransactionHandler</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="nd">@tx_handler.wrap</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">save_into_db</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+</span><span class='line'>    <span class="c"># Verify that the data is correct.</span>
+</span><span class='line'>    <span class="c"># In our case, it must be true, otherwise an error occurs</span>
+</span><span class='line'>    <span class="k">if</span> <span class="ow">not</span> <span class="n">value</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Must be true&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">print</span><span class="p">(</span><span class="s">&quot;Saving value&quot;</span><span class="p">)</span> <span class="c"># Imagine we save this into database</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And now try it:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="n">save_into_db</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+</span><span class='line'><span class="n">Starting</span> <span class="n">transaction</span>
+</span><span class='line'><span class="n">Saving</span> <span class="n">value</span>
+</span><span class='line'><span class="n">Commit</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="n">save_into_db</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+</span><span class='line'><span class="n">Starting</span> <span class="n">transaction</span>
+</span><span class='line'><span class="n">Rollback</span>
+</span><span class='line'><span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+</span><span class='line'>  <span class="n">File</span> <span class="s">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="n">File</span> <span class="s">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">10</span><span class="p">,</span> <span class="ow">in</span> <span class="n">wrapper</span>
+</span><span class='line'><span class="ne">ValueError</span><span class="p">:</span> <span class="n">Must</span> <span class="n">be</span> <span class="n">true</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Interesting point: you can stack up several decorators on a single function, or also use decorators on methods (i.e. &#8220;class functions&#8221;). By the way, what do you think is <code>@instancemethod</code>, <code>@property</code> et al?</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">class</span> <span class="nc">MyClass</span><span class="p">:</span>
+</span><span class='line'>    <span class="nd">@second_decorator</span>
+</span><span class='line'>    <span class="nd">@first_decorator</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">my_method</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>        <span class="c"># Do something useful...</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># Notice the weird order &quot;second, first&quot;?</span>
+</span><span class='line'><span class="c"># That&#39;s because the decorator closest to the function is applied first.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So why use decorators rather than aspyct? Well for this kind of purpose aspyct was more like a hammer to kill a fly. A lot of logic was put into doing not a lot of things, with the inherent bugs and additional debugging complexity.</p>
+
+<h2>Monkey patching</h2>
+
+<p>The second thing is a bit more tricky to accomplish, but is based on a simple fact: you can replace functions and methods at runtime. This is called &#8220;monkey patching&#8221;. Let&#8217;s reuse our previous <code>simple_decorator</code>, with a slight modification</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">simple_decorator</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+</span><span class='line'>    <span class="c"># This is were your neurons should start heating up...</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span><span class='line'>        <span class="sd">&#39;&#39;&#39;Prints &quot;before&quot; and &quot;after&quot; around `func`&#39;&#39;&#39;</span>
+</span><span class='line'>        <span class="k">print</span><span class="p">(</span><span class="s">&quot;before&quot;</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">print</span><span class="p">(</span><span class="s">&quot;after&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">wrapper</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">my_function</span><span class="p">():</span>
+</span><span class='line'>    <span class="k">print</span><span class="p">(</span><span class="s">&quot;inside&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># And do the monkey patch!</span>
+</span><span class='line'><span class="n">my_function</span> <span class="o">=</span> <span class="n">simple_decorator</span><span class="p">(</span><span class="n">my_function</span><span class="p">)</span>
+</span><span class='line'><span class="c"># Actually, that&#39;s exactly the equivalent of decorating my_function</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="c"># This can be applied to methods as well, with a little twist</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">MyClass</span><span class="p">:</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">my_method</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>        <span class="k">print</span><span class="p">(</span><span class="s">&quot;inside&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># Suspense...</span>
+</span><span class='line'><span class="n">MyClass</span><span class="o">.</span><span class="n">my_method</span> <span class="o">=</span> <span class="n">simple_decorator</span><span class="p">(</span><span class="n">MyClass</span><span class="o">.</span><span class="n">my_method</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># For methods, it&#39;s important that the `self` argument be passed to function</span>
+</span><span class='line'><span class="c"># Therefore, we need the *args, **kwargs from the decorator</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And&#8230; let&#8217;s do it!</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="n">my_function</span><span class="p">()</span>
+</span><span class='line'><span class="n">before</span>
+</span><span class='line'><span class="n">inside</span>
+</span><span class='line'><span class="n">after</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="n">MyClass</span><span class="p">()</span>
+</span><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="o">.</span><span class="n">my_method</span><span class="p">()</span>
+</span><span class='line'><span class="n">before</span>
+</span><span class='line'><span class="n">inside</span>
+</span><span class='line'><span class="n">after</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>That&#8217;s it folks!</h2>
+
+<p>Hope this helps! And long live aspyct ;) Thanks to all of you who sent (send?) me messages about aspyct, it&#8217;s always a great feeling to see how&#8217;s it&#8217;s appreciated :)</p>
+
+  
+    <footer>
+      <p class="meta">
+        
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-01T19:16:00+02:00" pubdate data-updated="true">Sep 1<span>st</span>, 2012</time>
+        
+      </p>
+      
+        <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://aspyct.github.com/aspyct/aspyct/index.html" data-via="" data-counturl="http://aspyct.github.com/aspyct/aspyct/index.html" >Tweet</a>
+  
+  
+  
+</div>
+
+      
+    </footer>
+  
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Contact me</h1>
+  <p>
+  	Name's Antoine :)<br />
+  	via mail: <a href="mailto:a.dotreppe@aspyct.org">a.dotreppe@aspyct.org</a><br />
+  	or twitter: <a href="http://twitter.com/aspyct">@aspyct</a>
+  </p>
+</section>
+<section>
+    <h1>Gists</h1>
+    <ul>
+        <li><a href="https://gist.github.com/aspyct/5517026">Android: Switch wifi on/off</a></li>
+        <li><a href="https://gist.github.com/3118858">UNIX semaphores example</a></li>
+        <li><a href="/blog/2012/08/25/unix-signal-handling-example/">UNIX signals example</a></li>
+        <li><a href="https://gist.github.com/2995609">Tiny javascript IoC container</a></li>
+        <li><a href="https://gist.github.com/3129371">Left Leaning Red/Black Tree in Java</a></li>
+        <li><a href="https://gist.github.com/3194882">View doubles as binary</a></li>
+        <li><a href="https://gist.github.com/3428688">Binomial heap in ruby</a></li>
+        <li><a href="https://gist.github.com/3433278">Sorting &amp; searching arrays in ruby</a></li>
+    </ul>
+</section>
+<section>
+  <h1>Older stuff</h1>
+  <ul>
+  	<li><a href="http://old.aspyct.org/doku.php?id=aspyct">aspyct</a>, the AOP library that gave its name to the whole thing</li>
+  	<li><a href="http://old.aspyct.org/doku.php?id=pysh">pysh</a>, a shell that mixes Python and Bash syntax</li>
+  	<li><a href="http://httpforge.aspyct.org/">httpforge</a> lets you forge, send and analyze HTTP messages right from your command line.</li>
+  	<li><a href="http://old.aspyct.org/">More...</a></li>
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Antoine d'Otreppe -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'aspyct';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://aspyct.github.com/aspyct/aspyct/index.html';
+        var disqus_url = 'http://aspyct.github.com/aspyct/aspyct/index.html';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: links | Aspyct.org]]></title>
+  <link href="http://aspyct.github.com/aspyct/blog/categories/links/atom.xml" rel="self"/>
+  <link href="http://aspyct.github.com/aspyct/"/>
+  <updated>2014-02-09T21:36:31+01:00</updated>
+  <id>http://aspyct.github.com/aspyct/</id>
+  <author>
+    <name><![CDATA[Antoine d'Otreppe]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Migrating to Octopress]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/08/14/migrating-to-octopress/"/>
+    <updated>2012-08-14T23:06:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/08/14/migrating-to-octopress</id>
+    <content type="html"><![CDATA[<p>Change is going on here! The web recently brought to me something I've been looking for a long time: a good static website generator. And the winner is...</p>
+
+<!-- more -->
+
+
+<p><a href="http://octopress.org">Octopress</a>. Ok, you read it in the title already... So what is Octopress? Well it's roughly the equivalent of Wordpress, except that it generates static content, and therefore requires no PHP / other setup on your server. All you have to do is rsync the generated content to your webserver (who said <a href="http://nginx.com">nginx</a>?).</p>
+
+<p>They state it clearly: "a blogging framework for hackers". Content is stored in text files: hassle free, content oriented, versionable... A perfect fit for me!</p>
+
+<p>So as you can see the blog sports the default look of Octopress, without even the beloved Aspyct logo, but it'll come back soon :) Meanwhile, if you spot any mistake in the new blog, you'd be kind to tell me.</p>
+
+<p>Hope you like this new website, (hey, noticed you can now post comments ? :D)</p>
+
+<p>Antoine_935</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Take on the programming challenge!]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/08/11/take-on-the-programming-challenge/"/>
+    <updated>2012-08-11T20:36:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/08/11/take-on-the-programming-challenge</id>
+    <content type="html"><![CDATA[<p>So you want to exercise yourself on algorithmics? Check out these links:</p>
+
+<ul>
+<li><a href="http://www.codechef.com/">Code Chef</a></li>
+<li><a href="http://www.spotify.com/be-fr/jobs/tech/">Spotify Challenges</a></li>
+</ul>
+
+
+<p>These websites allow you to submit your solutions to test them. Have fun :)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Turn your DTD into XML schema]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/08/09/turn-your-dtd-into-xml-schema/"/>
+    <updated>2012-08-09T20:35:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/08/09/turn-your-dtd-into-xml-schema</id>
+    <content type="html"><![CDATA[<p>Don't feel like writing a full xsd file? Try this good ol' tool provided by the W3C: <a href="http://www.w3.org/2000/04/schema_hack/">DTD to XML schema converter</a>. Enjoy :)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Attend the Khan Academy]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/08/07/attend-the-khan-academy/"/>
+    <updated>2012-08-07T10:57:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/08/07/attend-the-khan-academy</id>
+    <content type="html"><![CDATA[<p>Hey, do you also need a little reminder (or more...) about some topics like statistics, algebra or probabilities? Well, the <a href="http://www.khanacademy.org/">Khan Academy</a> has some nice &amp; easy to watch videos as well as well thought exercises. Ideal for a quiet evening ;) Check it out !</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Hey, have you met Scapy?]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/07/18/hey/"/>
+    <updated>2012-07-18T10:01:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/07/18/hey</id>
+    <content type="html"><![CDATA[<p>Nothing's better than a little game to learn! As today's theory is TCP/IP networking, how about playing around with you own packets? <a href="http://www.secdev.org/projects/scapy/">Scapy</a> allows you to do so. Built on top of the <a href="http://www.python.org/">Python interpreter</a>, it offers tools to forge your own network packets. If you're interested in networking, it's definitely something you want to try :)</p>
+
+<p>And now... Let's explore my network! See you soon.</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: algorithm | Aspyct.org]]></title>
+  <link href="http://aspyct.github.com/aspyct/blog/categories/algorithm/atom.xml" rel="self"/>
+  <link href="http://aspyct.github.com/aspyct/"/>
+  <updated>2014-02-09T21:36:31+01:00</updated>
+  <id>http://aspyct.github.com/aspyct/</id>
+  <author>
+    <name><![CDATA[Antoine d'Otreppe]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Quicksort, mergesort and binary search in ruby]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/08/23/quicksort-mergesort-and-binary-search-in-ruby/"/>
+    <updated>2012-08-23T08:14:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/08/23/quicksort-mergesort-and-binary-search-in-ruby</id>
+    <content type="html"><![CDATA[<p>Sample implementation of quicksort, mergesort and binary search in ruby. The two sort algorithms operate in O(n * lg(n)) time, and the search in O(lg(n)) time. Theory can be found in these <a href="http://www.cs.princeton.edu/courses/archive/spr07/cos226/lectures/04MergeQuick.pdf">slides on quicksort and mergesort</a> by Princeton. And for the practical point of view, have a look at the code of this article :)</p>
+
+<!-- more -->
+
+
+<p>```ruby</p>
+
+<h1>Sample implementation of quicksort, mergesort and binary_search in ruby</h1>
+
+<h1>Both algorithm sort in O(n * lg(n)) time</h1>
+
+<h1> Quicksort works inplace, where mergesort works in a new array</h1>
+
+<p>def quicksort(array, from=0, to=nil)</p>
+
+<pre><code>if to == nil
+    # Sort the whole array, by default
+    to = array.count - 1
+end
+
+if from &gt;= to
+    # Done sorting
+    return
+end
+
+# Take a pivot value, at the far left
+pivot = array[from]
+
+# Min and Max pointers
+min = from
+max = to
+
+# Current free slot
+free = min
+
+while min &lt; max
+    if free == min # Evaluate array[max]
+        if array[max] &lt;= pivot # Smaller than pivot, must move
+            array[free] = array[max]
+            min += 1
+            free = max
+        else
+            max -= 1
+        end
+    elsif free == max # Evaluate array[min]
+        if array[min] &gt;= pivot # Bigger than pivot, must move
+            array[free] = array[min]
+            max -= 1
+            free = min
+        else
+            min += 1
+        end
+    else
+        raise "Inconsistent state"
+    end
+end
+
+array[free] = pivot
+
+quicksort array, from, free - 1
+quicksort array, free + 1, to
+</code></pre>
+
+<p>end</p>
+
+<p>def mergesort(array)</p>
+
+<pre><code>if array.count &lt;= 1
+    # Array of length 1 or less is always sorted
+    return array
+end
+
+# Apply "Divide &amp; Conquer" strategy
+
+# 1. Divide
+mid = array.count / 2
+part_a = mergesort array.slice(0, mid)
+part_b = mergesort array.slice(mid, array.count - mid)
+
+# 2. Conquer
+array = []
+offset_a = 0
+offset_b = 0
+while offset_a &lt; part_a.count &amp;&amp; offset_b &lt; part_b.count
+    a = part_a[offset_a]
+    b = part_b[offset_b]
+
+    # Take the smallest of the two, and push it on our array
+    if a &lt;= b
+        array &lt;&lt; a
+        offset_a += 1
+    else
+        array &lt;&lt; b
+        offset_b += 1
+    end
+end
+
+# There is at least one element left in either part_a or part_b (not both)
+while offset_a &lt; part_a.count
+    array &lt;&lt; part_a[offset_a]
+    offset_a += 1
+end
+
+while offset_b &lt; part_b.count
+    array &lt;&lt; part_b[offset_b]
+    offset_b += 1
+end
+
+return array
+</code></pre>
+
+<p>end</p>
+
+<h1>Search a sorted array in O(lg(n)) time</h1>
+
+<p>def binary_search(array, value, from=0, to=nil)</p>
+
+<pre><code>if to == nil
+    to = array.count - 1
+end
+
+mid = (from + to) / 2
+
+if value &lt; array[mid]
+    return binary_search array, value, from, mid - 1
+elsif value &gt; array[mid]
+    return binary_search array, value, mid + 1, to
+else
+    return mid
+end
+</code></pre>
+
+<p>end</p>
+
+<p>a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].shuffle</p>
+
+<h1>Quicksort operates inplace (i.e. in "a" itself)</h1>
+
+<h1>There's no need to reassign</h1>
+
+<p>quicksort a
+puts "quicksort"
+puts a</p>
+
+<p>b = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16].shuffle</p>
+
+<h1>Mergesort operates in new array</h1>
+
+<h1>So we need to reassign</h1>
+
+<p>b = mergesort b
+puts "mergesort"
+puts b</p>
+
+<p>offset_3 = binary_search a, 3
+puts "3 is at offset #{offset_3} in a"</p>
+
+<p>offset_15 = binary_search b, 15
+puts "15 is at offset #{offset_15} in b"
+```</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Binomial heap in ruby]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/08/22/binomial-heap-in-ruby/"/>
+    <updated>2012-08-22T21:46:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/08/22/binomial-heap-in-ruby</id>
+    <content type="html"><![CDATA[<p>Sample implementation of a binomial heap (or "priority queue") in ruby. Read these excellent <a href="http://www.cs.princeton.edu/~wayne/cs423/lectures/heaps-4up.pdf">slides about heaps</a> from Princeton for theory. And see my source code for practice :)</p>
+
+<!-- more -->
+
+
+<p>```ruby heap.rb https://gist.github.com/3428688 View it on gist
+class Heap</p>
+
+<pre><code>def initialize
+    # @elements is an array representing the tree
+    # for each i:
+    # parent =&gt; @elements[i / 2]
+    # left =&gt; @elements[i * 2]
+    # right =&gt; @elements[i * 2 + 1]
+    @elements = []
+end
+
+def empty
+    return @elements.count == 0
+end
+
+def pop_min
+    value = @elements[0].first
+
+    # Replace the [0]th element with the last one and bubble it down
+    pair = @elements.pop
+
+    # If it was the last element of the array, abort anyway
+    if @elements.count &gt; 0
+        @elements[0] = pair
+        self.bubble_down pair, 0
+    end
+
+    return value
+end
+
+def peek_min
+    return @elements[0].first
+end
+
+def push(object, order)
+    # Put the element at the end of the array and bubble it up the tree
+    offset = @elements.count
+    pair = [object, order]
+    @elements &lt;&lt; pair
+
+    self.bubble_up pair, offset
+end
+
+def bubble_up(pair, offset)
+    # Push an element up the tree, if need be
+    parent = offset / 2
+
+    while (offset &gt; 0 &amp;&amp; @elements[parent].last &gt; pair.last)
+        @elements[parent], @elements[offset] = @elements[offset], @elements[parent]
+        offset = parent
+        parent = offset / 2
+    end
+end
+
+def bubble_down(pair, offset)
+    # Push an element down the tree if need be
+    while (offset &lt; @elements.count / 2)
+        offset_a = offset * 2
+        offset_b = offset_a + 1
+
+        if @elements[offset_a].last &gt; @elements[offset_b].last
+            smallest = offset_b
+        else
+            smallest = offset_a
+        end
+
+        if pair.last &lt;= @elements[smallest].last
+            break
+        end
+
+        @elements[offset], @elements[smallest] = @elements[smallest], @elements[offset]
+        offset = smallest
+    end
+end
+</code></pre>
+
+<p>end</p>
+
+<p>h = Heap.new</p>
+
+<h1>Insert 'a' => 'o' in the heap, random order</h1>
+
+<p>h.push "g", 7
+h.push "m", 13
+h.push "k", 11
+h.push "d", 4
+h.push "c", 3
+h.push "n", 14
+h.push "b", 2
+h.push "f", 6
+h.push "a", 1
+h.push "j", 10
+h.push "i", 9
+h.push "e", 5
+h.push "o", 15
+h.push "h", 8
+h.push "l", 12</p>
+
+<h1>Dump the heap</h1>
+
+<p>while !h.empty</p>
+
+<pre><code>puts h.pop_min
+</code></pre>
+
+<p>end
+```</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Take on the programming challenge!]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/08/11/take-on-the-programming-challenge/"/>
+    <updated>2012-08-11T20:36:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/08/11/take-on-the-programming-challenge</id>
+    <content type="html"><![CDATA[<p>So you want to exercise yourself on algorithmics? Check out these links:</p>
+
+<ul>
+<li><a href="http://www.codechef.com/">Code Chef</a></li>
+<li><a href="http://www.spotify.com/be-fr/jobs/tech/">Spotify Challenges</a></li>
+</ul>
+
+
+<p>These websites allow you to submit your solutions to test them. Have fun :)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The A*  algorithm explained]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/07/20/the-a-star-algorithm-explained/"/>
+    <updated>2012-07-20T10:51:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/07/20/the-a-star-algorithm-explained</id>
+    <content type="html"><![CDATA[<p>I just spent the whole day implementing a pathfinding algorithm: A*. The A* algorithm is based on Dijkstra, with the addition of a heuristic (estimation) that allows to favor one path rather than another.</p>
+
+<p><img class="center" src="/media/astar.png" title="Illustration of a time-optimized A* algorithm" ></p>
+
+<p>The A* algorithm also has an interesting property: you can easily alter the estimates to make it more accurate or faster (not both, of course ;). That's why the path depicted above is not actually the shortest one. That's also why I spent the whole day searching why my implementation of A* was slower than the one I found on the web...</p>
+
+<p>This is all properly explained on <a href="http://theory.stanford.edu/~amitp/GameProgramming/">Amit's A* pages</a>. You can also find an example implementation and training material in Java on the <a href="http://memoization.com/2008/11/30/a-star-algorithm-in-java/">Memoization</a> blog. Thanks to these two people for their excellent content :)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The Seven Bridges of Königsberg]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/07/19/the-seven-bridges-of-konigsberg/"/>
+    <updated>2012-07-19T16:00:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/07/19/the-seven-bridges-of-konigsberg</id>
+    <content type="html"><![CDATA[<p>Have you heard of it? The problem was to find a path through the city that would cross each bridge once and only once. Well it is probably the origin of graph theory :)</p>
+
+<p><img class="center" src="http://upload.wikimedia.org/wikipedia/commons/5/5d/Konigsberg_bridges.png" title="Courtesy of Wikipedia" ></p>
+
+<p>So yes, today's theory: graphs. And I'm starting with <a href="http://www.cs.princeton.edu/~rs/AlgsDS07/11UndirectedGraphs.pdf">these slides from the Princeton University</a>. Pretty interesting :)</p>
+]]></content>
+  </entry>
+  
+</feed>

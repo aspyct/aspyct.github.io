@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: UNIX | Aspyct.org]]></title>
+  <link href="http://aspyct.github.com/aspyct/blog/categories/unix/atom.xml" rel="self"/>
+  <link href="http://aspyct.github.com/aspyct/"/>
+  <updated>2014-02-09T21:36:31+01:00</updated>
+  <id>http://aspyct.github.com/aspyct/</id>
+  <author>
+    <name><![CDATA[Antoine d'Otreppe]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[The day is over]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/07/16/the-day-is-over/"/>
+    <updated>2012-07-16T23:00:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/07/16/the-day-is-over</id>
+    <content type="html"><![CDATA[<p>Yep, the day is over. It's time for me to stop working on the "One Day Server" (cfr. previous post). The project is an HTTP server running on UNIX environments, developed in C. See the <a href="https://github.com/aspyct/ods">sources on github</a>.</p>
+
+<p>So... What has been done ?</p>
+
+<ol>
+<li><p>An <strong>asynchronous server base</strong>, primarily intended to serve static files over HTTP. The server is based on epoll(7), and therefore currently available for Linux only. But there is a wrapper around the epoll system, so it shouldn't be too hard to port to other platforms.</p></li>
+<li><p>An <strong>abstraction around the epoll() mechanism</strong>, as explained above. It should be easily portable to other systems as well. Have a look at it :)</p></li>
+<li><p>An <strong>incremental HTTP parser</strong> that you can feed as you get the data from your client. It will parse the request as it comes, making information available as soon as possible.</p></li>
+</ol>
+
+
+<p>Yes, but...</p>
+
+<p>Ok, it's not really functional yet. First, it doesn't give you back the files, but only a text summary of you request...</p>
+
+<p>```
+aspyct@mothbuster:~/[...]$ telnet localhost 3000
+Trying 127.0.0.1...
+Connected to localhost.
+Escape character is '<sup>]'.</sup>
+GET /hello/world HTTP/1.1
+Taking care of your request:</p>
+
+<pre><code>Method:  GET
+URI:     /hello/world
+Version: HTTP/1.1
+</code></pre>
+
+<p>Connection closed by foreign host.
+```</p>
+
+<p>Also, the HTTP request parser is not complete yet, and the system as a whole probably has some memory leaks and security issues... But OK, it's a one-day dev :P And I'm not that far from a working system.</p>
+
+<p>Now what ?</p>
+
+<p>Well I probably won't have time to further develop this server in the next few weeks. But who knows, I might resume development after that :) I'll keep you posted ! Thanks for following me :)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[One Day Server challenge]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/07/16/one-day-server-challenge/"/>
+    <updated>2012-07-16T10:00:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/07/16/one-day-server-challenge</id>
+    <content type="html"><![CDATA[<p>Hey, today I'm writing a HTTP server in just one day, with what I've learned lately about UNIX development. Follow me here on the <a href="https://github.com/aspyct/ods/">github repository</a> for the project.</p>
+
+<p>I'll keep you posted at the end of the day on this very blog about the result :) Cheers!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Unix semaphores IPC example in C]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/07/15/unix-semaphores-ipc-example-in-c/"/>
+    <updated>2012-07-15T16:00:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/07/15/unix-semaphores-ipc-example-in-c</id>
+    <content type="html"><![CDATA[<p>On my way to learn *nix stuff, I just wrote a little example on <a href="https://gist.github.com/3118858">how to use semaphores in a UNIX</a> environment.</p>
+
+<p>Hope you'll find this interesting, feel free to comment or reuse :)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The TUUP]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/07/12/the-tuup/"/>
+    <updated>2012-07-12T16:00:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/07/12/the-tuup</id>
+    <content type="html"><![CDATA[<p>In a race to learning UNIX systems programming, I just started building the TUUP: Totally Useless Unix Program.</p>
+
+<p>Well really, it's useless, unless you want to see random *NIX system calls here and there. If you're at all interested, you can find the sources in the <a href="http://github.com/aspyct/the-tuup">TUUP github repository</a>.</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: ruby | Aspyct.org]]></title>
+  <link href="http://aspyct.github.com/aspyct/blog/categories/ruby/atom.xml" rel="self"/>
+  <link href="http://aspyct.github.com/aspyct/"/>
+  <updated>2014-02-09T21:36:31+01:00</updated>
+  <id>http://aspyct.github.com/aspyct/</id>
+  <author>
+    <name><![CDATA[Antoine d'Otreppe]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Functional web testing with selenium and ruby]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/09/09/functional-web-testing-with-selenium-and-ruby/"/>
+    <updated>2012-09-09T19:40:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/09/09/functional-web-testing-with-selenium-and-ruby</id>
+    <content type="html"><![CDATA[<p>I can see two reasons to use automation: 1) because you're <del>lazy</del> a good developer and don't want to do a task by hand twice, and 2) because you prefer turning a boring task into a neat scripting challenge :) Well, next time you do anything related to a web interface, think about selenium and ruby!</p>
+
+<!-- more -->
+
+
+<p>Let's not wait longer, you will need the <code>selenium-webdriver</code> gem. I personally use <a href="http://rvm.io">RVM</a>, and therefore some commands will be slightly different. If you don't use it yet, well you should probably, it's great!</p>
+
+<p><code>bash
+rvm all do gem install selenium-webdriver
+</code></p>
+
+<p>And let's start by opening an interactive ruby shell and play somewhat with the selenium API (some output lines are stripped for clarity).</p>
+
+<p>```ruby
+$ irb</p>
+
+<blockquote><p>require 'selenium-webdriver'
+browser = Selenium::WebDriver.for(:firefox)
+```</p></blockquote>
+
+<p>By this time, firefox should be opening and soon ready. If you don't have firefox installed on your machine, now is the time ;) So let's open the google homepage.</p>
+
+<p>```ruby</p>
+
+<blockquote><p>browser.get('http://www.google.be')
+```</p></blockquote>
+
+<p>Make a search, for "aspyct" for example. Of course you will first need to locate the input. You're probably familiar with firebug or equivalent, so find the <code>id</code> of that input. If not, simply right click the input and "inspect element".</p>
+
+<p><img class="center" src="/media/ruby-selenium/firefox-google.png"></p>
+
+<p>So, for me, the <code>id</code> is <code>gbqfq</code>. Now grab this element from our script, and send some text to it. And by the way, click on the search button.</p>
+
+<p>```ruby</p>
+
+<blockquote><p>input = browser.find_element(:id, 'gbqfq')
+input.send_keys('aspyct')
+button = browser.find_element(:id, 'gbqfb')
+button.click
+```</p></blockquote>
+
+<p><img class="center" src="/media/ruby-selenium/google-aspyct.png"></p>
+
+<p>Now that you've found such a wonderful website (that is, aspyct.org), for sure you want to visit it! Click the link named "Aspyct.org":</p>
+
+<p>```ruby</p>
+
+<blockquote><p>link = browser.find_element(:link, 'Aspyct.org')
+link.click
+```</p></blockquote>
+
+<p>And you probably want to make sure that you landed on the correct website. You could check the page title, or browse the DOM with <a href="http://www.w3schools.com/xpath/xpath_syntax.asp">XPath</a>.</p>
+
+<p>```ruby</p>
+
+<blockquote><p>browser.title
+ => "Aspyct.org"
+browser.find_element(:xpath, '//h1').text
+ => "Aspyct.org"
+```</p></blockquote>
+
+<p>Now you know what to do next time you have to fill the fields with the data from an CSV file ;) But most importantly, you can automate your functional tests and develop safer and faster. Have fun!</p>
+
+<p>See also: <a href="http://seleniumhq.org/docs/03_webdriver.html">Selenium WebDriver documentation</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Ruby bit me for the first time]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/09/01/ruby-bit-me-for-the-first-time/"/>
+    <updated>2012-09-01T22:26:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/09/01/ruby-bit-me-for-the-first-time</id>
+    <content type="html"><![CDATA[<p>As you may know, I'm currently building a <a href="/webmanner">man to html converter</a> in ruby. I noticed that in many manpages, we have <code>&lt;</code> signs, that must, of course, be escaped in html. After a bit of looking around, I added a few lines of code to fix that issue. Quick fix, easy win :) Then things went weird!</p>
+
+<!-- more -->
+
+
+<p>Have a look at the screenshot below, especially the highlighted zones. See? Despite calling the exact same script with the exact same arguments, output is different from one shell to another: <code>&amp;lt;</code> vs <code>&lt;</code>.</p>
+
+<p><img class="center" src="/media/webmanner-bug.png"></p>
+
+<p>I quickly suspected the shell below to use an old version of the script, despite the fact that the <code>which</code> points to the right file. So I modified something in the file, and saw the change happen in both shells. But the <code>&amp;lt;</code> was still there...</p>
+
+<p>After a while, I realized that <a href="https://rvm.io/">rvm</a> might be playing a trick on me. And indeed! The shell above uses ruby 1.8.7, where the shell below uses 1.9.3. And apparently, these two versions of ruby handle characters differently...</p>
+
+<p>```ruby
+rednose:~ aspyct$ ruby --version
+ruby 1.8.7 (2012-02-08 patchlevel 358) [universal-darwin12.0]
+rednose:~ aspyct$ irb</p>
+
+<blockquote><blockquote><p>?&lt;
+=> 60
+```</p></blockquote></blockquote>
+
+<p><code>ruby
+rednose:~ aspyct$ ruby --version
+ruby 1.9.3p194 (2012-04-20 revision 35410) [x86_64-darwin12.0.0]
+rednose:~ aspyct$ irb
+1.9.3-p194 :001 &gt; ?&lt;
+ =&gt; "&lt;"
+</code></p>
+
+<p>Good to know, let's solve this bug now :)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Quicksort, mergesort and binary search in ruby]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/08/23/quicksort-mergesort-and-binary-search-in-ruby/"/>
+    <updated>2012-08-23T08:14:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/08/23/quicksort-mergesort-and-binary-search-in-ruby</id>
+    <content type="html"><![CDATA[<p>Sample implementation of quicksort, mergesort and binary search in ruby. The two sort algorithms operate in O(n * lg(n)) time, and the search in O(lg(n)) time. Theory can be found in these <a href="http://www.cs.princeton.edu/courses/archive/spr07/cos226/lectures/04MergeQuick.pdf">slides on quicksort and mergesort</a> by Princeton. And for the practical point of view, have a look at the code of this article :)</p>
+
+<!-- more -->
+
+
+<p>```ruby</p>
+
+<h1>Sample implementation of quicksort, mergesort and binary_search in ruby</h1>
+
+<h1>Both algorithm sort in O(n * lg(n)) time</h1>
+
+<h1> Quicksort works inplace, where mergesort works in a new array</h1>
+
+<p>def quicksort(array, from=0, to=nil)</p>
+
+<pre><code>if to == nil
+    # Sort the whole array, by default
+    to = array.count - 1
+end
+
+if from &gt;= to
+    # Done sorting
+    return
+end
+
+# Take a pivot value, at the far left
+pivot = array[from]
+
+# Min and Max pointers
+min = from
+max = to
+
+# Current free slot
+free = min
+
+while min &lt; max
+    if free == min # Evaluate array[max]
+        if array[max] &lt;= pivot # Smaller than pivot, must move
+            array[free] = array[max]
+            min += 1
+            free = max
+        else
+            max -= 1
+        end
+    elsif free == max # Evaluate array[min]
+        if array[min] &gt;= pivot # Bigger than pivot, must move
+            array[free] = array[min]
+            max -= 1
+            free = min
+        else
+            min += 1
+        end
+    else
+        raise "Inconsistent state"
+    end
+end
+
+array[free] = pivot
+
+quicksort array, from, free - 1
+quicksort array, free + 1, to
+</code></pre>
+
+<p>end</p>
+
+<p>def mergesort(array)</p>
+
+<pre><code>if array.count &lt;= 1
+    # Array of length 1 or less is always sorted
+    return array
+end
+
+# Apply "Divide &amp; Conquer" strategy
+
+# 1. Divide
+mid = array.count / 2
+part_a = mergesort array.slice(0, mid)
+part_b = mergesort array.slice(mid, array.count - mid)
+
+# 2. Conquer
+array = []
+offset_a = 0
+offset_b = 0
+while offset_a &lt; part_a.count &amp;&amp; offset_b &lt; part_b.count
+    a = part_a[offset_a]
+    b = part_b[offset_b]
+
+    # Take the smallest of the two, and push it on our array
+    if a &lt;= b
+        array &lt;&lt; a
+        offset_a += 1
+    else
+        array &lt;&lt; b
+        offset_b += 1
+    end
+end
+
+# There is at least one element left in either part_a or part_b (not both)
+while offset_a &lt; part_a.count
+    array &lt;&lt; part_a[offset_a]
+    offset_a += 1
+end
+
+while offset_b &lt; part_b.count
+    array &lt;&lt; part_b[offset_b]
+    offset_b += 1
+end
+
+return array
+</code></pre>
+
+<p>end</p>
+
+<h1>Search a sorted array in O(lg(n)) time</h1>
+
+<p>def binary_search(array, value, from=0, to=nil)</p>
+
+<pre><code>if to == nil
+    to = array.count - 1
+end
+
+mid = (from + to) / 2
+
+if value &lt; array[mid]
+    return binary_search array, value, from, mid - 1
+elsif value &gt; array[mid]
+    return binary_search array, value, mid + 1, to
+else
+    return mid
+end
+</code></pre>
+
+<p>end</p>
+
+<p>a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].shuffle</p>
+
+<h1>Quicksort operates inplace (i.e. in "a" itself)</h1>
+
+<h1>There's no need to reassign</h1>
+
+<p>quicksort a
+puts "quicksort"
+puts a</p>
+
+<p>b = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16].shuffle</p>
+
+<h1>Mergesort operates in new array</h1>
+
+<h1>So we need to reassign</h1>
+
+<p>b = mergesort b
+puts "mergesort"
+puts b</p>
+
+<p>offset_3 = binary_search a, 3
+puts "3 is at offset #{offset_3} in a"</p>
+
+<p>offset_15 = binary_search b, 15
+puts "15 is at offset #{offset_15} in b"
+```</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Binomial heap in ruby]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/08/22/binomial-heap-in-ruby/"/>
+    <updated>2012-08-22T21:46:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/08/22/binomial-heap-in-ruby</id>
+    <content type="html"><![CDATA[<p>Sample implementation of a binomial heap (or "priority queue") in ruby. Read these excellent <a href="http://www.cs.princeton.edu/~wayne/cs423/lectures/heaps-4up.pdf">slides about heaps</a> from Princeton for theory. And see my source code for practice :)</p>
+
+<!-- more -->
+
+
+<p>```ruby heap.rb https://gist.github.com/3428688 View it on gist
+class Heap</p>
+
+<pre><code>def initialize
+    # @elements is an array representing the tree
+    # for each i:
+    # parent =&gt; @elements[i / 2]
+    # left =&gt; @elements[i * 2]
+    # right =&gt; @elements[i * 2 + 1]
+    @elements = []
+end
+
+def empty
+    return @elements.count == 0
+end
+
+def pop_min
+    value = @elements[0].first
+
+    # Replace the [0]th element with the last one and bubble it down
+    pair = @elements.pop
+
+    # If it was the last element of the array, abort anyway
+    if @elements.count &gt; 0
+        @elements[0] = pair
+        self.bubble_down pair, 0
+    end
+
+    return value
+end
+
+def peek_min
+    return @elements[0].first
+end
+
+def push(object, order)
+    # Put the element at the end of the array and bubble it up the tree
+    offset = @elements.count
+    pair = [object, order]
+    @elements &lt;&lt; pair
+
+    self.bubble_up pair, offset
+end
+
+def bubble_up(pair, offset)
+    # Push an element up the tree, if need be
+    parent = offset / 2
+
+    while (offset &gt; 0 &amp;&amp; @elements[parent].last &gt; pair.last)
+        @elements[parent], @elements[offset] = @elements[offset], @elements[parent]
+        offset = parent
+        parent = offset / 2
+    end
+end
+
+def bubble_down(pair, offset)
+    # Push an element down the tree if need be
+    while (offset &lt; @elements.count / 2)
+        offset_a = offset * 2
+        offset_b = offset_a + 1
+
+        if @elements[offset_a].last &gt; @elements[offset_b].last
+            smallest = offset_b
+        else
+            smallest = offset_a
+        end
+
+        if pair.last &lt;= @elements[smallest].last
+            break
+        end
+
+        @elements[offset], @elements[smallest] = @elements[smallest], @elements[offset]
+        offset = smallest
+    end
+end
+</code></pre>
+
+<p>end</p>
+
+<p>h = Heap.new</p>
+
+<h1>Insert 'a' => 'o' in the heap, random order</h1>
+
+<p>h.push "g", 7
+h.push "m", 13
+h.push "k", 11
+h.push "d", 4
+h.push "c", 3
+h.push "n", 14
+h.push "b", 2
+h.push "f", 6
+h.push "a", 1
+h.push "j", 10
+h.push "i", 9
+h.push "e", 5
+h.push "o", 15
+h.push "h", 8
+h.push "l", 12</p>
+
+<h1>Dump the heap</h1>
+
+<p>while !h.empty</p>
+
+<pre><code>puts h.pop_min
+</code></pre>
+
+<p>end
+```</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Ruby, a beginner's overview]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/08/22/ruby-beginner-overview/"/>
+    <updated>2012-08-22T08:08:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/08/22/ruby-beginner-overview</id>
+    <content type="html"><![CDATA[<p>Ruby has been lying around for a while now, and I did not take the time to discover it yet... Since I installed Octopress, I've been looking more and more into the source files of this system. Am I falling for ruby? Don't know, but it definitely looks like a very interesting language!</p>
+
+<!-- more -->
+
+
+<p>The first thing I stumbled upon was the <code>:symbol</code> notation. To me, it sounds like a kind of enum without enum, or constants without constants. Just values, that you can match in <code>if</code> statements or probably dictionaries.</p>
+
+<p><code>ruby
+p = Post.new
+p.state = :draft
+p.state = :published
+p.state = :deleted
+</code></p>
+
+<p>There is also the familiar (if you've played with python before) <code>raise</code> to signal an error, and the... <code>throw/catch</code>? So which one should I use for my exceptions? Turns out the <code>throw</code> is not what I expected. It's more like a superfast return, "throw a ball and catch it".</p>
+
+<p>```ruby
+def solve(problem)</p>
+
+<pre><code>catch (:solution) {
+    backtrack_solve(problem)
+}
+</code></pre>
+
+<p>end</p>
+
+<p>def backtrack_solve(problem)</p>
+
+<pre><code>if problem.solved
+    throw :solution, current_solution
+else
+    # Do complicated recursion stuff
+end
+</code></pre>
+
+<p>end
+```</p>
+
+<p>(Oh, and did you see it? There is an implicit return from the function <code>solve</code> ;)</p>
+
+<p>Ruby seems to borrow some language constructs from perl. For example, the well-known <code>print x unless y</code> and the like.</p>
+
+<p><code>ruby
+puts "bananas!" unless monkey
+</code></p>
+
+<p>More interestingly, ruby also has regex integrated to the language, which is something I really miss in most languages out there. Note also the string interpolation thanks to <code>#{$var}</code> (which is pretty hard to type on my keyboard, by the way...)</p>
+
+<p>```ruby
+if "spam &amp; eggs" =~ /egg(s?)/</p>
+
+<pre><code>puts "We found egg#{$1}"
+</code></pre>
+
+<p>end
+```</p>
+
+<p>Procs &amp; blocks are, to me, one of the most interesting part of ruby. Basically, they're just lambda functions. But their syntax is very clean and nicely integrated with ruby overall. The following code is actually what decided me to learn more about ruby:</p>
+
+<p>```ruby
+task :new_post, :title do |t, args|</p>
+
+<pre><code># Random code
+</code></pre>
+
+<p>end
+```</p>
+
+<p>This is an extract of the Rakefile found in Octopress. So what can we see here? Of course, <code>task</code> is not a ruby-defined construct or function. It's actually a function provided by Rake, that takes, at least, two arguments (can someone tell me why there is exactly 1 comma ',' in this function call ?)</p>
+
+<p>The last argument of this function is what we call a block, and can be defined either as <code>do |args| ... end</code> or <code>{ |args| ... }</code>. This block can later be turned into a so-called "proc" and be executed by other methods, just like a lambda function.</p>
+
+<p>There's a lot more to say about ruby. I could talk about frozen objects, domain specific languages, classes and a few surprising methods I discovered by chance while writing this article. There's probably even more I have yet to discover...</p>
+
+<p>```ruby
+so do |you|</p>
+
+<pre><code>you.tell :me "what else is awesome in ruby?"
+</code></pre>
+
+<p>end # and thanks for reading ;)
+```</p>
+]]></content>
+  </entry>
+  
+</feed>

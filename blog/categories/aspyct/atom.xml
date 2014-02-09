@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: aspyct | Aspyct.org]]></title>
+  <link href="http://aspyct.github.com/aspyct/blog/categories/aspyct/atom.xml" rel="self"/>
+  <link href="http://aspyct.github.com/aspyct/"/>
+  <updated>2014-02-09T21:36:31+01:00</updated>
+  <id>http://aspyct.github.com/aspyct/</id>
+  <author>
+    <name><![CDATA[Antoine d'Otreppe]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Aspyct's secrets: decorators and monkey patching]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/09/01/aspycts-secrets-decorators-and-monkey-patching/"/>
+    <updated>2012-09-01T20:10:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/09/01/aspycts-secrets-decorators-and-monkey-patching</id>
+    <content type="html"><![CDATA[<p>I still receive mails here and there about aspyct, and that's always a great pleasure :) But aspyct is now discontinued for a simple reason: it's very easy to do with python what aspyct offers.</p>
+
+<p>PS: For those who are lost, aspyct was first an AOP (aspect oriented programming) library for python :)</p>
+
+<p>Discover the <a href="/aspyct">secrets behind the aspyct library</a>.</p>
+]]></content>
+  </entry>
+  
+</feed>

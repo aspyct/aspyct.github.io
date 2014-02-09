@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: network | Aspyct.org]]></title>
+  <link href="http://aspyct.github.com/aspyct/blog/categories/network/atom.xml" rel="self"/>
+  <link href="http://aspyct.github.com/aspyct/"/>
+  <updated>2014-02-09T21:36:31+01:00</updated>
+  <id>http://aspyct.github.com/aspyct/</id>
+  <author>
+    <name><![CDATA[Antoine d'Otreppe]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Setting up HTTP cache and gzip with nginx]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/08/20/setting-up-http-cache-and-gzip-with-nginx/"/>
+    <updated>2012-08-20T21:28:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/08/20/setting-up-http-cache-and-gzip-with-nginx</id>
+    <content type="html"><![CDATA[<p>Spending a little time on the <a href="https://developers.google.com/speed/pagespeed/insights">PageSpeed</a> utility from Google made me realize that I could probably finetune my webserver to serve pages even faster :) The two main tracks were 1) enable gzip compression and 2) use HTTP caching.</p>
+
+<!-- more -->
+
+
+<p>I won't delve into details here, but only give you the solution. You will find the source links at the end of this post.</p>
+
+<p>First, let's enable the gzip compression at the server level. Write the following in your nginx.conf file:</p>
+
+<p><code>
+gzip  on;
+gzip_http_version 1.1;
+gzip_vary on;
+gzip_comp_level 6;
+gzip_proxied any;
+gzip_types text/plain text/html text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript application/javascript text/x-js;
+gzip_buffers 16 8k;
+gzip_disable "MSIE [1-6]\.(?!.*SV1)";
+</code></p>
+
+<p>Way to go, reload nginx config and refresh the pagespeed analytics. Hooray, we just won 8 points on the scale! (at least I did ;) And now for the HTTP caching (put this in your sites-available/ config file):</p>
+
+<p>```
+location ~* .html$ {</p>
+
+<pre><code>expires -1;
+</code></pre>
+
+<p>}</p>
+
+<p>location ~* .(css|js|gif|jpe?g|png)$ {</p>
+
+<pre><code>expires 168h;
+add_header Pragma public;
+add_header Cache-Control "public, must-revalidate, proxy-revalidate";
+</code></pre>
+
+<p>}
+```</p>
+
+<p>You can see that I disabled expire on the .html files, otherwise you could be stuck with this version of aspyct.org until the end of time... However, I put one week (7 * 24h) for css, js and images. They don't change often, so this could be bigger, but this lets me a chance to change it anyway.</p>
+
+<p>So, what is your trick to speed up your nginx powered website?</p>
+
+<p>Sources:</p>
+
+<ul>
+<li><a href="http://www.howtoforge.com/how-to-save-traffic-with-nginxs-httpgzipmodule-debian-squeeze">http://www.howtoforge.com/how-to-save-traffic-with-nginxs-httpgzipmodule-debian-squeeze</a></li>
+<li><a href="http://kbeezie.com/view/nginx-configuration-examples/">http://kbeezie.com/view/nginx-configuration-examples/</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Hey, have you met Scapy?]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/07/18/hey/"/>
+    <updated>2012-07-18T10:01:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/07/18/hey</id>
+    <content type="html"><![CDATA[<p>Nothing's better than a little game to learn! As today's theory is TCP/IP networking, how about playing around with you own packets? <a href="http://www.secdev.org/projects/scapy/">Scapy</a> allows you to do so. Built on top of the <a href="http://www.python.org/">Python interpreter</a>, it offers tools to forge your own network packets. If you're interested in networking, it's definitely something you want to try :)</p>
+
+<p>And now... Let's explore my network! See you soon.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The day is over]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/07/16/the-day-is-over/"/>
+    <updated>2012-07-16T23:00:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/07/16/the-day-is-over</id>
+    <content type="html"><![CDATA[<p>Yep, the day is over. It's time for me to stop working on the "One Day Server" (cfr. previous post). The project is an HTTP server running on UNIX environments, developed in C. See the <a href="https://github.com/aspyct/ods">sources on github</a>.</p>
+
+<p>So... What has been done ?</p>
+
+<ol>
+<li><p>An <strong>asynchronous server base</strong>, primarily intended to serve static files over HTTP. The server is based on epoll(7), and therefore currently available for Linux only. But there is a wrapper around the epoll system, so it shouldn't be too hard to port to other platforms.</p></li>
+<li><p>An <strong>abstraction around the epoll() mechanism</strong>, as explained above. It should be easily portable to other systems as well. Have a look at it :)</p></li>
+<li><p>An <strong>incremental HTTP parser</strong> that you can feed as you get the data from your client. It will parse the request as it comes, making information available as soon as possible.</p></li>
+</ol>
+
+
+<p>Yes, but...</p>
+
+<p>Ok, it's not really functional yet. First, it doesn't give you back the files, but only a text summary of you request...</p>
+
+<p>```
+aspyct@mothbuster:~/[...]$ telnet localhost 3000
+Trying 127.0.0.1...
+Connected to localhost.
+Escape character is '<sup>]'.</sup>
+GET /hello/world HTTP/1.1
+Taking care of your request:</p>
+
+<pre><code>Method:  GET
+URI:     /hello/world
+Version: HTTP/1.1
+</code></pre>
+
+<p>Connection closed by foreign host.
+```</p>
+
+<p>Also, the HTTP request parser is not complete yet, and the system as a whole probably has some memory leaks and security issues... But OK, it's a one-day dev :P And I'm not that far from a working system.</p>
+
+<p>Now what ?</p>
+
+<p>Well I probably won't have time to further develop this server in the next few weeks. But who knows, I might resume development after that :) I'll keep you posted ! Thanks for following me :)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[One Day Server challenge]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/07/16/one-day-server-challenge/"/>
+    <updated>2012-07-16T10:00:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/07/16/one-day-server-challenge</id>
+    <content type="html"><![CDATA[<p>Hey, today I'm writing a HTTP server in just one day, with what I've learned lately about UNIX development. Follow me here on the <a href="https://github.com/aspyct/ods/">github repository</a> for the project.</p>
+
+<p>I'll keep you posted at the end of the day on this very blog about the result :) Cheers!</p>
+]]></content>
+  </entry>
+  
+</feed>

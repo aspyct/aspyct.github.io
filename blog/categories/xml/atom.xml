@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: xml | Aspyct.org]]></title>
+  <link href="http://aspyct.github.com/aspyct/blog/categories/xml/atom.xml" rel="self"/>
+  <link href="http://aspyct.github.com/aspyct/"/>
+  <updated>2014-02-09T21:36:31+01:00</updated>
+  <id>http://aspyct.github.com/aspyct/</id>
+  <author>
+    <name><![CDATA[Antoine d'Otreppe]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Turn your DTD into XML schema]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/08/09/turn-your-dtd-into-xml-schema/"/>
+    <updated>2012-08-09T20:35:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/08/09/turn-your-dtd-into-xml-schema</id>
+    <content type="html"><![CDATA[<p>Don't feel like writing a full xsd file? Try this good ol' tool provided by the W3C: <a href="http://www.w3.org/2000/04/schema_hack/">DTD to XML schema converter</a>. Enjoy :)</p>
+]]></content>
+  </entry>
+  
+</feed>

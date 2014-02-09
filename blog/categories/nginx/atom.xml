@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: nginx | Aspyct.org]]></title>
+  <link href="http://aspyct.github.com/aspyct/blog/categories/nginx/atom.xml" rel="self"/>
+  <link href="http://aspyct.github.com/aspyct/"/>
+  <updated>2014-02-09T21:36:31+01:00</updated>
+  <id>http://aspyct.github.com/aspyct/</id>
+  <author>
+    <name><![CDATA[Antoine d'Otreppe]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Setting up HTTP cache and gzip with nginx]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/08/20/setting-up-http-cache-and-gzip-with-nginx/"/>
+    <updated>2012-08-20T21:28:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/08/20/setting-up-http-cache-and-gzip-with-nginx</id>
+    <content type="html"><![CDATA[<p>Spending a little time on the <a href="https://developers.google.com/speed/pagespeed/insights">PageSpeed</a> utility from Google made me realize that I could probably finetune my webserver to serve pages even faster :) The two main tracks were 1) enable gzip compression and 2) use HTTP caching.</p>
+
+<!-- more -->
+
+
+<p>I won't delve into details here, but only give you the solution. You will find the source links at the end of this post.</p>
+
+<p>First, let's enable the gzip compression at the server level. Write the following in your nginx.conf file:</p>
+
+<p><code>
+gzip  on;
+gzip_http_version 1.1;
+gzip_vary on;
+gzip_comp_level 6;
+gzip_proxied any;
+gzip_types text/plain text/html text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript application/javascript text/x-js;
+gzip_buffers 16 8k;
+gzip_disable "MSIE [1-6]\.(?!.*SV1)";
+</code></p>
+
+<p>Way to go, reload nginx config and refresh the pagespeed analytics. Hooray, we just won 8 points on the scale! (at least I did ;) And now for the HTTP caching (put this in your sites-available/ config file):</p>
+
+<p>```
+location ~* .html$ {</p>
+
+<pre><code>expires -1;
+</code></pre>
+
+<p>}</p>
+
+<p>location ~* .(css|js|gif|jpe?g|png)$ {</p>
+
+<pre><code>expires 168h;
+add_header Pragma public;
+add_header Cache-Control "public, must-revalidate, proxy-revalidate";
+</code></pre>
+
+<p>}
+```</p>
+
+<p>You can see that I disabled expire on the .html files, otherwise you could be stuck with this version of aspyct.org until the end of time... However, I put one week (7 * 24h) for css, js and images. They don't change often, so this could be bigger, but this lets me a chance to change it anyway.</p>
+
+<p>So, what is your trick to speed up your nginx powered website?</p>
+
+<p>Sources:</p>
+
+<ul>
+<li><a href="http://www.howtoforge.com/how-to-save-traffic-with-nginxs-httpgzipmodule-debian-squeeze">http://www.howtoforge.com/how-to-save-traffic-with-nginxs-httpgzipmodule-debian-squeeze</a></li>
+<li><a href="http://kbeezie.com/view/nginx-configuration-examples/">http://kbeezie.com/view/nginx-configuration-examples/</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

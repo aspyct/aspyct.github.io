@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: language | Aspyct.org]]></title>
+  <link href="http://aspyct.github.com/aspyct/blog/categories/language/atom.xml" rel="self"/>
+  <link href="http://aspyct.github.com/aspyct/"/>
+  <updated>2014-02-09T21:36:31+01:00</updated>
+  <id>http://aspyct.github.com/aspyct/</id>
+  <author>
+    <name><![CDATA[Antoine d'Otreppe]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Ruby, a beginner's overview]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/08/22/ruby-beginner-overview/"/>
+    <updated>2012-08-22T08:08:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/08/22/ruby-beginner-overview</id>
+    <content type="html"><![CDATA[<p>Ruby has been lying around for a while now, and I did not take the time to discover it yet... Since I installed Octopress, I've been looking more and more into the source files of this system. Am I falling for ruby? Don't know, but it definitely looks like a very interesting language!</p>
+
+<!-- more -->
+
+
+<p>The first thing I stumbled upon was the <code>:symbol</code> notation. To me, it sounds like a kind of enum without enum, or constants without constants. Just values, that you can match in <code>if</code> statements or probably dictionaries.</p>
+
+<p><code>ruby
+p = Post.new
+p.state = :draft
+p.state = :published
+p.state = :deleted
+</code></p>
+
+<p>There is also the familiar (if you've played with python before) <code>raise</code> to signal an error, and the... <code>throw/catch</code>? So which one should I use for my exceptions? Turns out the <code>throw</code> is not what I expected. It's more like a superfast return, "throw a ball and catch it".</p>
+
+<p>```ruby
+def solve(problem)</p>
+
+<pre><code>catch (:solution) {
+    backtrack_solve(problem)
+}
+</code></pre>
+
+<p>end</p>
+
+<p>def backtrack_solve(problem)</p>
+
+<pre><code>if problem.solved
+    throw :solution, current_solution
+else
+    # Do complicated recursion stuff
+end
+</code></pre>
+
+<p>end
+```</p>
+
+<p>(Oh, and did you see it? There is an implicit return from the function <code>solve</code> ;)</p>
+
+<p>Ruby seems to borrow some language constructs from perl. For example, the well-known <code>print x unless y</code> and the like.</p>
+
+<p><code>ruby
+puts "bananas!" unless monkey
+</code></p>
+
+<p>More interestingly, ruby also has regex integrated to the language, which is something I really miss in most languages out there. Note also the string interpolation thanks to <code>#{$var}</code> (which is pretty hard to type on my keyboard, by the way...)</p>
+
+<p>```ruby
+if "spam &amp; eggs" =~ /egg(s?)/</p>
+
+<pre><code>puts "We found egg#{$1}"
+</code></pre>
+
+<p>end
+```</p>
+
+<p>Procs &amp; blocks are, to me, one of the most interesting part of ruby. Basically, they're just lambda functions. But their syntax is very clean and nicely integrated with ruby overall. The following code is actually what decided me to learn more about ruby:</p>
+
+<p>```ruby
+task :new_post, :title do |t, args|</p>
+
+<pre><code># Random code
+</code></pre>
+
+<p>end
+```</p>
+
+<p>This is an extract of the Rakefile found in Octopress. So what can we see here? Of course, <code>task</code> is not a ruby-defined construct or function. It's actually a function provided by Rake, that takes, at least, two arguments (can someone tell me why there is exactly 1 comma ',' in this function call ?)</p>
+
+<p>The last argument of this function is what we call a block, and can be defined either as <code>do |args| ... end</code> or <code>{ |args| ... }</code>. This block can later be turned into a so-called "proc" and be executed by other methods, just like a lambda function.</p>
+
+<p>There's a lot more to say about ruby. I could talk about frozen objects, domain specific languages, classes and a few surprising methods I discovered by chance while writing this article. There's probably even more I have yet to discover...</p>
+
+<p>```ruby
+so do |you|</p>
+
+<pre><code>you.tell :me "what else is awesome in ruby?"
+</code></pre>
+
+<p>end # and thanks for reading ;)
+```</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: troubleshooting | Aspyct.org]]></title>
+  <link href="http://aspyct.github.com/aspyct/blog/categories/troubleshooting/atom.xml" rel="self"/>
+  <link href="http://aspyct.github.com/aspyct/"/>
+  <updated>2014-02-09T21:36:31+01:00</updated>
+  <id>http://aspyct.github.com/aspyct/</id>
+  <author>
+    <name><![CDATA[Antoine d'Otreppe]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Ruby bit me for the first time]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/09/01/ruby-bit-me-for-the-first-time/"/>
+    <updated>2012-09-01T22:26:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/09/01/ruby-bit-me-for-the-first-time</id>
+    <content type="html"><![CDATA[<p>As you may know, I'm currently building a <a href="/webmanner">man to html converter</a> in ruby. I noticed that in many manpages, we have <code>&lt;</code> signs, that must, of course, be escaped in html. After a bit of looking around, I added a few lines of code to fix that issue. Quick fix, easy win :) Then things went weird!</p>
+
+<!-- more -->
+
+
+<p>Have a look at the screenshot below, especially the highlighted zones. See? Despite calling the exact same script with the exact same arguments, output is different from one shell to another: <code>&amp;lt;</code> vs <code>&lt;</code>.</p>
+
+<p><img class="center" src="/media/webmanner-bug.png"></p>
+
+<p>I quickly suspected the shell below to use an old version of the script, despite the fact that the <code>which</code> points to the right file. So I modified something in the file, and saw the change happen in both shells. But the <code>&amp;lt;</code> was still there...</p>
+
+<p>After a while, I realized that <a href="https://rvm.io/">rvm</a> might be playing a trick on me. And indeed! The shell above uses ruby 1.8.7, where the shell below uses 1.9.3. And apparently, these two versions of ruby handle characters differently...</p>
+
+<p>```ruby
+rednose:~ aspyct$ ruby --version
+ruby 1.8.7 (2012-02-08 patchlevel 358) [universal-darwin12.0]
+rednose:~ aspyct$ irb</p>
+
+<blockquote><blockquote><p>?&lt;
+=> 60
+```</p></blockquote></blockquote>
+
+<p><code>ruby
+rednose:~ aspyct$ ruby --version
+ruby 1.9.3p194 (2012-04-20 revision 35410) [x86_64-darwin12.0.0]
+rednose:~ aspyct$ irb
+1.9.3-p194 :001 &gt; ?&lt;
+ =&gt; "&lt;"
+</code></p>
+
+<p>Good to know, let's solve this bug now :)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Open OVA files with Parallels]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/08/17/open-ova-files-with-parallels/"/>
+    <updated>2012-08-17T20:29:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/08/17/open-ova-files-with-parallels</id>
+    <content type="html"><![CDATA[<p>Today a friend of mine told me about something nice: <a href="http://exploit-exercises.com/">Exploit Exercises</a>. While I don't feel like a black hat hacker, I believe this kind of challenge is a good way to learn more in-depth. Exploit Exercises provide linux virtual machines in OVA files, which are not that easy to open with Parallels Desktop...</p>
+
+<!-- more -->
+
+
+<p>Downloaded the OVA (Open Virtual Appliance, standard format for virtual machines), open it from Parallels Deskt... wait, why is it greyed out? Are you telling me I can't open this with Parallels?</p>
+
+<p>But there's a solution! Download the <a href="http://communities.vmware.com/community/vmtn/server/vsphere/automationtools/ovf">ovftool from VMWare</a> and install it on your computer. Once this is done, you can convert the OVA to .vmx format with this command:</p>
+
+<p>```bash</p>
+
+<h1>I had to type the full path, as the tool is not in the $PATH</h1>
+
+<h1>The --lax option allows the skip the error reported</h1>
+
+<p>/Applications/VMware\ OVF\ Tool/ovftool --lax exploit-exercises-nebula-4.ova exploit.vmx
+```</p>
+
+<p>Now, you have a .vmx file that you can open and migrate with Parallels. Enjoy :)</p>
+
+<p>NB: I had to update Parallels to the latest version, otherwise trying to open the .vmx file would crash it.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[XCode4 hell: PBXFileReference buildPhase]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/08/17/xcode-pbxfilereference-buildphase-hell/"/>
+    <updated>2012-08-17T08:21:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/08/17/xcode-pbxfilereference-buildphase-hell</id>
+    <content type="html"><![CDATA[<p>We're used to have troubles with the .xcodeproj file. This file actually behaves pretty bad when several people are working on the same project, stored in SVN. This is usually quite easy to solve, but yesterday it went worse...</p>
+
+<!-- more -->
+
+
+<p>Everytime you want to add (remove, rename...) a file to the project, you should first update the .xcodeproj file from SVN, add your files as soon as possible and commit the project file. If you don't do that, you could end up with several people adding files to the .xcodeproj at the same time, ending up in merge conflicts. Trust me, you don't want that!</p>
+
+<p>But usually this kind of conflict is easy to solve: open the .xcodeproj with a text editor, fix conflicts manually, all good. This time, it went worse:</p>
+
+<p><img class="center" src="/media/xcode-bug.png" title="XCode not building anymore" ></p>
+
+<p>So what happened? When you add a file to XCode, it generates a hash for this file. I don't know how they calculate this hash, but it occurred that two of these hashes (mine and the one from my colleague) were colliding.</p>
+
+<p>To fix this, we had to find the colliding hashes. Look for recently added files, look for anything weird in the .xcodeproj file. In our case, some comments were missing from the file. Based on that info, we found the colliding hashes, removed them and took a deep breath while reopening the project.</p>
+
+<p>"Fixed" :) Good luck if you stumble on this problem. Please post a comment on how you solved this.</p>
+
+<p>And, by the way, what is <strong>your</strong> trick to avoid problems with this file?</p>
+]]></content>
+  </entry>
+  
+</feed>

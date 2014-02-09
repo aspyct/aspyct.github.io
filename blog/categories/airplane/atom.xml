@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: airplane | Aspyct.org]]></title>
+  <link href="http://aspyct.github.com/aspyct/blog/categories/airplane/atom.xml" rel="self"/>
+  <link href="http://aspyct.github.com/aspyct/"/>
+  <updated>2014-02-09T21:36:31+01:00</updated>
+  <id>http://aspyct.github.com/aspyct/</id>
+  <author>
+    <name><![CDATA[Antoine d'Otreppe]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Spitfire project, day #1]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2013/07/15/spitfire-project-day-number-1/"/>
+    <updated>2013-07-15T00:00:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2013/07/15/spitfire-project-day-number-1</id>
+    <content type="html"><![CDATA[<p>So we moved in with a few friends. A bunch of geeks just like me... fine move :) We call our house the "Geekarium". And of course, we play video games. Or more specifically, we play <a href="http://warthunder.com/">War Thunder</a>, a WW2 airplane simulation.</p>
+
+<p>I like to pretend these planes are real, and the keyboard is not enough. Arduino to the rescue :)</p>
+
+<!-- more -->
+
+
+<h2>A bit of history</h2>
+
+<p>The Supermarine Spitfire is probably one of the best known aircraft out there. A legend, dare I say.</p>
+
+<p><img class="center" src="/media/spitfire/spitfire_side_view.jpg" width="480" height="360" title="'A spitfire seen from its side'" ></p>
+
+<p>Created a bit before WW2, the Spitfire was used along the Hurricane during the Battle of Britain, to successfully deflect german bombers.</p>
+
+<p>It was fitted with a Merlin engine and beautiful elliptical wings, which made him very recognisable among the other airplanes.</p>
+
+<p><img class="center" src="/media/spitfire/spitfire_bottom_view.jpg" width="457" height="480" title="'A spitfire seen from bottom'" ></p>
+
+<p>Read more about this masterpiece of history on <a href="http://en.wikipedia.org/wiki/Supermarine_Spitfire">its wikipedia page</a>.</p>
+
+<h2>So I started building this panel...</h2>
+
+<p>So yes, I've fallen in love again with airplanes. So much that I actually decided to supplement my joystick with a custom control panel. You know, for all those things that usually remain on the keyboard: start engine, landing gear control, flaps etc.</p>
+
+<p><img class="center" src="/media/spitfire/arduino_spitfire.jpg" width="480" height="388" title="'The early arduino prototype'" ></p>
+
+<p>No blueprints yet, only experimenting some stuff with my arduino. Roughly, what I came up with until now is a sketch that monitors one or more digital inputs, and reports on the serial port.</p>
+
+<p>Also available on github: <a href="https://github.com/aspyct/spitfire">https://github.com/aspyct/spitfire</a>.</p>
+
+<p>```c</p>
+
+<h1>define INPUT_COUNT 2</h1>
+
+<h1>define TIMEGUARD 100 // numper of milliseconds before a new input is taken into account</h1>
+
+<p>int inputs[INPUT_COUNT] = {
+  2,
+  6
+};</p>
+
+<p>int states[INPUT_COUNT];</p>
+
+<p>char keymap[INPUT_COUNT * 2] = {
+  'd', 'g',
+  '6', '\0'
+};</p>
+
+<p>unsigned long fired[INPUT_COUNT];</p>
+
+<p>void setup() {
+  Serial.begin(9600);</p>
+
+<p>  for (int i = 0; i &lt; INPUT_COUNT; ++i) {</p>
+
+<pre><code>pinMode(inputs[i], INPUT);
+states[i] = readState(inputs[i]);
+fired[i] = 0;
+</code></pre>
+
+<p>  }</p>
+
+<p>  // Wait for serial connection to be established
+  while (!Serial);
+}</p>
+
+<p>int readState(int pin) {
+  return digitalRead(pin);
+}</p>
+
+<p>void loop() {
+  for (int i = 0; i &lt; INPUT_COUNT; ++i) {</p>
+
+<pre><code>unsigned long time = millis();
+
+int pin = inputs[i];
+int val = readState(pin);
+
+if (val != states[i] &amp;&amp; time - fired[i] &gt; TIMEGUARD) {
+  states[i] = val;
+  fired[i] = time;
+
+  char response = keymap[i * 2 + (val == HIGH)];
+  if (response) {
+    Serial.print(response);
+  }
+}
+</code></pre>
+
+<p>  }
+}
+```</p>
+
+<h2>To be continued</h2>
+
+<p>As you can see, this is far from finished... Read the <a href="/blog/2013/07/16/spitfire-project-day-number-2-box-prototype/">post for day #2</a>.</p>
+]]></content>
+  </entry>
+  
+</feed>

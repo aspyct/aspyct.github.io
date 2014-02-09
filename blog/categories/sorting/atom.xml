@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: sorting | Aspyct.org]]></title>
+  <link href="http://aspyct.github.com/aspyct/blog/categories/sorting/atom.xml" rel="self"/>
+  <link href="http://aspyct.github.com/aspyct/"/>
+  <updated>2014-02-09T21:36:31+01:00</updated>
+  <id>http://aspyct.github.com/aspyct/</id>
+  <author>
+    <name><![CDATA[Antoine d'Otreppe]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Quicksort brilliantly explained]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/07/18/quicksort-brilliantly-explained/"/>
+    <updated>2012-07-18T19:00:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/07/18/quicksort-brilliantly-explained</id>
+    <content type="html"><![CDATA[<p>I wanted to finish my day with a little review of the quicksort algorithm. Instead of boring theory on random websites, I actually stumbled upon this very nice video-explanation. Also visit <a href="http://blog.bodurov.com/Visualizing-QuickSort-Algorithm">author's website</a>.</p>
+
+<p><iframe width="" height="" src="http://www.youtube.com/embed/Z5nSXTnD1I4 " frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></p>
+
+<p>And by the way... If you happen to have a planning poker (or any card deck actually!), that's exactly what you need to train yourself to sorting :)</p>
+
+<p><img class="center" src="/media/planning-poker.jpg"></p>
+]]></content>
+  </entry>
+  
+</feed>

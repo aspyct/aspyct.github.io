@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: data structure | Aspyct.org]]></title>
+  <link href="http://aspyct.github.com/aspyct/blog/categories/data-structure/atom.xml" rel="self"/>
+  <link href="http://aspyct.github.com/aspyct/"/>
+  <updated>2014-02-09T21:36:31+01:00</updated>
+  <id>http://aspyct.github.com/aspyct/</id>
+  <author>
+    <name><![CDATA[Antoine d'Otreppe]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Binomial heap in ruby]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/08/22/binomial-heap-in-ruby/"/>
+    <updated>2012-08-22T21:46:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/08/22/binomial-heap-in-ruby</id>
+    <content type="html"><![CDATA[<p>Sample implementation of a binomial heap (or "priority queue") in ruby. Read these excellent <a href="http://www.cs.princeton.edu/~wayne/cs423/lectures/heaps-4up.pdf">slides about heaps</a> from Princeton for theory. And see my source code for practice :)</p>
+
+<!-- more -->
+
+
+<p>```ruby heap.rb https://gist.github.com/3428688 View it on gist
+class Heap</p>
+
+<pre><code>def initialize
+    # @elements is an array representing the tree
+    # for each i:
+    # parent =&gt; @elements[i / 2]
+    # left =&gt; @elements[i * 2]
+    # right =&gt; @elements[i * 2 + 1]
+    @elements = []
+end
+
+def empty
+    return @elements.count == 0
+end
+
+def pop_min
+    value = @elements[0].first
+
+    # Replace the [0]th element with the last one and bubble it down
+    pair = @elements.pop
+
+    # If it was the last element of the array, abort anyway
+    if @elements.count &gt; 0
+        @elements[0] = pair
+        self.bubble_down pair, 0
+    end
+
+    return value
+end
+
+def peek_min
+    return @elements[0].first
+end
+
+def push(object, order)
+    # Put the element at the end of the array and bubble it up the tree
+    offset = @elements.count
+    pair = [object, order]
+    @elements &lt;&lt; pair
+
+    self.bubble_up pair, offset
+end
+
+def bubble_up(pair, offset)
+    # Push an element up the tree, if need be
+    parent = offset / 2
+
+    while (offset &gt; 0 &amp;&amp; @elements[parent].last &gt; pair.last)
+        @elements[parent], @elements[offset] = @elements[offset], @elements[parent]
+        offset = parent
+        parent = offset / 2
+    end
+end
+
+def bubble_down(pair, offset)
+    # Push an element down the tree if need be
+    while (offset &lt; @elements.count / 2)
+        offset_a = offset * 2
+        offset_b = offset_a + 1
+
+        if @elements[offset_a].last &gt; @elements[offset_b].last
+            smallest = offset_b
+        else
+            smallest = offset_a
+        end
+
+        if pair.last &lt;= @elements[smallest].last
+            break
+        end
+
+        @elements[offset], @elements[smallest] = @elements[smallest], @elements[offset]
+        offset = smallest
+    end
+end
+</code></pre>
+
+<p>end</p>
+
+<p>h = Heap.new</p>
+
+<h1>Insert 'a' => 'o' in the heap, random order</h1>
+
+<p>h.push "g", 7
+h.push "m", 13
+h.push "k", 11
+h.push "d", 4
+h.push "c", 3
+h.push "n", 14
+h.push "b", 2
+h.push "f", 6
+h.push "a", 1
+h.push "j", 10
+h.push "i", 9
+h.push "e", 5
+h.push "o", 15
+h.push "h", 8
+h.push "l", 12</p>
+
+<h1>Dump the heap</h1>
+
+<p>while !h.empty</p>
+
+<pre><code>puts h.pop_min
+</code></pre>
+
+<p>end
+```</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Left Leaning Red/Black Tree]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2012/07/17/left-leaning-red-slash-black-tree/"/>
+    <updated>2012-07-17T16:00:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2012/07/17/left-leaning-red-slash-black-tree</id>
+    <content type="html"><![CDATA[<p>Today's theory: red/black trees, and more precisely the left leaning ones, as explained in <a href="http://www.cs.princeton.edu/~rs/AlgsDS07/09BalancedTrees.pdf">these slides from the Princeton University</a>. Many thanks to them for these excellent slides :)</p>
+
+<p>See the <a href="https://gist.github.com/3129371">RBTree class on github</a>.</p>
+]]></content>
+  </entry>
+  
+</feed>

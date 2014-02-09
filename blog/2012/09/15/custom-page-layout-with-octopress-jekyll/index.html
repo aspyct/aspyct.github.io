@@ -1,0 +1,386 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Custom page layout with Jekyll and Octopress - Aspyct.org</title>
+  <meta name="author" content="Antoine d'Otreppe">
+
+  
+  <meta name="description" content="When you write a Jekyll (or Octopress) page, you may chose to use a custom layout. For example, the page for Praliné sports a few buttons at the top &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://aspyct.github.com/aspyct/blog/2012/09/15/custom-page-layout-with-octopress-jekyll/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Aspyct.org" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-33734142-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Aspyct.org</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:aspyct.github.com/aspyct" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/praline">Praliné</a></li>
+  <li><a href="/apservicebox">APServiceBox</a></li>
+  <li><a href="/webmanner">webmanner</a></li>
+  <li><a href="/aspyct">aspyct</a></li>
+  <li><a href="http://nakedman.aspyct.org">naked_man</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Custom page layout with Jekyll and Octopress</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-15T22:06:00+02:00" pubdate data-updated="true">Sep 15<span>th</span>, 2012</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>When you write a Jekyll (or Octopress) page, you may chose to use a custom layout. For example, the <a href="/praline">page for Praliné</a> sports a few buttons at the top, linking to important project resources. Let&#8217;s walk through an example with this project layout.</p>
+
+<!-- more -->
+
+
+<h2>Creating the custom layout</h2>
+
+<p>First, let&#8217;s create our custom layout. Since it is pretty similar to a simple page, we&#8217;ll just copy the page layout first. The following commands assume you&#8217;re working with octopress, but they should be pretty similar for jekyll.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>cp <span class="nb">source</span>/_layouts/page.html <span class="nb">source</span>/_layouts/project.html
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We also need to select the <code>project</code> layout in our project page. In my case, we&#8217;re talking about <code>praline/index.markdown</code>. So change the <code>layout</code> attribute in the yaml front-matter.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>layout: project
+</span><span class='line'>title: <span class="s2">&quot;Praliné&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now, next time you generate the article, the <code>project</code> layout will be used instead of <code>page</code>. Go ahead and do a simple test by writing some funny text in the new layout.</p>
+
+<h2>Adding data to your page</h2>
+
+<p>Of course, you probably want to add some metadata to your page, and use it to render the final html. In my case, I wanted to add custom links. Simply add this information in the yaml front-matter.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>layout: project
+</span><span class='line'>title: <span class="s2">&quot;Praliné&quot;</span>
+</span><span class='line'>date: 2012-09-15 00:53
+</span><span class='line'>links:
+</span><span class='line'>  - Source: https://github.com/aspyct/praline
+</span><span class='line'>  - Documentation: http://rubydoc.info/gems/praline/frames
+</span><span class='line'>  - Rubygems: https://rubygems.org/gems/praline
+</span><span class='line'>  - Zipball: https://github.com/aspyct/praline/zipball/master
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And this data can be retreived through the <code>page</code> object in your layout. For example, to access the links, I need to access <code>page.links</code>. I&#8217;m using these links to create buttons in my layout with the following code:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">&quot;project-links&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  {% for link_hash in page.links %}
+</span><span class='line'>    {% for link in link_hash %}
+</span><span class='line'>      <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">class=</span><span class="s">&quot;button&quot;</span> <span class="na">href=</span><span class="s">&quot;{{ link[1] }}&quot;</span><span class="nt">&gt;</span>{{ link[0] }}<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+</span><span class='line'>    {% endfor %}
+</span><span class='line'>  {% endfor %}
+</span><span class='line'><span class="nt">&lt;/ul&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Do it with style</h2>
+
+<p>But these links do not look good, definitely&#8230; We need to add some css styling. The easiest way to do so is edit the <code>sass/custom/_styles.scss</code> file, and add the following:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='sass'><span class='line'><span class="nt">ul</span><span class="nc">.project-links</span> <span class="err">{</span>
+</span><span class='line'>    <span class="na">margin-top</span><span class="o">:</span> <span class="mi">10</span><span class="kt">px</span><span class="err">;</span>
+</span><span class='line'>    <span class="na">list-style-type</span><span class="o">:</span> <span class="no">none</span><span class="err">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nt">li</span> <span class="err">{</span>
+</span><span class='line'>        <span class="na">display</span><span class="o">:</span> <span class="no">inline</span><span class="err">;</span>
+</span><span class='line'>    <span class="err">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nt">a</span> <span class="err">{</span>
+</span><span class='line'>        <span class="na">background</span><span class="o">:</span> <span class="nf">darken</span><span class="p">(</span><span class="nv">$main-bg</span><span class="o">,</span> <span class="mi">5</span><span class="p">)</span><span class="err">;</span>
+</span><span class='line'>        <span class="na">display</span><span class="o">:</span> <span class="no">inline</span><span class="o">-</span><span class="no">block</span><span class="err">;</span>
+</span><span class='line'>        <span class="na">padding</span><span class="o">:</span> <span class="mf">.4</span><span class="kt">em</span> <span class="mf">.8</span><span class="kt">em</span><span class="err">;</span>
+</span><span class='line'>        <span class="na">margin-right</span><span class="o">:</span> <span class="mf">.5</span><span class="kt">em</span><span class="err">;</span>
+</span><span class='line'>        <span class="na">border</span><span class="o">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="no">solid</span> <span class="nf">lighten</span><span class="p">(</span><span class="nv">$link-color-hover</span><span class="o">,</span> <span class="mi">10</span><span class="p">)</span><span class="err">;</span>
+</span><span class='line'>        <span class="na">text-decoration</span><span class="o">:</span> <span class="no">none</span><span class="err">;</span>
+</span><span class='line'>        <span class="na">color</span><span class="o">:</span> <span class="nf">mix</span><span class="p">(</span><span class="nv">$text-color</span><span class="o">,</span> <span class="nv">$text-color-light</span><span class="p">)</span><span class="err">;</span>
+</span><span class='line'>        <span class="k">@extend</span> <span class="nc">.serif</span><span class="o">;</span>
+</span><span class='line'>        <span class="k">@include</span><span class="nd"> transition</span><span class="p">(</span><span class="no">background-color</span> <span class="mf">.5</span><span class="kt">s</span><span class="p">)</span><span class="err">;</span>
+</span><span class='line'>        <span class="k">&amp;</span><span class="nd">:hover</span> <span class="err">{</span>
+</span><span class='line'>          <span class="na">background</span><span class="o">:</span> <span class="nv">$link-color-hover</span><span class="err">;</span>
+</span><span class='line'>          <span class="na">text-shadow</span><span class="o">:</span> <span class="no">none</span><span class="err">;</span>
+</span><span class='line'>          <span class="na">color</span><span class="o">:</span> <span class="nv">$main-bg</span><span class="err">;</span>
+</span><span class='line'>        <span class="err">}</span>
+</span><span class='line'>    <span class="err">}</span>
+</span><span class='line'><span class="err">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>But if you want to do it clean, I invite you to create your own style pack. Look around in the <code>sass</code> directory for directions.</p>
+
+<h2>A last note</h2>
+
+<p>We worked directly in the <code>source</code> and <code>sass</code> directories of Octopress. That way, we had instant feedback on our work. But if you try to install another theme, all your good work could be lost instantly. You should definitely save it into the <code>.themes</code> directory.</p>
+
+<p>Hope this is useful :)</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Antoine d'Otreppe</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-15T22:06:00+02:00" pubdate data-updated="true">Sep 15<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/blog-life/'>blog life</a>, <a class='category' href='/blog/categories/octopress/'>octopress</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://aspyct.github.com/aspyct/blog/2012/09/15/custom-page-layout-with-octopress-jekyll/" data-via="" data-counturl="http://aspyct.github.com/aspyct/blog/2012/09/15/custom-page-layout-with-octopress-jekyll/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/09/15/web-functional-testing-with-rspec-and-praline/" title="Previous Post: Web functional testing with rspec and Praliné">&laquo; Web functional testing with rspec and Praliné</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/05/04/android-switch-wifi-on-off/" title="Next Post: Android: Switch wifi on/off">Android: Switch wifi on/off &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Contact me</h1>
+  <p>
+  	Name's Antoine :)<br />
+  	via mail: <a href="mailto:a.dotreppe@aspyct.org">a.dotreppe@aspyct.org</a><br />
+  	or twitter: <a href="http://twitter.com/aspyct">@aspyct</a>
+  </p>
+</section>
+<section>
+    <h1>Gists</h1>
+    <ul>
+        <li><a href="https://gist.github.com/aspyct/5517026">Android: Switch wifi on/off</a></li>
+        <li><a href="https://gist.github.com/3118858">UNIX semaphores example</a></li>
+        <li><a href="/blog/2012/08/25/unix-signal-handling-example/">UNIX signals example</a></li>
+        <li><a href="https://gist.github.com/2995609">Tiny javascript IoC container</a></li>
+        <li><a href="https://gist.github.com/3129371">Left Leaning Red/Black Tree in Java</a></li>
+        <li><a href="https://gist.github.com/3194882">View doubles as binary</a></li>
+        <li><a href="https://gist.github.com/3428688">Binomial heap in ruby</a></li>
+        <li><a href="https://gist.github.com/3433278">Sorting &amp; searching arrays in ruby</a></li>
+    </ul>
+</section>
+<section>
+  <h1>Older stuff</h1>
+  <ul>
+  	<li><a href="http://old.aspyct.org/doku.php?id=aspyct">aspyct</a>, the AOP library that gave its name to the whole thing</li>
+  	<li><a href="http://old.aspyct.org/doku.php?id=pysh">pysh</a>, a shell that mixes Python and Bash syntax</li>
+  	<li><a href="http://httpforge.aspyct.org/">httpforge</a> lets you forge, send and analyze HTTP messages right from your command line.</li>
+  	<li><a href="http://old.aspyct.org/">More...</a></li>
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Antoine d'Otreppe -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'aspyct';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://aspyct.github.com/aspyct/blog/2012/09/15/custom-page-layout-with-octopress-jekyll/';
+        var disqus_url = 'http://aspyct.github.com/aspyct/blog/2012/09/15/custom-page-layout-with-octopress-jekyll/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

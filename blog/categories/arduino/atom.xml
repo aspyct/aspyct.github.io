@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: arduino | Aspyct.org]]></title>
+  <link href="http://aspyct.github.com/aspyct/blog/categories/arduino/atom.xml" rel="self"/>
+  <link href="http://aspyct.github.com/aspyct/"/>
+  <updated>2014-02-09T21:36:31+01:00</updated>
+  <id>http://aspyct.github.com/aspyct/</id>
+  <author>
+    <name><![CDATA[Antoine d'Otreppe]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Spitfire project, day #2: the box prototype]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2013/07/16/spitfire-project-day-number-2-box-prototype/"/>
+    <updated>2013-07-16T21:23:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2013/07/16/spitfire-project-day-number-2-box-prototype</id>
+    <content type="html"><![CDATA[<p>For this controller, I need a box. I want it to be classy, sober, and a bit old-school. The only real requirement is that it has to provide an easy access to electronics in case something goes wrong. <a href="http://en.wikipedia.org/wiki/Murphy's_law">Murphy's law</a>, you know...</p>
+
+<!-- more -->
+
+
+<p>Some of you may arrive out of the blue here. So have a look at the <a href="/blog/2013/07/15/spitfire-project-day-number-1/">previous article, day #1</a>.</p>
+
+<p>So I tear apart my joystick box, cardboard stuff, and built a small control box with it. Or rather a prototype of that box to be.</p>
+
+<h2>Tools</h2>
+
+<p>With a few simple tools like swiss army knife, a set square, a pen and some tape, I started destroying one box and building the other :) This is the bottom that you can see here: (the tape roll ran away during the picture)</p>
+
+<p><img class="center" src="/media/spitfire/box_prototype1.jpg" title="'A few tools and some cardboard'" ></p>
+
+<h2>Building the box</h2>
+
+<p>Then I quickly added the top as well as some switches and LEDs. I think it looks nice already, I'm gonna love it!</p>
+
+<p><img class="center" src="/media/spitfire/box_prototype4.jpg" title="'After adding the top and some switches'" ></p>
+
+<p>After some fiddling around, I decided to go for a rear opening. With the cardboard, it works fine, but the wooden box will require hinges. And it's probably a bad idea to put hinges in front, I might well hurt myself on this...</p>
+
+<p><img class="center" src="/media/spitfire/box_prototype2.jpg" title="'Rear opening system'" ></p>
+
+<p>With the sides, and the arduino inside for the show...</p>
+
+<p><img class="center" src="/media/spitfire/box_prototype3.jpg" title="'The arduino inside'" ></p>
+
+<h2>Finished prototype</h2>
+
+<p>So that's it. Not really impressive, eh? But this gives a good idea of the expected final shape, and it helped me think about some important stuff like hinge position, cable management etc. A few hours work, little to no cost for so many saved hours and material later :)</p>
+
+<p><img class="center" src="/media/spitfire/box_prototype5.jpg" title="'The finished prototype'" ></p>
+
+<p>On top of it is the first list of the controls I want on this box. More on that later :)</p>
+
+<h2>To be continued</h2>
+
+<p>This story is not over yet. Read the <a href="/blog/2013/07/20/spitfire-project-day-number-3-the-box-blueprints/">next post: blueprints and dimensions</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Spitfire project, day #1]]></title>
+    <link href="http://aspyct.github.com/aspyct/blog/2013/07/15/spitfire-project-day-number-1/"/>
+    <updated>2013-07-15T00:00:00+02:00</updated>
+    <id>http://aspyct.github.com/aspyct/blog/2013/07/15/spitfire-project-day-number-1</id>
+    <content type="html"><![CDATA[<p>So we moved in with a few friends. A bunch of geeks just like me... fine move :) We call our house the "Geekarium". And of course, we play video games. Or more specifically, we play <a href="http://warthunder.com/">War Thunder</a>, a WW2 airplane simulation.</p>
+
+<p>I like to pretend these planes are real, and the keyboard is not enough. Arduino to the rescue :)</p>
+
+<!-- more -->
+
+
+<h2>A bit of history</h2>
+
+<p>The Supermarine Spitfire is probably one of the best known aircraft out there. A legend, dare I say.</p>
+
+<p><img class="center" src="/media/spitfire/spitfire_side_view.jpg" width="480" height="360" title="'A spitfire seen from its side'" ></p>
+
+<p>Created a bit before WW2, the Spitfire was used along the Hurricane during the Battle of Britain, to successfully deflect german bombers.</p>
+
+<p>It was fitted with a Merlin engine and beautiful elliptical wings, which made him very recognisable among the other airplanes.</p>
+
+<p><img class="center" src="/media/spitfire/spitfire_bottom_view.jpg" width="457" height="480" title="'A spitfire seen from bottom'" ></p>
+
+<p>Read more about this masterpiece of history on <a href="http://en.wikipedia.org/wiki/Supermarine_Spitfire">its wikipedia page</a>.</p>
+
+<h2>So I started building this panel...</h2>
+
+<p>So yes, I've fallen in love again with airplanes. So much that I actually decided to supplement my joystick with a custom control panel. You know, for all those things that usually remain on the keyboard: start engine, landing gear control, flaps etc.</p>
+
+<p><img class="center" src="/media/spitfire/arduino_spitfire.jpg" width="480" height="388" title="'The early arduino prototype'" ></p>
+
+<p>No blueprints yet, only experimenting some stuff with my arduino. Roughly, what I came up with until now is a sketch that monitors one or more digital inputs, and reports on the serial port.</p>
+
+<p>Also available on github: <a href="https://github.com/aspyct/spitfire">https://github.com/aspyct/spitfire</a>.</p>
+
+<p>```c</p>
+
+<h1>define INPUT_COUNT 2</h1>
+
+<h1>define TIMEGUARD 100 // numper of milliseconds before a new input is taken into account</h1>
+
+<p>int inputs[INPUT_COUNT] = {
+  2,
+  6
+};</p>
+
+<p>int states[INPUT_COUNT];</p>
+
+<p>char keymap[INPUT_COUNT * 2] = {
+  'd', 'g',
+  '6', '\0'
+};</p>
+
+<p>unsigned long fired[INPUT_COUNT];</p>
+
+<p>void setup() {
+  Serial.begin(9600);</p>
+
+<p>  for (int i = 0; i &lt; INPUT_COUNT; ++i) {</p>
+
+<pre><code>pinMode(inputs[i], INPUT);
+states[i] = readState(inputs[i]);
+fired[i] = 0;
+</code></pre>
+
+<p>  }</p>
+
+<p>  // Wait for serial connection to be established
+  while (!Serial);
+}</p>
+
+<p>int readState(int pin) {
+  return digitalRead(pin);
+}</p>
+
+<p>void loop() {
+  for (int i = 0; i &lt; INPUT_COUNT; ++i) {</p>
+
+<pre><code>unsigned long time = millis();
+
+int pin = inputs[i];
+int val = readState(pin);
+
+if (val != states[i] &amp;&amp; time - fired[i] &gt; TIMEGUARD) {
+  states[i] = val;
+  fired[i] = time;
+
+  char response = keymap[i * 2 + (val == HIGH)];
+  if (response) {
+    Serial.print(response);
+  }
+}
+</code></pre>
+
+<p>  }
+}
+```</p>
+
+<h2>To be continued</h2>
+
+<p>As you can see, this is far from finished... Read the <a href="/blog/2013/07/16/spitfire-project-day-number-2-box-prototype/">post for day #2</a>.</p>
+]]></content>
+  </entry>
+  
+</feed>
