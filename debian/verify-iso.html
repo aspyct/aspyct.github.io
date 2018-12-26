@@ -1,0 +1,300 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Verify a downloaded ISO &mdash; aspyct.org</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Recommended packages" href="packages.html" />
+    <link rel="prev" title="Debian" href="index.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Aspyct.org
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                9.35
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Debian</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Verify a downloaded ISO</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sha512">SHA512</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gpg-signature">GPG signature</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#make-bootable-usb">Make bootable USB</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#failed-to-start-the-dirmngr">Failed to start the dirmngr</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#external-links">External links</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="packages.html">Recommended packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security/index.html">Security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monitoring.html">Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apache-php.html">Apache &amp; PHP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webapps/index.html">Web apps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../gpg/index.html">GPG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../other/index.html">Other</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Aspyct.org</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Debian</a> &raquo;</li>
+        
+      <li>Verify a downloaded ISO</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="verify-a-downloaded-iso">
+<h1>Verify a downloaded ISO<a class="headerlink" href="#verify-a-downloaded-iso" title="Permalink to this headline">¶</a></h1>
+<p>When you download an ISO, download the accompanying <code class="docutils literal notranslate"><span class="pre">SHA512SUMS</span></code> and <code class="docutils literal notranslate"><span class="pre">SHA512SUMS.sign</span></code>
+to verify your downloaded files.</p>
+<div class="section" id="sha512">
+<h2>SHA512<a class="headerlink" href="#sha512" title="Permalink to this headline">¶</a></h2>
+<p>Check the downloaded file for corruption with <code class="docutils literal notranslate"><span class="pre">sha512sum</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sha512sum -c SHA512SUMS --ignore-missing
+debian-live-9.6.0-amd64-xfce.iso: OK
+</pre></div>
+</div>
+</div>
+<div class="section" id="gpg-signature">
+<h2>GPG signature<a class="headerlink" href="#gpg-signature" title="Permalink to this headline">¶</a></h2>
+<p>You may need to get the signing key from
+<code class="docutils literal notranslate"><span class="pre">keyring.debian.org</span></code>. Check the <a class="reference external" href="https://www.debian.org/CD/verify">debian verify
+page</a> for updated IDs and
+fingerprints. On that page, you’ll find key listings looking like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pub</span>   <span class="mi">4096</span><span class="n">R</span><span class="o">/</span><span class="mi">6294</span><span class="n">BE9B</span> <span class="mi">2011</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">05</span>
+    <span class="n">Key</span> <span class="n">fingerprint</span> <span class="o">=</span> <span class="n">DF9B</span> <span class="mi">9</span><span class="n">C49</span> <span class="n">EAA9</span> <span class="mi">2984</span> <span class="mi">3258</span>  <span class="mi">9</span><span class="n">D76</span> <span class="n">DA87</span> <span class="n">E80D</span> <span class="mi">6294</span> <span class="n">BE9B</span>
+<span class="n">uid</span>                  <span class="n">Debian</span> <span class="n">CD</span> <span class="n">signing</span> <span class="n">key</span> <span class="o">&lt;</span><span class="n">debian</span><span class="o">-</span><span class="n">cd</span><span class="nd">@lists</span><span class="o">.</span><span class="n">debian</span><span class="o">.</span><span class="n">org</span><span class="o">&gt;</span>
+<span class="n">sub</span>   <span class="mi">4096</span><span class="n">R</span><span class="o">/</span><span class="mi">11</span><span class="n">CD9819</span> <span class="mi">2011</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">05</span>
+</pre></div>
+</div>
+<p>In the example above, the key ID is <code class="docutils literal notranslate"><span class="pre">6294BE9B</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ gpg --keyserver keyring.debian.org --recv 6294BE9B
+$ gpg --verify SHA512SUMS.sign
+</pre></div>
+</div>
+<p>GPG will warn you that the key is not trusted. That’s correct. Verify
+the fingerprints against the ones show on the page now. You may also
+check the fingerprints obtained through a different internet connection,
+eg. your smartphone’s 3G.</p>
+</div>
+<div class="section" id="make-bootable-usb">
+<h2>Make bootable USB<a class="headerlink" href="#make-bootable-usb" title="Permalink to this headline">¶</a></h2>
+<p>When everything is verified properly, make your bootable USB stick. Be
+careful and select the proper <code class="docutils literal notranslate"><span class="pre">&lt;device&gt;</span></code>, otherwise headaches will
+ensue.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">dd</span> <span class="k">if</span><span class="o">=</span><span class="n">debian</span><span class="o">-</span><span class="n">live</span><span class="o">-</span><span class="mf">9.6</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="n">amd64</span><span class="o">-</span><span class="n">xfce</span><span class="o">.</span><span class="n">iso</span> <span class="n">of</span><span class="o">=/</span><span class="n">dev</span><span class="o">/&lt;</span><span class="n">device</span><span class="o">&gt;</span> <span class="n">bs</span><span class="o">=</span><span class="mi">4</span><span class="n">M</span> <span class="n">status</span><span class="o">=</span><span class="n">progress</span><span class="p">;</span> <span class="n">sync</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="failed-to-start-the-dirmngr">
+<h3>Failed to start the dirmngr<a class="headerlink" href="#failed-to-start-the-dirmngr" title="Permalink to this headline">¶</a></h3>
+<p>While importing the GPG key, you may get the following error:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ gpg --keyserver keyring.debian.org --recv-keys 0x673A03E4C1DB921F
+gpg: failed to start the dirmngr &#39;/usr/bin/dirmngr&#39;: No such file or directory
+gpg: connecting dirmngr at &#39;/run/user/1000/gnupg/S.dirmngr&#39; failed: No such file or directory
+gpg: keyserver receive failed: No dirmngr
+</pre></div>
+</div>
+<p>You need to install <code class="docutils literal notranslate"><span class="pre">dirmngr</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo apt-get install dirmngr
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="external-links">
+<h2>External links<a class="headerlink" href="#external-links" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="https://www.debian.org/CD/verify">https://www.debian.org/CD/verify</a></li>
+<li><a class="reference external" href="https://keyring.debian.org/">https://keyring.debian.org/</a></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="packages.html" class="btn btn-neutral float-right" title="Recommended packages" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Debian" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Antoine d&#39;Otreppe
+      Last updated on Dec 26, 2018.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

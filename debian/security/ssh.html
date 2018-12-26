@@ -1,0 +1,300 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>sshd &mdash; aspyct.org</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="ufw" href="ufw.html" />
+    <link rel="prev" title="sudo" href="sudo.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Aspyct.org
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                9.35
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Debian</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../verify-iso.html">Verify a downloaded ISO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../packages.html">Recommended packages</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Security</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="sudo.html">sudo</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">sshd</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#login-with-your-ssh-key">Login with your ssh key</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#etc-ssh-sshd-config">/etc/ssh/sshd_config</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ssh-audit">ssh-audit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#external-links">External links</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ufw.html">ufw</a></li>
+<li class="toctree-l3"><a class="reference internal" href="unattended-upgrades.html">Unattended upgrades</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../monitoring.html">Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../apache-php.html">Apache &amp; PHP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../webapps/index.html">Web apps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../gpg/index.html">GPG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../other/index.html">Other</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Aspyct.org</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Debian</a> &raquo;</li>
+        
+          <li><a href="index.html">Security</a> &raquo;</li>
+        
+      <li>sshd</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="sshd">
+<h1>sshd<a class="headerlink" href="#sshd" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="login-with-your-ssh-key">
+<h2>Login with your ssh key<a class="headerlink" href="#login-with-your-ssh-key" title="Permalink to this headline">¶</a></h2>
+<p>Copy your public key to the server to allow login with private key.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ ssh-copy-id &lt;user&gt;@&lt;server&gt;
+</pre></div>
+</div>
+</div>
+<div class="section" id="etc-ssh-sshd-config">
+<h2>/etc/ssh/sshd_config<a class="headerlink" href="#etc-ssh-sshd-config" title="Permalink to this headline">¶</a></h2>
+<div class="admonition danger">
+<p class="first admonition-title">Danger</p>
+<p class="last">Any time you modify <a class="reference external" href="https://manpages.debian.org/stretch/openssh-server/sshd_config.5.en.html">sshd_config(5)</a>,
+make sure to test the changes <strong>before</strong> you close the connection to your server.
+You should reload the config with <code class="docutils literal notranslate"><span class="pre">systemctl</span> <span class="pre">reload</span> <span class="pre">sshd</span></code>
+and open a new SSH connection before doing anything else.</p>
+</div>
+<p>Disallow root login and force protocol version 2.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PermitRootLogin</span> <span class="n">no</span>
+<span class="n">Protocol</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<p>If you have copied your private key to the server, you can also disable password login:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PasswordAuthentication</span> <span class="n">no</span>
+</pre></div>
+</div>
+<p>You may also chose to restrict SSH access to certain users.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">AllowUsers</span> <span class="n">aspyct</span>
+</pre></div>
+</div>
+<p>If your server is internet-facing, it could also be useful to change the
+SSH port. It won’t save you if your server is really targeted, but most
+bot scans will skip the port. Just pick any random port above between
+1025 and 65535.</p>
+<div class="admonition danger">
+<p class="first admonition-title">Danger</p>
+<p class="last">Don’t forget to allow that port in the <a class="reference external" href="/debian/security/ufw.html">firewall</a>,
+otherwise you’ll be locked out of your server for good.</p>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Port</span> <span class="mi">12345</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ssh-audit">
+<h2>ssh-audit<a class="headerlink" href="#ssh-audit" title="Permalink to this headline">¶</a></h2>
+<p>Run <a class="reference external" href="https://github.com/arthepsy/ssh-audit">ssh-audit</a> to check for
+other vulnerabilities and recommendations. Keep at it until it’s all
+green.</p>
+<p>Adding the following to <code class="docutils literal notranslate"><span class="pre">sshd_config</span></code> should be a good starting point:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">KexAlgorithms</span> <span class="n">curve25519</span><span class="o">-</span><span class="n">sha256</span><span class="nd">@libssh</span><span class="o">.</span><span class="n">org</span><span class="p">,</span><span class="n">diffie</span><span class="o">-</span><span class="n">hellman</span><span class="o">-</span><span class="n">group16</span><span class="o">-</span><span class="n">sha512</span><span class="p">,</span><span class="n">diffie</span><span class="o">-</span><span class="n">hellman</span><span class="o">-</span><span class="n">group18</span><span class="o">-</span><span class="n">sha512</span><span class="p">,</span><span class="n">diffie</span><span class="o">-</span><span class="n">hellman</span><span class="o">-</span><span class="n">group14</span><span class="o">-</span><span class="n">sha256</span>
+<span class="n">HostKeyAlgorithms</span> <span class="n">rsa</span><span class="o">-</span><span class="n">sha2</span><span class="o">-</span><span class="mi">512</span><span class="p">,</span><span class="n">rsa</span><span class="o">-</span><span class="n">sha2</span><span class="o">-</span><span class="mi">256</span><span class="p">,</span><span class="n">ssh</span><span class="o">-</span><span class="n">rsa</span><span class="p">,</span><span class="n">ssh</span><span class="o">-</span><span class="n">ed25519</span>
+<span class="n">MACs</span> <span class="n">hmac</span><span class="o">-</span><span class="n">sha2</span><span class="o">-</span><span class="mi">512</span><span class="o">-</span><span class="n">etm</span><span class="nd">@openssh</span><span class="o">.</span><span class="n">com</span><span class="p">,</span><span class="n">hmac</span><span class="o">-</span><span class="n">sha2</span><span class="o">-</span><span class="mi">256</span><span class="o">-</span><span class="n">etm</span><span class="nd">@openssh</span><span class="o">.</span><span class="n">com</span><span class="p">,</span><span class="n">umac</span><span class="o">-</span><span class="mi">128</span><span class="o">-</span><span class="n">etm</span><span class="nd">@openssh</span><span class="o">.</span><span class="n">com</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="external-links">
+<h2>External links<a class="headerlink" href="#external-links" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="https://www.debian.org/doc/manuals/securing-debian-howto/ch-sec-services.en.html#s5.1">Official documentation</a></li>
+<li><a class="reference external" href="https://manpages.debian.org/stretch/openssh-server/sshd_config.5.en.html">sshd_config(5)</a></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ufw.html" class="btn btn-neutral float-right" title="ufw" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="sudo.html" class="btn btn-neutral" title="sudo" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Antoine d&#39;Otreppe
+      Last updated on Dec 26, 2018.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
