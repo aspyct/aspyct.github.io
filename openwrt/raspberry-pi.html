@@ -1,0 +1,338 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>OpenWRT on Raspberry Pi 3B/3B+ &mdash; aspyct.org</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="GPG" href="../gpg/index.html" />
+    <link rel="prev" title="OpenWRT" href="index.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Aspyct.org
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                9.35
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../debian/index.html">Debian</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">OpenWRT</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">OpenWRT on Raspberry Pi 3B/3B+</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#update-rpi-firmware">Update rpi firmware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-signing-keys">Get signing keys</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#download-verify-image">Download/verify image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#make-the-bootable-sd-card">Make the bootable SD card</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#first-login">First login</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#external-links">External links</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../gpg/index.html">GPG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../other/index.html">Other</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Aspyct.org</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">OpenWRT</a> &raquo;</li>
+        
+      <li>OpenWRT on Raspberry Pi 3B/3B+</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="openwrt-on-raspberry-pi-3b-3b">
+<h1>OpenWRT on Raspberry Pi 3B/3B+<a class="headerlink" href="#openwrt-on-raspberry-pi-3b-3b" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>OpenWRT 18.06.1 is not working on RPi 3B+ due to a problem with the GPU
+(which apparently is responsible for the boot process).
+Support for the RPi 3B+ is available in the <a class="reference external" href="https://downloads.openwrt.org/snapshots/targets/">snapshot versions</a>, and will
+probably land in stable at 18.06.2.</p>
+<p class="last">Everything works fine on the RPi 3B (non plus).</p>
+</div>
+<div class="section" id="update-rpi-firmware">
+<h2>Update rpi firmware<a class="headerlink" href="#update-rpi-firmware" title="Permalink to this headline">¶</a></h2>
+<p>Before you install OpenWRT on your raspi, it’s a good idea to update the firmwares.
+With a running install of raspbian, run the following commands:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo apt-get update
+$ sudo apt-get upgrade
+$ sudo rpi-update
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-signing-keys">
+<h2>Get signing keys<a class="headerlink" href="#get-signing-keys" title="Permalink to this headline">¶</a></h2>
+<p>Since OpenWRT will probably be used as a firewall, it is essential to verify the authenticity of your downloads.
+To do that, you’ll need the GPG public keys from OpenWRT.</p>
+<p>Figure out which version of OpenWRT you will install, and then
+<a class="reference external" href="https://openwrt.org/docs/guide-user/security/signatures">download the appropriate key</a>.
+Unfortunately, it doesn’t seem that you can download the key with <a class="reference external" href="https://manpages.debian.org/stretch/curl/curl.1.en.html">curl(1)</a> or <a class="reference external" href="https://manpages.debian.org/stretch/wget/wget.1.en.html">wget(1)</a>,
+so you’ll have to get that from your browser directly.</p>
+<p>It’s always a good idea to check the key fingerprint as obtained through another connection,
+like your 3G network instead of your home wifi.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ gpg openwrt.asc
+gpg: WARNING: no command supplied.  Trying to guess what you mean ...
+pub   rsa4096 2018-05-16 [SC] [expires: 2020-05-15]
+    6768C55E79B032D77A28DA5F0F20257417E1CE16
+uid           OpenWrt Release Builder (18.06 Signing Key) &lt;openwrt-devel@lists.openwrt.org&gt;
+</pre></div>
+</div>
+<p>If all is good, you can import the key.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ gpg --import openwrt.asc
+gpg: key 0F20257417E1CE16: public key &quot;OpenWrt Release Builder (18.06 Signing Key) &lt;openwrt-devel@lists.openwrt.org&gt;&quot; imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+</pre></div>
+</div>
+</div>
+<div class="section" id="download-verify-image">
+<h2>Download/verify image<a class="headerlink" href="#download-verify-image" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The URLs listed in the commands below are probably outdated.
+Get the latest versions from the <a class="reference external" href="https://downloads.openwrt.org/releases/18.06.1/targets/brcm2708/bcm2710/">download page</a>.</p>
+</div>
+<p>Download the factory firmware, sum and signature files:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ wget https://downloads.openwrt.org/releases/18.06.1/targets/brcm2708/bcm2710/openwrt-18.06.1-brcm2708-bcm2710-rpi-3-ext4-factory.img.gz
+$ wget https://downloads.openwrt.org/releases/18.06.1/targets/brcm2708/bcm2710/sha256sums
+$ wget https://downloads.openwrt.org/releases/18.06.1/targets/brcm2708/bcm2710/sha256sums.asc
+</pre></div>
+</div>
+<p>Verify the sha sum and gpg signature</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sha256sum --ignore-missing -c sha256sums
+openwrt-18.06.1-brcm2708-bcm2710-rpi-3-ext4-factory.img.gz: OK
+
+$ gpg --verify sha256sums.asc
+gpg: assuming signed data in &#39;sha256sums&#39;
+gpg: Signature made Fri 17 Aug 2018 03:31:45 PM CEST
+gpg:                using RSA key 0F20257417E1CE16
+gpg: Good signature from &quot;OpenWrt Release Builder (18.06 Signing Key) &lt;openwrt-devel@lists.openwrt.org&gt;&quot; [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 6768 C55E 79B0 32D7 7A28  DA5F 0F20 2574 17E1 CE16
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The GPG warning above indicates that the key is not trusted.
+That is normal, since we only imported it.
+However a quick check of the fingerprint won’t hurt.</p>
+</div>
+</div>
+<div class="section" id="make-the-bootable-sd-card">
+<h2>Make the bootable SD card<a class="headerlink" href="#make-the-bootable-sd-card" title="Permalink to this headline">¶</a></h2>
+<div class="admonition danger">
+<p class="first admonition-title">Danger</p>
+<p class="last">Make sure to write to the correct device.
+Use <code class="docutils literal notranslate"><span class="pre">dmesg</span> <span class="pre">|</span> <span class="pre">tail</span></code> to figure out which device you just inserted.</p>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ gzid -d $ gzip -d openwrt-18.06.1-brcm2708-bcm2710-rpi-3-ext4-factory.img.gz
+$ sudo dd if=openwrt-18.06.1-brcm2708-bcm2710-rpi-3-ext4-factory.img of=/dev/sdb bs=1M status=progress; sync
+</pre></div>
+</div>
+</div>
+<div class="section" id="first-login">
+<h2>First login<a class="headerlink" href="#first-login" title="Permalink to this headline">¶</a></h2>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The device will act as a router once powered up, and that includes a DHCP server.
+You migth want to keep it off you existing network until it’s configured.</p>
+</div>
+<p>The device will need a few minutes to boot. Wait until your computer gets an IP address.</p>
+<p>Follow the <a class="reference external" href="https://oldwiki.archive.openwrt.org/doc/howto/firstlogin">first login</a> instructions
+on the wiki.</p>
+</div>
+<div class="section" id="external-links">
+<h2>External links<a class="headerlink" href="#external-links" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="https://openwrt.org/toh/raspberry_pi_foundation/raspberry_pi">Device page</a></li>
+<li><a class="reference external" href="https://downloads.openwrt.org/releases/18.06.1/targets/brcm2708/bcm2710/">Download page</a></li>
+<li><a class="reference external" href="https://oldwiki.archive.openwrt.org/doc/howto/firstlogin">OpenWRT first login</a></li>
+<li><a class="reference external" href="https://downloads.openwrt.org/snapshots/targets/">snapshot versions</a></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../gpg/index.html" class="btn btn-neutral float-right" title="GPG" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="OpenWRT" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Antoine d&#39;Otreppe
+      Last updated on Dec 27, 2018.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

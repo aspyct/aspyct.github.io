@@ -16,5 +16,6 @@ If you can't either, feel free to use this documentation.
     :maxdepth: 2
 
     debian/index
+    openwrt/index
     gpg/index
     other/index
