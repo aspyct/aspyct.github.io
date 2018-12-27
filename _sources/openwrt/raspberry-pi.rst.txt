@@ -57,11 +57,8 @@ If all is good, you can import the key.
 Download/verify image
 ---------------------
 
-.. NOTE::
-    The URLs listed in the commands below are probably outdated.
-    Get the latest versions from the `download page`_.
-
-Download the factory firmware, sum and signature files:
+Download the factory firmware, sum and signature files.
+Refer to the `device page`_ to find the latest version.
 
 ::
 
@@ -85,10 +82,10 @@ Verify the sha sum and gpg signature
     gpg:          There is no indication that the signature belongs to the owner.
     Primary key fingerprint: 6768 C55E 79B0 32D7 7A28  DA5F 0F20 2574 17E1 CE16
 
-.. NOTE::
-    The GPG warning above indicates that the key is not trusted.
-    That is normal, since we only imported it.
-    However a quick check of the fingerprint won't hurt.
+
+The GPG warning above indicates that the key is not trusted.
+That is normal, since we only imported it.
+However a quick check of the fingerprint won't hurt.
 
 Make the bootable SD card
 -------------------------
@@ -105,11 +102,11 @@ Make the bootable SD card
 First login
 -----------
 
-.. WARNING::
-    The device will act as a router once powered up, and that includes a DHCP server.
-    You migth want to keep it off you existing network until it's configured.
+The device will need a minute or two to boot. Wait until your computer gets an IP address.
 
-The device will need a few minutes to boot. Wait until your computer gets an IP address.
+.. WARNING::
+    The device will act as a DHCP server once powered up.
+    You migth want to keep it off you existing network until it's configured.
 
 Follow the `first login <https://oldwiki.archive.openwrt.org/doc/howto/firstlogin>`_ instructions
 on the wiki.
@@ -118,7 +115,6 @@ External links
 --------------
 
 - `Device page <https://openwrt.org/toh/raspberry_pi_foundation/raspberry_pi>`_
-- `Download page <https://downloads.openwrt.org/releases/18.06.1/targets/brcm2708/bcm2710/>`_
 - `OpenWRT first login <https://oldwiki.archive.openwrt.org/doc/howto/firstlogin>`_
 - `snapshot versions <https://downloads.openwrt.org/snapshots/targets/>`_
 

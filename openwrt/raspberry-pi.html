@@ -209,12 +209,8 @@ gpg:               imported: 1
 </div>
 <div class="section" id="download-verify-image">
 <h2>Download/verify image<a class="headerlink" href="#download-verify-image" title="Permalink to this headline">¶</a></h2>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The URLs listed in the commands below are probably outdated.
-Get the latest versions from the <a class="reference external" href="https://downloads.openwrt.org/releases/18.06.1/targets/brcm2708/bcm2710/">download page</a>.</p>
-</div>
-<p>Download the factory firmware, sum and signature files:</p>
+<p>Download the factory firmware, sum and signature files.
+Refer to the <a class="reference external" href="https://openwrt.org/toh/raspberry_pi_foundation/raspberry_pi">device page</a> to find the latest version.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ wget https://downloads.openwrt.org/releases/18.06.1/targets/brcm2708/bcm2710/openwrt-18.06.1-brcm2708-bcm2710-rpi-3-ext4-factory.img.gz
 $ wget https://downloads.openwrt.org/releases/18.06.1/targets/brcm2708/bcm2710/sha256sums
 $ wget https://downloads.openwrt.org/releases/18.06.1/targets/brcm2708/bcm2710/sha256sums.asc
@@ -234,12 +230,9 @@ gpg:          There is no indication that the signature belongs to the owner.
 Primary key fingerprint: 6768 C55E 79B0 32D7 7A28  DA5F 0F20 2574 17E1 CE16
 </pre></div>
 </div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The GPG warning above indicates that the key is not trusted.
+<p>The GPG warning above indicates that the key is not trusted.
 That is normal, since we only imported it.
 However a quick check of the fingerprint won’t hurt.</p>
-</div>
 </div>
 <div class="section" id="make-the-bootable-sd-card">
 <h2>Make the bootable SD card<a class="headerlink" href="#make-the-bootable-sd-card" title="Permalink to this headline">¶</a></h2>
@@ -255,12 +248,12 @@ $ sudo dd if=openwrt-18.06.1-brcm2708-bcm2710-rpi-3-ext4-factory.img of=/dev/sdb
 </div>
 <div class="section" id="first-login">
 <h2>First login<a class="headerlink" href="#first-login" title="Permalink to this headline">¶</a></h2>
+<p>The device will need a minute or two to boot. Wait until your computer gets an IP address.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">The device will act as a router once powered up, and that includes a DHCP server.
+<p class="last">The device will act as a DHCP server once powered up.
 You migth want to keep it off you existing network until it’s configured.</p>
 </div>
-<p>The device will need a few minutes to boot. Wait until your computer gets an IP address.</p>
 <p>Follow the <a class="reference external" href="https://oldwiki.archive.openwrt.org/doc/howto/firstlogin">first login</a> instructions
 on the wiki.</p>
 </div>
@@ -268,7 +261,6 @@ on the wiki.</p>
 <h2>External links<a class="headerlink" href="#external-links" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><a class="reference external" href="https://openwrt.org/toh/raspberry_pi_foundation/raspberry_pi">Device page</a></li>
-<li><a class="reference external" href="https://downloads.openwrt.org/releases/18.06.1/targets/brcm2708/bcm2710/">Download page</a></li>
 <li><a class="reference external" href="https://oldwiki.archive.openwrt.org/doc/howto/firstlogin">OpenWRT first login</a></li>
 <li><a class="reference external" href="https://downloads.openwrt.org/snapshots/targets/">snapshot versions</a></li>
 </ul>
