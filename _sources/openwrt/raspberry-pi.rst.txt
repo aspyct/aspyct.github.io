@@ -3,7 +3,7 @@ OpenWRT on Raspberry Pi 3B/3B+
 
 .. NOTE::
     OpenWRT 18.06.1 is not working on RPi 3B+ due to a problem with the GPU
-    (which apparently is responsible for the boot process).
+    (which is responsible for the boot process).
     Support for the RPi 3B+ is available in the `snapshot versions`_, and will
     probably land in stable at 18.06.2.
 
@@ -30,7 +30,7 @@ To do that, you'll need the GPG public keys from OpenWRT.
 
 Figure out which version of OpenWRT you will install, and then
 `download the appropriate key <https://openwrt.org/docs/guide-user/security/signatures>`_.
-Unfortunately, it doesn't seem that you can download the key with `curl(1)`_ or `wget(1)`_,
+Unfortunately, it seems you can't download the key with `curl(1)`_ or `wget(1)`_,
 so you'll have to get that from your browser directly.
 
 It's always a good idea to check the key fingerprint as obtained through another connection,

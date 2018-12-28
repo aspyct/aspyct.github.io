@@ -21,7 +21,7 @@ Quickstart
 
 .. code-block:: text
 
-    $ su -c "usermod -aG sudo <user>
+    $ su -c "usermod -aG sudo <user>"
 
 3. Logout, login again, and test
 

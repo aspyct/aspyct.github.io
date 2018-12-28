@@ -1,0 +1,518 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Spanning Tree Protocol (STP) &mdash; aspyct.org</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="GPG" href="../gpg/index.html" />
+    <link rel="prev" title="Networking" href="index.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Aspyct.org
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                9.35
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../debian/index.html">Debian 9.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../openwrt/index.html">OpenWRT</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Networking</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Spanning Tree Protocol (STP)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#summary">Summary</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#what-stp-solves">What STP solves</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#root-selection-criteria">Root selection criteria</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#port-roles">Port roles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#default-port-cost">Default port cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#stp-convergence-times">STP convergence times</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#stp-flavors">STP Flavors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rapid-pvst">Rapid PVST+</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#synchronization">Synchronization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id1">Port roles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#port-states">Port states</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#link-types">Link types</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#commands">Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#external-links">External links</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../gpg/index.html">GPG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../other/index.html">Other</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Aspyct.org</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Networking</a> &raquo;</li>
+        
+      <li>Spanning Tree Protocol (STP)</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="spanning-tree-protocol-stp">
+<h1>Spanning Tree Protocol (STP)<a class="headerlink" href="#spanning-tree-protocol-stp" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<p>The Spanning Tree Protocol (STP for short) is a protocol used by switches
+to avoid switching loops, while still providing link redundancy in the network.</p>
+<p>They do this by electing a root switch and defining which link, for each switch,
+is the shortest path to the root switch. Ports are then selectively disabled,
+and the network graph is turned into a tree, which is by definition loop-free.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The terms “switch” and “bridges” both refer to the same devices.</p>
+</div>
+<div class="section" id="what-stp-solves">
+<h3>What STP solves<a class="headerlink" href="#what-stp-solves" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>broadcast storms</li>
+<li>corrupted MAC address tables</li>
+<li>duplicate packet deliveries</li>
+</ul>
+</div>
+<div class="section" id="root-selection-criteria">
+<h3>Root selection criteria<a class="headerlink" href="#root-selection-criteria" title="Permalink to this headline">¶</a></h3>
+<p>In order:</p>
+<ol class="arabic simple">
+<li>switch priority (default = 32768)</li>
+<li>lowest MAC address</li>
+</ol>
+</div>
+<div class="section" id="port-roles">
+<h3>Port roles<a class="headerlink" href="#port-roles" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="85%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Role</th>
+<th class="head">Explanation</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>root</td>
+<td>the port on a non-root bridge that is closest to the root bridge, in terms of cost</td>
+</tr>
+<tr class="row-odd"><td>designated</td>
+<td>the port on a network segment that is closest to the root bridge, in terms of cost</td>
+</tr>
+<tr class="row-even"><td>non-designated</td>
+<td>ports that block traffic, in order to preserve a loop-free Layer 2 topology</td>
+</tr>
+<tr class="row-odd"><td>disabled</td>
+<td>a port that is administratively shut down</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">A “network segment” is any non-switched link between two switches.
+The most simple network segment you can find is a cable connection between two switches.</p>
+</div>
+</div>
+<div class="section" id="default-port-cost">
+<h3>Default port cost<a class="headerlink" href="#default-port-cost" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Speed</th>
+<th class="head">Old cost</th>
+<th class="head">New cost</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>10 Mbps</td>
+<td>100</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>100 Mbps</td>
+<td>19</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>1 Gbps</td>
+<td>4</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>10 Gbps</td>
+<td>2</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When selecting the root port on a switch, if two ports have the same cost to root,
+then the tie breaker is the <strong>remote</strong> switch’s port priority.</p>
+</div>
+</div>
+<div class="section" id="stp-convergence-times">
+<h3>STP convergence times<a class="headerlink" href="#stp-convergence-times" title="Permalink to this headline">¶</a></h3>
+<p>If a used link goes down, it takes 50 seconds for a blocking link to start forwarding again
+(with the old 802.1d STP variety).</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="28%" />
+<col width="72%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Port state</th>
+<th class="head">Minimum time to next state</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Blocking</td>
+<td>20s</td>
+</tr>
+<tr class="row-odd"><td>Listening</td>
+<td>15s</td>
+</tr>
+<tr class="row-even"><td>Learning</td>
+<td>15s</td>
+</tr>
+<tr class="row-odd"><td>Forwarding</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<p>Rapid Spanning Tree Protocol greatly reduces the time it takes to recover from a broken link.</p>
+</div>
+</div>
+<div class="section" id="stp-flavors">
+<h2>STP Flavors<a class="headerlink" href="#stp-flavors" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="21%" />
+<col width="79%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Abbreviation</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>STP</td>
+<td>The “Common” Spanning Tree as explained above.</td>
+</tr>
+<tr class="row-odd"><td>PVST+</td>
+<td>Per VLAN Spanning Tree</td>
+</tr>
+<tr class="row-even"><td>MSTP</td>
+<td><p class="first">Multiple Spanning Trees Protocol,
+sometimes referred to as MST.</p>
+<p class="last">Similar to PVST+ except that multiple VLANs
+are assigned the same root.</p>
+</td>
+</tr>
+<tr class="row-odd"><td>Rapid PVST+</td>
+<td>Modified version of PVST+ that takes roughly
+3s to converge.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="rapid-pvst">
+<h2>Rapid PVST+<a class="headerlink" href="#rapid-pvst" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="synchronization">
+<h3>Synchronization<a class="headerlink" href="#synchronization" title="Permalink to this headline">¶</a></h3>
+<p>Rapid STP synchronization is a 5 step process between two switches.
+It is triggered whenever a switch, A, gets a new Root port.</p>
+<ol class="arabic simple">
+<li>Switch A blocks ports that are on the opposite side of designated port from switch B</li>
+<li>Switch A sends a Proposal for the new route to root to switch B</li>
+<li>If this is a new best route to root for switch B, the port will change from designated port
+to root port.</li>
+<li>Switch B will send an Agreement back to switch A</li>
+<li>Switch A changes its port state from Blocking to Forwarding</li>
+</ol>
+<p>This process cascades down the switch chain. At step 3, switch B will also start the process
+as switch A did during step 1.</p>
+</div>
+<div class="section" id="id1">
+<h3>Port roles<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>Instead of non-designated ports, we have <strong>alternate</strong> and <strong>backup</strong> ports.</p>
+<dl class="docutils">
+<dt>alternate port</dt>
+<dd>An alternate port can reach the root but is not the lowest cost port to it.</dd>
+<dt>backup port</dt>
+<dd><p class="first">A backup port exists when we have more than one port going from a bridge to a shared
+media (eg. a hub). In that case, only one of those ports will be a designated port,
+and the other ones will be backup ports.</p>
+<p class="last">A backup port is blocking.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="port-states">
+<h3>Port states<a class="headerlink" href="#port-states" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="86%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">State</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Discarding</td>
+<td>data is not being forwarded on the port.
+(seen on Alternate, Backup and Disabled ports)</td>
+</tr>
+<tr class="row-odd"><td>Learning</td>
+<td>the switch is learning MAC addresses available off of the port.
+(seen when a port is transitioning to Forwarding)</td>
+</tr>
+<tr class="row-even"><td>Forwarding</td>
+<td>data is being forwarded on the port.
+(seen on Root and Designated ports)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="link-types">
+<h3>Link types<a class="headerlink" href="#link-types" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="21%" />
+<col width="79%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Point-to-Point</td>
+<td>a link between two switches</td>
+</tr>
+<tr class="row-odd"><td>Shared</td>
+<td>a link to a hub or other shared medium</td>
+</tr>
+<tr class="row-even"><td>Edge Port</td>
+<td>a direct link to a computer or other endpoint machine</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="commands">
+<h2>Commands<a class="headerlink" href="#commands" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">spanning-tree</span> <span class="pre">vlan</span> <span class="pre">100</span></code></p>
+<blockquote>
+<div><p>Show STP information for the VLAN 100.</p>
+<ul class="simple">
+<li>who’s the root bridge, what’s its priority and address, hello time, max age and forward delay</li>
+<li>same info about the bridge you’re on</li>
+<li>role, state, cost, priority and type for each port of this bridge</li>
+</ul>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">fa</span> <span class="pre">0/1</span></code></p>
+<blockquote>
+<div>Select the port “fa 0/1”</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">spanning-tree</span> <span class="pre">port-priority</span> <span class="pre">192</span></code></p>
+<blockquote>
+<div>Change the priority to 192 for the selected port.</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">spanning-tree</span> <span class="pre">cost</span> <span class="pre">18</span></code></p>
+<blockquote>
+<div>Change the cost to 18 for the selected port.</div></blockquote>
+</div>
+<div class="section" id="external-links">
+<h2>External links<a class="headerlink" href="#external-links" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="https://www.youtube.com/watch?v=0tlrQC2uJN4">https://www.youtube.com/watch?v=0tlrQC2uJN4</a></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../gpg/index.html" class="btn btn-neutral float-right" title="GPG" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Networking" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Antoine d&#39;Otreppe
+      Last updated on Dec 28, 2018.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

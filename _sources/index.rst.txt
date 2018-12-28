@@ -12,10 +12,13 @@ Home
 This is the stuff I can never remember.
 If you can't either, feel free to use this documentation.
 
+Found an error? Please send me an email at contact@aspyct.org
+
 .. toctree::
     :maxdepth: 2
 
     debian/index
     openwrt/index
+    networking/index
     gpg/index
     other/index
