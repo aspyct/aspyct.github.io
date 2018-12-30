@@ -108,8 +108,31 @@ The device will need a minute or two to boot. Wait until your computer gets an I
     The device will act as a DHCP server once powered up.
     You migth want to keep it off you existing network until it's configured.
 
-Follow the `first login <https://oldwiki.archive.openwrt.org/doc/howto/firstlogin>`_ instructions
-on the wiki.
+SSH into the device and change the root password.
+
+::
+
+    $ ssh root@192.168.1.1
+    The authenticity of host '192.168.1.1 (192.168.1.1)' can't be established.
+    RSA key fingerprint is SHA256:yJruTSql8kyzbKkcC0Ai8EKage9Sb3910wsyPaOlrBk.
+    Are you sure you want to continue connecting (yes/no)? yes
+    Warning: Permanently added '192.168.1.1' (RSA) to the list of known hosts.
+
+    ... motd
+
+    root@OpenWrt:~# passwd
+    Changing password for root
+    New password:
+    Retype password:
+    passwd: password for root changed by root
+
+To facilitate initial setup, you may choose to set OpenWRT to be a DHCP client instead of sever.
+
+::
+
+    # uci set network.lan.proto=dhcp
+    # uci commit
+    # /etc/init.d/network restart
 
 External links
 --------------

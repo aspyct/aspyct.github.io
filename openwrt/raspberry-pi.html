@@ -255,8 +255,28 @@ $ sudo dd if=openwrt-18.06.1-brcm2708-bcm2710-rpi-3-ext4-factory.img of=/dev/sdb
 <p class="last">The device will act as a DHCP server once powered up.
 You migth want to keep it off you existing network until it’s configured.</p>
 </div>
-<p>Follow the <a class="reference external" href="https://oldwiki.archive.openwrt.org/doc/howto/firstlogin">first login</a> instructions
-on the wiki.</p>
+<p>SSH into the device and change the root password.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ssh root@192.168.1.1
+The authenticity of host &#39;192.168.1.1 (192.168.1.1)&#39; can&#39;t be established.
+RSA key fingerprint is SHA256:yJruTSql8kyzbKkcC0Ai8EKage9Sb3910wsyPaOlrBk.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added &#39;192.168.1.1&#39; (RSA) to the list of known hosts.
+
+... motd
+
+root@OpenWrt:~# passwd
+Changing password for root
+New password:
+Retype password:
+passwd: password for root changed by root
+</pre></div>
+</div>
+<p>To facilitate initial setup, you may choose to set OpenWRT to be a DHCP client instead of sever.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># uci set network.lan.proto=dhcp</span>
+<span class="c1"># uci commit</span>
+<span class="c1"># /etc/init.d/network restart</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="external-links">
 <h2>External links<a class="headerlink" href="#external-links" title="Permalink to this headline">¶</a></h2>
@@ -289,7 +309,7 @@ on the wiki.</p>
   <div role="contentinfo">
     <p>
         &copy; Copyright 2018, Antoine d&#39;Otreppe
-      Last updated on Dec 28, 2018.
+      Last updated on Dec 30, 2018.
 
     </p>
   </div>
