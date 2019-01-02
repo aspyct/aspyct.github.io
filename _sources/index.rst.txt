@@ -18,7 +18,8 @@ Found an error? Please send me an email at contact@aspyct.org
     :maxdepth: 2
 
     debian/index
+    gpg/index
     openwrt/index
     networking/index
-    gpg/index
+    cisco/index
     other/index
