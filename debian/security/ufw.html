@@ -89,10 +89,17 @@
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Security</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="sudo.html">sudo</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ssh.html">sshd</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">ufw</a></li>
-<li class="toctree-l3"><a class="reference internal" href="unattended-upgrades.html">Unattended upgrades</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">ufw</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#quickstart">Quickstart</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#allow-only-certain-interfaces">Allow only certain interfaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#delete-a-rule">Delete a rule</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="unattended-upgrades.html">Unattended upgrades</a></li>
+<li class="toctree-l3"><a class="reference internal" href="httpd.html">httpd</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../networking.html">Networking</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../monitoring.html">Monitoring</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../apache-php.html">Apache &amp; PHP</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../webapps/index.html">Web apps</a></li>
@@ -170,6 +177,8 @@
             
   <div class="section" id="ufw">
 <h1>ufw<a class="headerlink" href="#ufw" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="quickstart">
+<h2>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline">¶</a></h2>
 <p>The Uncomplicated FireWall is just what it is: an uncomplicated firewall.
 Unless you need the full power of iptables for routing, nat etc, UFW is
 a good option.</p>
@@ -197,6 +206,37 @@ $ sudo ufw status
 </pre></div>
 </div>
 </div>
+<div class="section" id="allow-only-certain-interfaces">
+<h2>Allow only certain interfaces<a class="headerlink" href="#allow-only-certain-interfaces" title="Permalink to this headline">¶</a></h2>
+<p>It is possible to allow traffic on certain interfaces only, and in a certain direction.
+For example, to allow SSH only on interface enp5s0:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo ufw allow in on enp5s0 to any port 2 proto tcp
+</pre></div>
+</div>
+</div>
+<div class="section" id="delete-a-rule">
+<h2>Delete a rule<a class="headerlink" href="#delete-a-rule" title="Permalink to this headline">¶</a></h2>
+<p>To delete a rule, you need its number.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo ufw status numbered
+Status: active
+
+    To                         Action      From
+    --                         ------      ----
+[ 1] 443/tcp                    ALLOW IN    Anywhere
+[ 2] 22/tcp on enx0050b697dd22  ALLOW IN    Anywhere
+[ 3] 80/tcp (v6)                ALLOW IN    Anywhere (v6)
+[ 4] 443/tcp (v6)               ALLOW IN    Anywhere (v6)
+[ 5] 22/tcp (v6) on enx0050b697dd22 ALLOW IN    Anywhere (v6)
+
+$ sudo ufw delete 3
+Deleting:
+allow 80/tcp
+Proceed with operation (y|n)? y
+Rule deleted (v6)
+</pre></div>
+</div>
+</div>
+</div>
 
 
            </div>
@@ -219,7 +259,7 @@ $ sudo ufw status
   <div role="contentinfo">
     <p>
         &copy; Copyright 2018, Antoine d&#39;Otreppe
-      Last updated on Dec 30, 2018.
+      Last updated on Jan 02, 2019.
 
     </p>
   </div>

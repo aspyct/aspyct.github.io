@@ -8,3 +8,4 @@ Security
     ssh
     ufw
     unattended-upgrades
+    httpd

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Recommended packages &mdash; aspyct.org</title>
+  <title>Networking &mdash; aspyct.org</title>
   
 
   
@@ -28,8 +28,8 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Security" href="security/index.html" />
-    <link rel="prev" title="Verify a downloaded ISO" href="verify-iso.html" /> 
+    <link rel="next" title="Monitoring" href="monitoring.html" />
+    <link rel="prev" title="httpd" href="security/httpd.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -85,9 +85,12 @@
               <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Debian 9.6</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="verify-iso.html">Verify a downloaded ISO</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Recommended packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packages.html">Recommended packages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="security/index.html">Security</a></li>
-<li class="toctree-l2"><a class="reference internal" href="networking.html">Networking</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Networking</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#i-just-added-a-usb-network-interface-but-no-ip-address-is-assigned">I just added a USB network interface, but no IP address is assigned</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="monitoring.html">Monitoring</a></li>
 <li class="toctree-l2"><a class="reference internal" href="apache-php.html">Apache &amp; PHP</a></li>
 <li class="toctree-l2"><a class="reference internal" href="webapps/index.html">Web apps</a></li>
@@ -144,7 +147,7 @@
         
           <li><a href="index.html">Debian 9.6</a> &raquo;</li>
         
-      <li>Recommended packages</li>
+      <li>Networking</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -161,20 +164,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="recommended-packages">
-<h1>Recommended packages<a class="headerlink" href="#recommended-packages" title="Permalink to this headline">¶</a></h1>
-<dl class="docutils">
-<dt><a class="reference external" href="https://packages.debian.org/stretch/vim">vim</a></dt>
-<dd>General purpose text editor.</dd>
-<dt><a class="reference external" href="https://packages.debian.org/stretch/htop">htop</a></dt>
-<dd>A better looking process monitor.</dd>
-<dt><a class="reference external" href="https://packages.debian.org/stretch/net-tools">net-tools</a></dt>
-<dd>Network diagnostic tools, including <a class="reference external" href="https://manpages.debian.org/stretch/net-tools/netstat.8.en.html">netstat(8)</a>.</dd>
-<dt><a class="reference external" href="https://packages.debian.org/stretch/curl">curl</a></dt>
-<dd>Command line tool for transferring data with URL syntax.</dd>
-<dt><a class="reference external" href="https://packages.debian.org/stretch/wget">wget</a></dt>
-<dd>Retrieve files from the web.</dd>
-</dl>
+  <div class="section" id="networking">
+<h1>Networking<a class="headerlink" href="#networking" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="i-just-added-a-usb-network-interface-but-no-ip-address-is-assigned">
+<h2>I just added a USB network interface, but no IP address is assigned<a class="headerlink" href="#i-just-added-a-usb-network-interface-but-no-ip-address-is-assigned" title="Permalink to this headline">¶</a></h2>
+<p>You need to run <code class="docutils literal notranslate"><span class="pre">dhclient</span></code> on the interface.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo dhclient &lt;iface&gt;
+</pre></div>
+</div>
+</div>
 </div>
 
 
@@ -185,10 +183,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="security/index.html" class="btn btn-neutral float-right" title="Security" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="monitoring.html" class="btn btn-neutral float-right" title="Monitoring" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="verify-iso.html" class="btn btn-neutral" title="Verify a downloaded ISO" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="security/httpd.html" class="btn btn-neutral" title="httpd" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

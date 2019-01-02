@@ -39,6 +39,7 @@ Security
 1. Review and edit ``/etc/apache2/conf-enabled/security.conf`` as needed
 2. Install ``libapache2-modsecurity``
 
+Also, refer to `generic httpd security checks </debian/security/httpd.html>`_.
 
 Documentation
 -------------

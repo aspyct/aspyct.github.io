@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Security &mdash; aspyct.org</title>
+  <title>httpd &mdash; aspyct.org</title>
   
 
   
@@ -28,8 +28,8 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="sudo" href="sudo.html" />
-    <link rel="prev" title="Recommended packages" href="../packages.html" /> 
+    <link rel="next" title="Networking" href="../networking.html" />
+    <link rel="prev" title="Unattended upgrades" href="unattended-upgrades.html" /> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -86,12 +86,16 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Debian 9.6</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../verify-iso.html">Verify a downloaded ISO</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../packages.html">Recommended packages</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Security</a><ul>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Security</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="sudo.html">sudo</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ssh.html">sshd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ufw.html">ufw</a></li>
 <li class="toctree-l3"><a class="reference internal" href="unattended-upgrades.html">Unattended upgrades</a></li>
-<li class="toctree-l3"><a class="reference internal" href="httpd.html">httpd</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">httpd</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#sslyze">sslyze</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nikto">nikto</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../networking.html">Networking</a></li>
@@ -151,7 +155,9 @@
         
           <li><a href="../index.html">Debian 9.6</a> &raquo;</li>
         
-      <li>Security</li>
+          <li><a href="index.html">Security</a> &raquo;</li>
+        
+      <li>httpd</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -168,38 +174,29 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="security">
-<h1>Security<a class="headerlink" href="#security" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="sudo.html">sudo</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="sudo.html#quickstart">Quickstart</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="ssh.html">sshd</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="ssh.html#login-with-your-ssh-key">Login with your ssh key</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ssh.html#etc-ssh-sshd-config">/etc/ssh/sshd_config</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ssh.html#ssh-audit">ssh-audit</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ssh.html#external-links">External links</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="ufw.html">ufw</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="ufw.html#quickstart">Quickstart</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ufw.html#allow-only-certain-interfaces">Allow only certain interfaces</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ufw.html#delete-a-rule">Delete a rule</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="unattended-upgrades.html">Unattended upgrades</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="unattended-upgrades.html#quickstart">Quickstart</a></li>
-<li class="toctree-l2"><a class="reference internal" href="unattended-upgrades.html#external-links">External links</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="httpd.html">httpd</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="httpd.html#sslyze">sslyze</a></li>
-<li class="toctree-l2"><a class="reference internal" href="httpd.html#nikto">nikto</a></li>
-</ul>
-</li>
-</ul>
+  <div class="section" id="httpd">
+<h1>httpd<a class="headerlink" href="#httpd" title="Permalink to this headline">¶</a></h1>
+<p>There are many different HTTP servers out there, mainly <a class="reference external" href="/debian/apache-php.html">Apache</a> and Nginx.</p>
+<p>Each has its own security recommendations, which you’ll find on their respective pages,
+but there is a set of security tools that can be used on both.</p>
+<div class="section" id="sslyze">
+<h2>sslyze<a class="headerlink" href="#sslyze" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://github.com/nabla-c0d3/sslyze">https://github.com/nabla-c0d3/sslyze</a></p>
+<p>Get recommendations on your server’s TLS implementation.</p>
+<p>In the example below, 192.168.1.11 is my local apache.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip3 install sslyze
+$ python3 -m sslyze --regular 192.168.1.11
+</pre></div>
+</div>
+</div>
+<div class="section" id="nikto">
+<h2>nikto<a class="headerlink" href="#nikto" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://cirt.net/nikto2">https://cirt.net/nikto2</a></p>
+<p>Scan your web server for known vulnerabilities.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/sullo/nikto
+$ ./nikto/program/nikto.pl -host https://192.168.1.11
+</pre></div>
+</div>
 </div>
 </div>
 
@@ -211,10 +208,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="sudo.html" class="btn btn-neutral float-right" title="sudo" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../networking.html" class="btn btn-neutral float-right" title="Networking" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../packages.html" class="btn btn-neutral" title="Recommended packages" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="unattended-upgrades.html" class="btn btn-neutral" title="Unattended upgrades" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

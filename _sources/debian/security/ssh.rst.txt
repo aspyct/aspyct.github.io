@@ -52,8 +52,6 @@ bot scans will skip the port. Just pick any random port above between
 
     Port 12345
 
-
-
 ssh-audit
 ---------
 

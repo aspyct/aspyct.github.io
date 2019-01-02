@@ -9,6 +9,7 @@ These guides have been tested on Debian Stretch 9.6.
     verify-iso
     packages
     security/index
+    networking
     monitoring
     apache-php
     webapps/index
