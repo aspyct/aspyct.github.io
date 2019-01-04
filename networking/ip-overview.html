@@ -1,0 +1,435 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>IP Routing overview &mdash; aspyct.org</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Subnettig" href="subnetting.html" />
+    <link rel="prev" title="Networking Basics" href="basics.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Aspyct.org
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                9.35
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../debian/index.html">Debian 9.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gpg/index.html">GPG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../openwrt/index.html">OpenWRT</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Networking</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="basics.html">Networking Basics</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">IP Routing overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#address-classes">Address classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#private-address-ranges">Private address ranges</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cidr">CIDR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#addressing-methods">Addressing methods</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ipv4">IPv4</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ipv6">IPv6</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">IPv6</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#benefits-of-ipv6">Benefits of IPv6</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#structure">Structure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#global-unicast-addresses">Global Unicast addresses</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#multicast">Multicast</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="subnetting.html">Subnettig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="spanning-tree-protocol.html">Spanning Tree Protocol (STP)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../cisco/index.html">Cisco</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../other/index.html">Other</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Aspyct.org</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Networking</a> &raquo;</li>
+        
+      <li>IP Routing overview</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="ip-routing-overview">
+<h1>IP Routing overview<a class="headerlink" href="#ip-routing-overview" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="address-classes">
+<h2>Address classes<a class="headerlink" href="#address-classes" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="6%" />
+<col width="14%" />
+<col width="40%" />
+<col width="40%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Class</th>
+<th class="head">First octet</th>
+<th class="head">Classful mask (dotted notation)</th>
+<th class="head">Classful mask (prefix notation)</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>A</td>
+<td>1 - 126</td>
+<td>255.0.0.0</td>
+<td>/8</td>
+</tr>
+<tr class="row-odd"><td>B</td>
+<td>128 - 191</td>
+<td>255.255.0.0</td>
+<td>/16</td>
+</tr>
+<tr class="row-even"><td>C</td>
+<td>192 - 223</td>
+<td>255.255.255.0</td>
+<td>/24</td>
+</tr>
+<tr class="row-odd"><td>D</td>
+<td>224 - 239</td>
+<td>Multicast - no mask</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>E</td>
+<td>240 - 255</td>
+<td>Experimental - no mask</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<p>The class of an IP address is <strong>entirely determined</strong> by the first octet.
+The default network mask is always the corresponding classful mask.</p>
+<p>ICANN assigns IPv4 address blocks, and delegates the fine-grained attribution
+to continental organisations.</p>
+</div>
+<div class="section" id="private-address-ranges">
+<h2>Private address ranges<a class="headerlink" href="#private-address-ranges" title="Permalink to this headline">¶</a></h2>
+<p>The private address ranges are not routable on the public internet.
+NAT is used to route from publicly addressable IP addresse to private addresses.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="73%" />
+<col width="15%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Class</th>
+<th class="head">Range</th>
+<th class="head">Prefix</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>A</td>
+<td>10.0.0.0 - 10.255.255.255</td>
+<td>/8</td>
+</tr>
+<tr class="row-odd"><td>B</td>
+<td>172.16.0.0 - 172.31.255.255</td>
+<td>/16</td>
+</tr>
+<tr class="row-even"><td>B</td>
+<td>169.254.0.0 - 169.254.255.255</td>
+<td>/16</td>
+</tr>
+<tr class="row-odd"><td>C</td>
+<td>192.168.0.0 - 192.168.255.255</td>
+<td>/24</td>
+</tr>
+</tbody>
+</table>
+<p>The 169.254.0.0 addresses are autoconfigured address, usually assigned when
+no static IP or DHCP is available. They are APIPA addresse, and are not routable
+by any router, even on local networks.</p>
+</div>
+<div class="section" id="cidr">
+<h2>CIDR<a class="headerlink" href="#cidr" title="Permalink to this headline">¶</a></h2>
+<p>“Classless Inter-Domain Routing” is aggregating several <a class="reference external" href="/networking/subnetting.html">subnets</a>
+under one route. For example, the following four network can be addressed as one:</p>
+<ul class="simple">
+<li>192.168.32.0/24</li>
+<li>192.168.33.0/24</li>
+<li>192.168.34.0/24</li>
+<li>192.168.35.0/24</li>
+</ul>
+<p>You only need 1 route advertisement for those 4 networks, <code class="docutils literal notranslate"><span class="pre">192.168.32.0/22</span></code>.
+This saves space on the routing tables.</p>
+</div>
+<div class="section" id="addressing-methods">
+<h2>Addressing methods<a class="headerlink" href="#addressing-methods" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="ipv4">
+<h3>IPv4<a class="headerlink" href="#ipv4" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><strong>Unicast</strong>: one-to-one, eg. HTTP</li>
+<li><strong>Broadcast</strong>: one-to-all, eg. ARP</li>
+<li><strong>Multicast</strong>: one-to-many-subscribers, eg. RIPv2, OSPF, EIGRP</li>
+</ul>
+</div>
+<div class="section" id="ipv6">
+<h3>IPv6<a class="headerlink" href="#ipv6" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><strong>Unicast</strong></li>
+<li><strong>Multicast</strong></li>
+<li><strong>Anycast</strong>: select the closest corresponding host, eg. DNS Anycast</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id1">
+<h2>IPv6<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>128 bits per address.</p>
+<div class="section" id="benefits-of-ipv6">
+<h3>Benefits of IPv6<a class="headerlink" href="#benefits-of-ipv6" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Roughly 5 * 10^28 addresses available per person on the planet</li>
+<li>Simplified headers, 8 fields instead of 12</li>
+<li>Designed with security and device mobility in mind</li>
+<li>No broadcast (but certain types of multicast are equivalent)</li>
+<li>MTU discovery performed for each connection</li>
+<li>Can and does coexist with IPv4 (via dual stack or IPv6 over IPv4 tunneling)</li>
+</ul>
+</div>
+<div class="section" id="structure">
+<h3>Structure<a class="headerlink" href="#structure" title="Permalink to this headline">¶</a></h3>
+<p>Written in hexadecimal, 8 groups of 4 digits. They can be shortened:</p>
+<ol class="arabic simple">
+<li>the leading zeroes in a group can be omitted</li>
+<li>the biggest continuous group of zero can be replaced with:</li>
+</ol>
+<p><code class="docutils literal notranslate"><span class="pre">2041:0001:140F:0000:0000:0000:875B:131B</span></code> becomes <code class="docutils literal notranslate"><span class="pre">2041:1:140F::875B:131B</span></code></p>
+</div>
+<div class="section" id="global-unicast-addresses">
+<h3>Global Unicast addresses<a class="headerlink" href="#global-unicast-addresses" title="Permalink to this headline">¶</a></h3>
+<p>Addresses starting with bits <code class="docutils literal notranslate"><span class="pre">001</span></code>, in other terms addresses in the 2000::/3 network,
+are the <a class="reference external" href="https://www.iana.org/assignments/ipv6-unicast-address-assignments/ipv6-unicast-address-assignments.xhtml">global unicast addresses</a>.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="12%" />
+<col width="43%" />
+<col width="18%" />
+<col width="27%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>001</td>
+<td>global routing prefix</td>
+<td>subnet id</td>
+<td>interface id</td>
+</tr>
+<tr class="row-even"><td>3 bits</td>
+<td>45 bits</td>
+<td>16 bits</td>
+<td>64 bits</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="multicast">
+<h3>Multicast<a class="headerlink" href="#multicast" title="Permalink to this headline">¶</a></h3>
+<p>Addresses have a FF-valued first byte.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="29%" />
+<col width="21%" />
+<col width="21%" />
+<col width="29%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>11111111</td>
+<td>flags</td>
+<td>scope</td>
+<td>group id</td>
+</tr>
+<tr class="row-even"><td>8 bits</td>
+<td>4 bits</td>
+<td>4 bits</td>
+<td>112 bits</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="subnetting.html" class="btn btn-neutral float-right" title="Subnettig" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="basics.html" class="btn btn-neutral" title="Networking Basics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Antoine d&#39;Otreppe
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
