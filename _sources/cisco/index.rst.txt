@@ -5,4 +5,4 @@ Cisco
     :maxdepth: 2
 
     connecting-console
-    catalyst
+    catalyst/index

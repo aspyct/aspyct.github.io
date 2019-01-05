@@ -1,3 +1,5 @@
+.. title:: Connecting to a Cisco console port via serial
+
 Connecting to console
 =====================
 

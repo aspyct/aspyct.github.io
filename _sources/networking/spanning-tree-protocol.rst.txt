@@ -154,29 +154,6 @@ Shared         a link to a hub or other shared medium
 Edge Port      a direct link to a computer or other endpoint machine
 ============== =====================================================
 
-Commands
---------
-
-``show spanning-tree vlan 100``
-
-    Show STP information for the VLAN 100.
-
-    - who's the root bridge, what's its priority and address, hello time, max age and forward delay
-    - same info about the bridge you're on
-    - role, state, cost, priority and type for each port of this bridge
-
-``int fa 0/1``
-
-    Select the port "fa 0/1"
-
-``spanning-tree port-priority 192``
-
-    Change the priority to 192 for the selected port.
-
-``spanning-tree cost 18``
-
-    Change the cost to 18 for the selected port.
-
 External links
 --------------
 
