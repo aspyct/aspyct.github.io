@@ -1,0 +1,457 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Cisco Catalyst VLANs and trunking &mdash; aspyct.org</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Spanning Tree" href="spanning-tree.html" />
+    <link rel="prev" title="Mac Address Table" href="mac-address-table.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Aspyct.org
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                9.35
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../debian/index.html">Debian 9.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gpg/index.html">GPG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../openwrt/index.html">OpenWRT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../networking/index.html">Networking</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Cisco</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../connecting-console.html">Connecting to console</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Cisco Catalyst</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="command-modes.html">Command modes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="administrative-access.html">Administrative access</a></li>
+<li class="toctree-l3"><a class="reference internal" href="port-configuration.html">Basic port configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mac-address-table.html">Mac Address Table</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">VLANs and trunking</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#vlan">VLAN</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#trunk">Trunk</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#native-vlan">Native VLAN</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#router-on-a-stick">Router on a stick</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#trunking-modes">Trunking modes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#commands">Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="spanning-tree.html">Spanning Tree</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../other/index.html">Other</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Aspyct.org</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Cisco</a> &raquo;</li>
+        
+          <li><a href="index.html">Cisco Catalyst</a> &raquo;</li>
+        
+      <li>Cisco Catalyst VLANs and trunking</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="vlans-and-trunking">
+<h1>VLANs and trunking<a class="headerlink" href="#vlans-and-trunking" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="vlan">
+<h2>VLAN<a class="headerlink" href="#vlan" title="Permalink to this headline">¶</a></h2>
+<p>VLANs effectively separate a switch into several network segments.
+Ports can be affected to a specific VLAN, and machines from other VLANs
+can’t access each other without going through a router.
+Each VLAN is usually assigned its own subnet.</p>
+<p>Using VLANs can improve performance by separating broadcast domains,
+and also increase security by preventing certain ports from accessing
+other networks.</p>
+</div>
+<div class="section" id="trunk">
+<h2>Trunk<a class="headerlink" href="#trunk" title="Permalink to this headline">¶</a></h2>
+<p>Normally, each port of the switch is assigned to a specific VLAN.
+It would thus take multiple links between switches to carry multiple VLANS.</p>
+<p>Trunks bring an answer to that scalability problem by allowing transit
+of multiple VLANs across one link. Several encapsulations exist,
+but 802.1Q is the recommendation.</p>
+<p>802.1Q adds 4 bytes to the regular ethernet frame, of which 12 bits identify the VLAN,
+and 3 bits specify the frame priority for QoS.</p>
+</div>
+<div class="section" id="native-vlan">
+<h2>Native VLAN<a class="headerlink" href="#native-vlan" title="Permalink to this headline">¶</a></h2>
+<p>The native VLAN is the VLAN for which frames are <strong>not</strong> tagged by 802.1Q.
+Switches on both sides of a trunk must agree on the native VLAN, otherwise
+they’ll send the frames to the wrong ports.</p>
+<p>The switches will print out warnings when CDP discovers native VLAN mismatch.</p>
+</div>
+<div class="section" id="router-on-a-stick">
+<h2>Router on a stick<a class="headerlink" href="#router-on-a-stick" title="Permalink to this headline">¶</a></h2>
+<p>Unless you have Layer3 switches, a router is needed to route traffic between
+VLANs. A router on a stick is a router connected to a switch via a trunk, and
+is used to route between VLANs.</p>
+</div>
+<div class="section" id="trunking-modes">
+<h2>Trunking modes<a class="headerlink" href="#trunking-modes" title="Permalink to this headline">¶</a></h2>
+<p>Each port is is one of 4 trunking modes. Ports in <code class="docutils literal notranslate"><span class="pre">trunk</span></code> or <code class="docutils literal notranslate"><span class="pre">dynamic</span> <span class="pre">desirable</span></code>
+modes will send out DTP (Dynamic Trunking Protocol) frames to negociate a trunk.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="22%" />
+<col width="78%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Port mode</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>access</td>
+<td>forced to operate as an access port</td>
+</tr>
+<tr class="row-odd"><td>trunk</td>
+<td>forced to operate as a trunk.</td>
+</tr>
+<tr class="row-even"><td>dynamic auto</td>
+<td>will accept trunk negociation, but default as an access port</td>
+</tr>
+<tr class="row-odd"><td>dynamic desirable</td>
+<td>will initiate the negociation of a trunk</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="commands">
+<h2>Commands<a class="headerlink" href="#commands" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="vlan-summary">
+<h3>VLAN summary<a class="headerlink" href="#vlan-summary" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SW2</span><span class="c1">#show vlan brief</span>
+
+<span class="n">VLAN</span> <span class="n">Name</span>                             <span class="n">Status</span>    <span class="n">Ports</span>
+<span class="o">----</span> <span class="o">--------------------------------</span> <span class="o">---------</span> <span class="o">-------------------------------</span>
+<span class="mi">1</span>    <span class="n">default</span>                          <span class="n">active</span>    <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">3</span>
+                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">5</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">6</span>
+                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">7</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">9</span>
+                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">10</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">11</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">12</span>
+                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">13</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">14</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">15</span>
+                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">16</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">17</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">18</span>
+                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">19</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">20</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">21</span>
+                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">22</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">23</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">24</span>
+                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">25</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">26</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">27</span>
+                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">28</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">29</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">30</span>
+                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">31</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">32</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">33</span>
+                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">34</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">35</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">36</span>
+                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">37</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">38</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">39</span>
+                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">40</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">41</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">42</span>
+                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">43</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">44</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">45</span>
+                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">46</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">48</span><span class="p">,</span> <span class="n">Gi1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">1</span>
+                                                <span class="n">Gi1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">Gi1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="n">Gi1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">4</span>
+<span class="mi">100</span>  <span class="n">ADMIN</span>                            <span class="n">active</span>
+<span class="mi">200</span>  <span class="n">PRIV</span>                             <span class="n">active</span>
+<span class="mi">300</span>  <span class="n">SERV</span>                             <span class="n">active</span>
+
+<span class="n">VLAN</span> <span class="n">Name</span>                             <span class="n">Status</span>    <span class="n">Ports</span>
+<span class="o">----</span> <span class="o">--------------------------------</span> <span class="o">---------</span> <span class="o">-------------------------------</span>
+<span class="mi">1002</span> <span class="n">fddi</span><span class="o">-</span><span class="n">default</span>                     <span class="n">act</span><span class="o">/</span><span class="n">unsup</span>
+<span class="mi">1003</span> <span class="n">token</span><span class="o">-</span><span class="n">ring</span><span class="o">-</span><span class="n">default</span>               <span class="n">act</span><span class="o">/</span><span class="n">unsup</span>
+<span class="mi">1004</span> <span class="n">fddinet</span><span class="o">-</span><span class="n">default</span>                  <span class="n">act</span><span class="o">/</span><span class="n">unsup</span>
+<span class="mi">1005</span> <span class="n">trnet</span><span class="o">-</span><span class="n">default</span>                    <span class="n">act</span><span class="o">/</span><span class="n">unsup</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="set-vlan-name">
+<h3>Set VLAN name<a class="headerlink" href="#set-vlan-name" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SW2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#vlan 100</span>
+<span class="n">SW2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">vlan</span><span class="p">)</span><span class="c1">#name ADMIN</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="delete-a-vlan">
+<h3>Delete a VLAN<a class="headerlink" href="#delete-a-vlan" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SW2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#no vlan 100</span>
+</pre></div>
+</div>
+<p>Note that the VLANs will not be deleted if you erase the configuration of the switch.
+They are store in a separate file, <code class="docutils literal notranslate"><span class="pre">vlan.dat</span></code>, within the flash memory.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SW2</span><span class="c1">#show flash</span>
+
+<span class="n">Directory</span> <span class="n">of</span> <span class="n">flash</span><span class="p">:</span><span class="o">/</span>
+
+    <span class="mi">2</span>  <span class="o">-</span><span class="n">rwx</span>        <span class="mi">2408</span>   <span class="n">Mar</span> <span class="mi">1</span> <span class="mi">1993</span> <span class="mi">02</span><span class="p">:</span><span class="mi">58</span><span class="p">:</span><span class="mi">12</span> <span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="n">config</span><span class="o">.</span><span class="n">text</span>
+    <span class="mi">3</span>  <span class="o">-</span><span class="n">rwx</span>           <span class="mi">5</span>   <span class="n">Mar</span> <span class="mi">1</span> <span class="mi">1993</span> <span class="mi">02</span><span class="p">:</span><span class="mi">58</span><span class="p">:</span><span class="mi">12</span> <span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="n">private</span><span class="o">-</span><span class="n">config</span><span class="o">.</span><span class="n">text</span>
+    <span class="mi">4</span>  <span class="o">-</span><span class="n">rwx</span>         <span class="mi">736</span>   <span class="n">Mar</span> <span class="mi">1</span> <span class="mi">1993</span> <span class="mi">01</span><span class="p">:</span><span class="mi">07</span><span class="p">:</span><span class="mi">47</span> <span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="n">vlan</span><span class="o">.</span><span class="n">dat</span>
+    <span class="mi">5</span>  <span class="n">drwx</span>         <span class="mi">192</span>   <span class="n">Mar</span> <span class="mi">1</span> <span class="mi">1993</span> <span class="mi">00</span><span class="p">:</span><span class="mi">05</span><span class="p">:</span><span class="mi">52</span> <span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="n">c3750</span><span class="o">-</span><span class="n">ipbase</span><span class="o">-</span><span class="n">mz</span><span class="o">.</span><span class="mi">122</span><span class="o">-</span><span class="mf">25.</span><span class="n">SEB2</span>
+
+<span class="mi">15998976</span> <span class="nb">bytes</span> <span class="n">total</span> <span class="p">(</span><span class="mi">8887296</span> <span class="nb">bytes</span> <span class="n">free</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If you want to fully erase the switch, including VLANs, you need to issue two commands.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SW2</span><span class="c1">#write erase</span>
+<span class="n">SW2</span><span class="c1">#delete flash:vlan.dat</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="set-the-vlan-for-a-range-of-port">
+<h3>Set the VLAN for a (range of) port<a class="headerlink" href="#set-the-vlan-for-a-range-of-port" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SW2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#int fa 1/0/4</span>
+<span class="n">SW2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#switchport access vlan 100</span>
+</pre></div>
+</div>
+<p>Or you can select a port range instead</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SW2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#int range fa 1/0/1 - 16</span>
+<span class="n">SW2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="o">-</span><span class="nb">range</span><span class="p">)</span><span class="c1">#switchport access vlan 100</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="show-trunking-summary">
+<h3>Show trunking summary<a class="headerlink" href="#show-trunking-summary" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SW2</span><span class="o">&gt;</span><span class="n">show</span> <span class="nb">int</span> <span class="n">trunk</span>
+
+<span class="n">Port</span>        <span class="n">Mode</span>         <span class="n">Encapsulation</span>  <span class="n">Status</span>        <span class="n">Native</span> <span class="n">vlan</span>
+<span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">47</span>    <span class="n">desirable</span>    <span class="mf">802.1</span><span class="n">q</span>         <span class="n">trunking</span>      <span class="mi">400</span>
+
+<span class="n">Port</span>      <span class="n">Vlans</span> <span class="n">allowed</span> <span class="n">on</span> <span class="n">trunk</span>
+<span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">47</span>    <span class="mi">1</span><span class="o">-</span><span class="mi">4094</span>
+
+<span class="n">Port</span>        <span class="n">Vlans</span> <span class="n">allowed</span> <span class="ow">and</span> <span class="n">active</span> <span class="ow">in</span> <span class="n">management</span> <span class="n">domain</span>
+<span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">47</span>    <span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">300</span>
+
+<span class="n">Port</span>        <span class="n">Vlans</span> <span class="ow">in</span> <span class="n">spanning</span> <span class="n">tree</span> <span class="n">forwarding</span> <span class="n">state</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">pruned</span>
+<span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">47</span>    <span class="mi">100</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">300</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="show-trunking-status-for-a-port">
+<h3>Show trunking status for a port<a class="headerlink" href="#show-trunking-status-for-a-port" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SW2</span><span class="o">&gt;</span><span class="n">show</span> <span class="nb">int</span> <span class="n">fa</span> <span class="mi">1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">47</span> <span class="n">switchport</span>
+<span class="n">Name</span><span class="p">:</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">47</span>
+<span class="n">Switchport</span><span class="p">:</span> <span class="n">Enabled</span>
+<span class="n">Administrative</span> <span class="n">Mode</span><span class="p">:</span> <span class="n">dynamic</span> <span class="n">desirable</span>
+<span class="n">Operational</span> <span class="n">Mode</span><span class="p">:</span> <span class="n">trunk</span>
+<span class="n">Administrative</span> <span class="n">Trunking</span> <span class="n">Encapsulation</span><span class="p">:</span> <span class="n">dot1q</span>
+<span class="n">Operational</span> <span class="n">Trunking</span> <span class="n">Encapsulation</span><span class="p">:</span> <span class="n">dot1q</span>
+<span class="n">Negotiation</span> <span class="n">of</span> <span class="n">Trunking</span><span class="p">:</span> <span class="n">On</span>
+<span class="n">Access</span> <span class="n">Mode</span> <span class="n">VLAN</span><span class="p">:</span> <span class="mi">1</span> <span class="p">(</span><span class="n">default</span><span class="p">)</span>
+<span class="n">Trunking</span> <span class="n">Native</span> <span class="n">Mode</span> <span class="n">VLAN</span><span class="p">:</span> <span class="mi">400</span> <span class="p">(</span><span class="n">Inactive</span><span class="p">)</span>
+<span class="n">Administrative</span> <span class="n">Native</span> <span class="n">VLAN</span> <span class="n">tagging</span><span class="p">:</span> <span class="n">enabled</span>
+<span class="n">Voice</span> <span class="n">VLAN</span><span class="p">:</span> <span class="n">none</span>
+<span class="n">Administrative</span> <span class="n">private</span><span class="o">-</span><span class="n">vlan</span> <span class="n">host</span><span class="o">-</span><span class="n">association</span><span class="p">:</span> <span class="n">none</span>
+<span class="n">Administrative</span> <span class="n">private</span><span class="o">-</span><span class="n">vlan</span> <span class="n">mapping</span><span class="p">:</span> <span class="n">none</span>
+<span class="n">Administrative</span> <span class="n">private</span><span class="o">-</span><span class="n">vlan</span> <span class="n">trunk</span> <span class="n">native</span> <span class="n">VLAN</span><span class="p">:</span> <span class="n">none</span>
+<span class="n">Administrative</span> <span class="n">private</span><span class="o">-</span><span class="n">vlan</span> <span class="n">trunk</span> <span class="n">Native</span> <span class="n">VLAN</span> <span class="n">tagging</span><span class="p">:</span> <span class="n">enabled</span>
+<span class="n">Administrative</span> <span class="n">private</span><span class="o">-</span><span class="n">vlan</span> <span class="n">trunk</span> <span class="n">encapsulation</span><span class="p">:</span> <span class="n">dot1q</span>
+<span class="n">Administrative</span> <span class="n">private</span><span class="o">-</span><span class="n">vlan</span> <span class="n">trunk</span> <span class="n">normal</span> <span class="n">VLANs</span><span class="p">:</span> <span class="n">none</span>
+<span class="n">Administrative</span> <span class="n">private</span><span class="o">-</span><span class="n">vlan</span> <span class="n">trunk</span> <span class="n">private</span> <span class="n">VLANs</span><span class="p">:</span> <span class="n">none</span>
+<span class="n">Operational</span> <span class="n">private</span><span class="o">-</span><span class="n">vlan</span><span class="p">:</span> <span class="n">none</span>
+<span class="n">Trunking</span> <span class="n">VLANs</span> <span class="n">Enabled</span><span class="p">:</span> <span class="n">ALL</span>
+<span class="n">Pruning</span> <span class="n">VLANs</span> <span class="n">Enabled</span><span class="p">:</span> <span class="mi">2</span><span class="o">-</span><span class="mi">1001</span>
+<span class="n">Capture</span> <span class="n">Mode</span> <span class="n">Disabled</span>
+<span class="n">Capture</span> <span class="n">VLANs</span> <span class="n">Allowed</span><span class="p">:</span> <span class="n">ALL</span>
+
+<span class="n">Protected</span><span class="p">:</span> <span class="n">false</span>
+<span class="n">Unknown</span> <span class="n">unicast</span> <span class="n">blocked</span><span class="p">:</span> <span class="n">disabled</span>
+<span class="n">Unknown</span> <span class="n">multicast</span> <span class="n">blocked</span><span class="p">:</span> <span class="n">disabled</span>
+<span class="n">Appliance</span> <span class="n">trust</span><span class="p">:</span> <span class="n">none</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="change-the-encapsulation-for-a-trunk">
+<h3>Change the encapsulation for a trunk<a class="headerlink" href="#change-the-encapsulation-for-a-trunk" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SW2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#switchport trunk encapsulation dot1q</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="change-the-native-vlan-for-a-trunk">
+<h3>Change the native vlan for a trunk<a class="headerlink" href="#change-the-native-vlan-for-a-trunk" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SW2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#switchport trunk native vlan 100</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="change-the-trunking-mode-for-a-port">
+<h3>Change the trunking mode for a port<a class="headerlink" href="#change-the-trunking-mode-for-a-port" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SW2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#switchport mode dynamic desirable</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="spanning-tree.html" class="btn btn-neutral float-right" title="Spanning Tree" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="mac-address-table.html" class="btn btn-neutral" title="Mac Address Table" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Antoine d&#39;Otreppe
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

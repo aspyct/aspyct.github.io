@@ -10,4 +10,5 @@ Cisco Catalyst
     administrative-access
     port-configuration
     mac-address-table
+    vlans-trunks
     spanning-tree
