@@ -1,5 +1,5 @@
-Subnettig
-=========
+Subnetting
+==========
 
 External links
 --------------

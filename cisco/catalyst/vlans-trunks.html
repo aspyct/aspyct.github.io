@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Cisco Catalyst VLANs and trunking &mdash; aspyct.org</title>
+  <title>Cisco Catalyst VLAN and trunking commands &mdash; aspyct.org</title>
   
 
   
@@ -95,12 +95,16 @@
 <li class="toctree-l3"><a class="reference internal" href="port-configuration.html">Basic port configuration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="mac-address-table.html">Mac Address Table</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">VLANs and trunking</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#vlan">VLAN</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#trunk">Trunk</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#native-vlan">Native VLAN</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#router-on-a-stick">Router on a stick</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#trunking-modes">Trunking modes</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#commands">Commands</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#vlan-summary">VLAN summary</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#set-vlan-name">Set VLAN name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#delete-a-vlan">Delete a VLAN</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#set-the-vlan-for-a-range-of-port">Set the VLAN for a (range of) port</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#show-trunking-summary">Show trunking summary</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#show-trunking-status-for-a-port">Show trunking status for a port</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#change-the-encapsulation-for-a-trunk">Change the encapsulation for a trunk</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#change-the-native-vlan-for-a-trunk">Change the native vlan for a trunk</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#change-the-trunking-mode-for-a-port">Change the trunking mode for a port</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="spanning-tree.html">Spanning Tree</a></li>
@@ -158,7 +162,7 @@
         
           <li><a href="index.html">Cisco Catalyst</a> &raquo;</li>
         
-      <li>Cisco Catalyst VLANs and trunking</li>
+      <li>Cisco Catalyst VLAN and trunking commands</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -177,39 +181,6 @@
             
   <div class="section" id="vlans-and-trunking">
 <h1>VLANs and trunking<a class="headerlink" href="#vlans-and-trunking" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="vlan">
-<h2>VLAN<a class="headerlink" href="#vlan" title="Permalink to this headline">¶</a></h2>
-<p>VLANs effectively separate a switch into several network segments.
-Ports can be affected to a specific VLAN, and machines from other VLANs
-can’t access each other without going through a router.
-Each VLAN is usually assigned its own subnet.</p>
-<p>Using VLANs can improve performance by separating broadcast domains,
-and also increase security by preventing certain ports from accessing
-other networks.</p>
-</div>
-<div class="section" id="trunk">
-<h2>Trunk<a class="headerlink" href="#trunk" title="Permalink to this headline">¶</a></h2>
-<p>Normally, each port of the switch is assigned to a specific VLAN.
-It would thus take multiple links between switches to carry multiple VLANS.</p>
-<p>Trunks bring an answer to that scalability problem by allowing transit
-of multiple VLANs across one link. Several encapsulations exist,
-but 802.1Q is the recommendation.</p>
-<p>802.1Q adds 4 bytes to the regular ethernet frame, of which 12 bits identify the VLAN,
-and 3 bits specify the frame priority for QoS.</p>
-</div>
-<div class="section" id="native-vlan">
-<h2>Native VLAN<a class="headerlink" href="#native-vlan" title="Permalink to this headline">¶</a></h2>
-<p>The native VLAN is the VLAN for which frames are <strong>not</strong> tagged by 802.1Q.
-Switches on both sides of a trunk must agree on the native VLAN, otherwise
-they’ll send the frames to the wrong ports.</p>
-<p>The switches will print out warnings when CDP discovers native VLAN mismatch.</p>
-</div>
-<div class="section" id="router-on-a-stick">
-<h2>Router on a stick<a class="headerlink" href="#router-on-a-stick" title="Permalink to this headline">¶</a></h2>
-<p>Unless you have Layer3 switches, a router is needed to route traffic between
-VLANs. A router on a stick is a router connected to a switch via a trunk, and
-is used to route between VLANs.</p>
-</div>
 <div class="section" id="trunking-modes">
 <h2>Trunking modes<a class="headerlink" href="#trunking-modes" title="Permalink to this headline">¶</a></h2>
 <p>Each port is is one of 4 trunking modes. Ports in <code class="docutils literal notranslate"><span class="pre">trunk</span></code> or <code class="docutils literal notranslate"><span class="pre">dynamic</span> <span class="pre">desirable</span></code>
@@ -240,53 +211,53 @@ modes will send out DTP (Dynamic Trunking Protocol) frames to negociate a trunk.
 </tbody>
 </table>
 </div>
-<div class="section" id="commands">
-<h2>Commands<a class="headerlink" href="#commands" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="vlan-summary">
-<h3>VLAN summary<a class="headerlink" href="#vlan-summary" title="Permalink to this headline">¶</a></h3>
+<h2>VLAN summary<a class="headerlink" href="#vlan-summary" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SW2</span><span class="c1">#show vlan brief</span>
 
 <span class="n">VLAN</span> <span class="n">Name</span>                             <span class="n">Status</span>    <span class="n">Ports</span>
 <span class="o">----</span> <span class="o">--------------------------------</span> <span class="o">---------</span> <span class="o">-------------------------------</span>
-<span class="mi">1</span>    <span class="n">default</span>                          <span class="n">active</span>    <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">3</span>
+<span class="mi">1</span>    <span class="n">default</span>                          <span class="n">active</span>    <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">33</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">34</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">35</span>
+                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">36</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">37</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">38</span>
+                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">39</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">40</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">41</span>
+                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">42</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">43</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">44</span>
+                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">45</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">46</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">48</span>
+                                                <span class="n">Gi1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="n">Gi1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">Gi1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">3</span>
+                                                <span class="n">Gi1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">4</span>
+<span class="mi">100</span>  <span class="n">ADMIN</span>                            <span class="n">active</span>    <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">3</span>
                                                 <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">5</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">6</span>
                                                 <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">7</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">9</span>
                                                 <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">10</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">11</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">12</span>
                                                 <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">13</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">14</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">15</span>
-                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">16</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">17</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">18</span>
-                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">19</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">20</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">21</span>
-                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">22</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">23</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">24</span>
-                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">25</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">26</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">27</span>
-                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">28</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">29</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">30</span>
-                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">31</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">32</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">33</span>
-                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">34</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">35</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">36</span>
-                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">37</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">38</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">39</span>
-                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">40</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">41</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">42</span>
-                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">43</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">44</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">45</span>
-                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">46</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">48</span><span class="p">,</span> <span class="n">Gi1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">1</span>
-                                                <span class="n">Gi1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">Gi1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="n">Gi1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">4</span>
-<span class="mi">100</span>  <span class="n">ADMIN</span>                            <span class="n">active</span>
-<span class="mi">200</span>  <span class="n">PRIV</span>                             <span class="n">active</span>
+                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">16</span>
+<span class="mi">200</span>  <span class="n">PRIV</span>                             <span class="n">active</span>    <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">17</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">18</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">19</span>
+                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">20</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">21</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">22</span>
+                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">23</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">24</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">25</span>
+                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">26</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">27</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">28</span>
+                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">29</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">30</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">31</span>
+                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">32</span>
 <span class="mi">300</span>  <span class="n">SERV</span>                             <span class="n">active</span>
-
-<span class="n">VLAN</span> <span class="n">Name</span>                             <span class="n">Status</span>    <span class="n">Ports</span>
-<span class="o">----</span> <span class="o">--------------------------------</span> <span class="o">---------</span> <span class="o">-------------------------------</span>
 <span class="mi">1002</span> <span class="n">fddi</span><span class="o">-</span><span class="n">default</span>                     <span class="n">act</span><span class="o">/</span><span class="n">unsup</span>
 <span class="mi">1003</span> <span class="n">token</span><span class="o">-</span><span class="n">ring</span><span class="o">-</span><span class="n">default</span>               <span class="n">act</span><span class="o">/</span><span class="n">unsup</span>
 <span class="mi">1004</span> <span class="n">fddinet</span><span class="o">-</span><span class="n">default</span>                  <span class="n">act</span><span class="o">/</span><span class="n">unsup</span>
 <span class="mi">1005</span> <span class="n">trnet</span><span class="o">-</span><span class="n">default</span>                    <span class="n">act</span><span class="o">/</span><span class="n">unsup</span>
 </pre></div>
 </div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Fa1/0/47 is missing in the example above. That’s because it is currently
+configured as a trunk.</p>
+</div>
 </div>
 <div class="section" id="set-vlan-name">
-<h3>Set VLAN name<a class="headerlink" href="#set-vlan-name" title="Permalink to this headline">¶</a></h3>
+<h2>Set VLAN name<a class="headerlink" href="#set-vlan-name" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SW2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#vlan 100</span>
 <span class="n">SW2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">vlan</span><span class="p">)</span><span class="c1">#name ADMIN</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="delete-a-vlan">
-<h3>Delete a VLAN<a class="headerlink" href="#delete-a-vlan" title="Permalink to this headline">¶</a></h3>
+<h2>Delete a VLAN<a class="headerlink" href="#delete-a-vlan" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SW2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#no vlan 100</span>
 </pre></div>
 </div>
@@ -311,7 +282,7 @@ They are store in a separate file, <code class="docutils literal notranslate"><s
 </div>
 </div>
 <div class="section" id="set-the-vlan-for-a-range-of-port">
-<h3>Set the VLAN for a (range of) port<a class="headerlink" href="#set-the-vlan-for-a-range-of-port" title="Permalink to this headline">¶</a></h3>
+<h2>Set the VLAN for a (range of) port<a class="headerlink" href="#set-the-vlan-for-a-range-of-port" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SW2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#int fa 1/0/4</span>
 <span class="n">SW2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#switchport access vlan 100</span>
 </pre></div>
@@ -323,7 +294,7 @@ They are store in a separate file, <code class="docutils literal notranslate"><s
 </div>
 </div>
 <div class="section" id="show-trunking-summary">
-<h3>Show trunking summary<a class="headerlink" href="#show-trunking-summary" title="Permalink to this headline">¶</a></h3>
+<h2>Show trunking summary<a class="headerlink" href="#show-trunking-summary" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SW2</span><span class="o">&gt;</span><span class="n">show</span> <span class="nb">int</span> <span class="n">trunk</span>
 
 <span class="n">Port</span>        <span class="n">Mode</span>         <span class="n">Encapsulation</span>  <span class="n">Status</span>        <span class="n">Native</span> <span class="n">vlan</span>
@@ -341,7 +312,7 @@ They are store in a separate file, <code class="docutils literal notranslate"><s
 </div>
 </div>
 <div class="section" id="show-trunking-status-for-a-port">
-<h3>Show trunking status for a port<a class="headerlink" href="#show-trunking-status-for-a-port" title="Permalink to this headline">¶</a></h3>
+<h2>Show trunking status for a port<a class="headerlink" href="#show-trunking-status-for-a-port" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SW2</span><span class="o">&gt;</span><span class="n">show</span> <span class="nb">int</span> <span class="n">fa</span> <span class="mi">1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">47</span> <span class="n">switchport</span>
 <span class="n">Name</span><span class="p">:</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">47</span>
 <span class="n">Switchport</span><span class="p">:</span> <span class="n">Enabled</span>
@@ -375,22 +346,21 @@ They are store in a separate file, <code class="docutils literal notranslate"><s
 </div>
 </div>
 <div class="section" id="change-the-encapsulation-for-a-trunk">
-<h3>Change the encapsulation for a trunk<a class="headerlink" href="#change-the-encapsulation-for-a-trunk" title="Permalink to this headline">¶</a></h3>
+<h2>Change the encapsulation for a trunk<a class="headerlink" href="#change-the-encapsulation-for-a-trunk" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SW2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#switchport trunk encapsulation dot1q</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="change-the-native-vlan-for-a-trunk">
-<h3>Change the native vlan for a trunk<a class="headerlink" href="#change-the-native-vlan-for-a-trunk" title="Permalink to this headline">¶</a></h3>
+<h2>Change the native vlan for a trunk<a class="headerlink" href="#change-the-native-vlan-for-a-trunk" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SW2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#switchport trunk native vlan 100</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="change-the-trunking-mode-for-a-port">
-<h3>Change the trunking mode for a port<a class="headerlink" href="#change-the-trunking-mode-for-a-port" title="Permalink to this headline">¶</a></h3>
+<h2>Change the trunking mode for a port<a class="headerlink" href="#change-the-trunking-mode-for-a-port" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SW2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#switchport mode dynamic desirable</span>
 </pre></div>
-</div>
 </div>
 </div>
 </div>

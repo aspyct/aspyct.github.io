@@ -7,4 +7,5 @@ Networking
     basics
     ip-overview
     subnetting
+    vlan-trunk
     spanning-tree-protocol
