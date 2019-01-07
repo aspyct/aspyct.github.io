@@ -12,3 +12,4 @@ Cisco Catalyst
     mac-address-table
     vlans-trunks
     spanning-tree
+    basic-troubleshooting

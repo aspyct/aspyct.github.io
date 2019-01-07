@@ -1,0 +1,417 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Basic troubleshooting &mdash; aspyct.org</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Other" href="../../other/index.html" />
+    <link rel="prev" title="Spanning Tree" href="spanning-tree.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Aspyct.org
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                9.35
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../debian/index.html">Debian 9.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gpg/index.html">GPG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../openwrt/index.html">OpenWRT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../networking/index.html">Networking</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Cisco</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../connecting-console.html">Connecting to console</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Cisco Catalyst</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="command-modes.html">Command modes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="administrative-access.html">Administrative access</a></li>
+<li class="toctree-l3"><a class="reference internal" href="port-configuration.html">Basic port configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mac-address-table.html">Mac Address Table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="vlans-trunks.html">VLANs and trunking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spanning-tree.html">Spanning Tree</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Basic troubleshooting</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#show-interfaces">Show interfaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#common-errors">Common errors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#clear-counters">Clear counters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#vlan-troubleshooting">VLAN troubleshooting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../other/index.html">Other</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Aspyct.org</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Cisco</a> &raquo;</li>
+        
+          <li><a href="index.html">Cisco Catalyst</a> &raquo;</li>
+        
+      <li>Basic troubleshooting</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <p>..title:: Cisco Catalyst basic troubleshooting</p>
+<div class="section" id="basic-troubleshooting">
+<h1>Basic troubleshooting<a class="headerlink" href="#basic-troubleshooting" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="show-interfaces">
+<h2>Show interfaces<a class="headerlink" href="#show-interfaces" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="n">show</span> <span class="n">interfaces</span> <span class="n">status</span>
+
+<span class="n">Port</span>      <span class="n">Name</span>               <span class="n">Status</span>       <span class="n">Vlan</span>       <span class="n">Duplex</span>  <span class="n">Speed</span> <span class="n">Type</span>
+<span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">1</span>                      <span class="n">notconnect</span>   <span class="mi">1</span>            <span class="n">auto</span>   <span class="n">auto</span> <span class="mi">10</span><span class="o">/</span><span class="mi">100</span><span class="n">BaseTX</span>
+<span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">2</span>                      <span class="n">notconnect</span>   <span class="mi">1</span>            <span class="n">auto</span>   <span class="n">auto</span> <span class="mi">10</span><span class="o">/</span><span class="mi">100</span><span class="n">BaseTX</span>
+<span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">3</span>                      <span class="n">notconnect</span>   <span class="mi">1</span>            <span class="n">auto</span>   <span class="n">auto</span> <span class="mi">10</span><span class="o">/</span><span class="mi">100</span><span class="n">BaseTX</span>
+<span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">4</span>                      <span class="n">notconnect</span>   <span class="mi">1</span>            <span class="n">auto</span>   <span class="n">auto</span> <span class="mi">10</span><span class="o">/</span><span class="mi">100</span><span class="n">BaseTX</span>
+<span class="o">...</span>
+<span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">47</span>                     <span class="n">notconnect</span>   <span class="mi">1</span>            <span class="n">auto</span>   <span class="n">auto</span> <span class="mi">10</span><span class="o">/</span><span class="mi">100</span><span class="n">BaseTX</span>
+<span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">48</span>                     <span class="n">connected</span>    <span class="mi">1</span>          <span class="n">a</span><span class="o">-</span><span class="n">full</span>  <span class="n">a</span><span class="o">-</span><span class="mi">100</span> <span class="mi">10</span><span class="o">/</span><span class="mi">100</span><span class="n">BaseTX</span>
+<span class="n">Gi1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">1</span>                      <span class="n">notconnect</span>   <span class="mi">1</span>            <span class="n">auto</span>   <span class="n">auto</span> <span class="n">Not</span> <span class="n">Present</span>
+<span class="n">Gi1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">2</span>                      <span class="n">notconnect</span>   <span class="mi">1</span>            <span class="n">auto</span>   <span class="n">auto</span> <span class="n">Not</span> <span class="n">Present</span>
+<span class="n">Gi1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">3</span>                      <span class="n">notconnect</span>   <span class="mi">1</span>            <span class="n">auto</span>   <span class="n">auto</span> <span class="n">Not</span> <span class="n">Present</span>
+<span class="n">Gi1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">4</span>                      <span class="n">notconnect</span>   <span class="mi">1</span>            <span class="n">auto</span>   <span class="n">auto</span> <span class="n">Not</span> <span class="n">Present</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="n">show</span> <span class="n">interfaces</span> <span class="n">fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">48</span>
+<span class="n">FastEthernet1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">48</span> <span class="ow">is</span> <span class="n">up</span><span class="p">,</span> <span class="n">line</span> <span class="n">protocol</span> <span class="ow">is</span> <span class="n">up</span> <span class="p">(</span><span class="n">connected</span><span class="p">)</span>
+    <span class="n">Hardware</span> <span class="ow">is</span> <span class="n">Fast</span> <span class="n">Ethernet</span><span class="p">,</span> <span class="n">address</span> <span class="ow">is</span> <span class="mf">0015.2</span><span class="n">b2e</span><span class="o">.</span><span class="mi">2634</span> <span class="p">(</span><span class="n">bia</span> <span class="mf">0015.2</span><span class="n">b2e</span><span class="o">.</span><span class="mi">2634</span><span class="p">)</span>
+    <span class="n">MTU</span> <span class="mi">1500</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">BW</span> <span class="mi">100000</span> <span class="n">Kbit</span><span class="p">,</span> <span class="n">DLY</span> <span class="mi">100</span> <span class="n">usec</span><span class="p">,</span>
+        <span class="n">reliability</span> <span class="mi">255</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="n">txload</span> <span class="mi">1</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="n">rxload</span> <span class="mi">1</span><span class="o">/</span><span class="mi">255</span>
+    <span class="n">Encapsulation</span> <span class="n">ARPA</span><span class="p">,</span> <span class="n">loopback</span> <span class="ow">not</span> <span class="nb">set</span>
+    <span class="n">Keepalive</span> <span class="nb">set</span> <span class="p">(</span><span class="mi">10</span> <span class="n">sec</span><span class="p">)</span>
+    <span class="n">Full</span><span class="o">-</span><span class="n">duplex</span><span class="p">,</span> <span class="mi">100</span><span class="n">Mb</span><span class="o">/</span><span class="n">s</span><span class="p">,</span> <span class="n">media</span> <span class="nb">type</span> <span class="ow">is</span> <span class="mi">10</span><span class="o">/</span><span class="mi">100</span><span class="n">BaseTX</span>
+    <span class="nb">input</span> <span class="n">flow</span><span class="o">-</span><span class="n">control</span> <span class="ow">is</span> <span class="n">off</span><span class="p">,</span> <span class="n">output</span> <span class="n">flow</span><span class="o">-</span><span class="n">control</span> <span class="ow">is</span> <span class="n">unsupported</span>
+    <span class="n">ARP</span> <span class="nb">type</span><span class="p">:</span> <span class="n">ARPA</span><span class="p">,</span> <span class="n">ARP</span> <span class="n">Timeout</span> <span class="mi">04</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
+    <span class="n">Last</span> <span class="nb">input</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">12</span><span class="p">,</span> <span class="n">output</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">,</span> <span class="n">output</span> <span class="n">hang</span> <span class="n">never</span>
+    <span class="n">Last</span> <span class="n">clearing</span> <span class="n">of</span> <span class="s2">&quot;show interface&quot;</span> <span class="n">counters</span> <span class="n">never</span>
+    <span class="n">Input</span> <span class="n">queue</span><span class="p">:</span> <span class="mi">0</span><span class="o">/</span><span class="mi">75</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">0</span> <span class="p">(</span><span class="n">size</span><span class="o">/</span><span class="nb">max</span><span class="o">/</span><span class="n">drops</span><span class="o">/</span><span class="n">flushes</span><span class="p">);</span> <span class="n">Total</span> <span class="n">output</span> <span class="n">drops</span><span class="p">:</span> <span class="mi">0</span>
+    <span class="n">Queueing</span> <span class="n">strategy</span><span class="p">:</span> <span class="n">fifo</span>
+    <span class="n">Output</span> <span class="n">queue</span><span class="p">:</span> <span class="mi">0</span><span class="o">/</span><span class="mi">40</span> <span class="p">(</span><span class="n">size</span><span class="o">/</span><span class="nb">max</span><span class="p">)</span>
+    <span class="mi">5</span> <span class="n">minute</span> <span class="nb">input</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bits</span><span class="o">/</span><span class="n">sec</span><span class="p">,</span> <span class="mi">0</span> <span class="n">packets</span><span class="o">/</span><span class="n">sec</span>
+    <span class="mi">5</span> <span class="n">minute</span> <span class="n">output</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bits</span><span class="o">/</span><span class="n">sec</span><span class="p">,</span> <span class="mi">0</span> <span class="n">packets</span><span class="o">/</span><span class="n">sec</span>
+        <span class="mi">72</span> <span class="n">packets</span> <span class="nb">input</span><span class="p">,</span> <span class="mi">6636</span> <span class="nb">bytes</span><span class="p">,</span> <span class="mi">0</span> <span class="n">no</span> <span class="n">buffer</span>
+        <span class="n">Received</span> <span class="mi">52</span> <span class="n">broadcasts</span> <span class="p">(</span><span class="mi">0</span> <span class="n">multicast</span><span class="p">)</span>
+        <span class="mi">0</span> <span class="n">runts</span><span class="p">,</span> <span class="mi">0</span> <span class="n">giants</span><span class="p">,</span> <span class="mi">0</span> <span class="n">throttles</span>
+        <span class="mi">0</span> <span class="nb">input</span> <span class="n">errors</span><span class="p">,</span> <span class="mi">0</span> <span class="n">CRC</span><span class="p">,</span> <span class="mi">0</span> <span class="n">frame</span><span class="p">,</span> <span class="mi">0</span> <span class="n">overrun</span><span class="p">,</span> <span class="mi">0</span> <span class="n">ignored</span>
+        <span class="mi">0</span> <span class="n">watchdog</span><span class="p">,</span> <span class="mi">18</span> <span class="n">multicast</span><span class="p">,</span> <span class="mi">0</span> <span class="n">pause</span> <span class="nb">input</span>
+        <span class="mi">0</span> <span class="nb">input</span> <span class="n">packets</span> <span class="k">with</span> <span class="n">dribble</span> <span class="n">condition</span> <span class="n">detected</span>
+        <span class="mi">155</span> <span class="n">packets</span> <span class="n">output</span><span class="p">,</span> <span class="mi">23576</span> <span class="nb">bytes</span><span class="p">,</span> <span class="mi">0</span> <span class="n">underruns</span>
+        <span class="mi">0</span> <span class="n">output</span> <span class="n">errors</span><span class="p">,</span> <span class="mi">0</span> <span class="n">collisions</span><span class="p">,</span> <span class="mi">1</span> <span class="n">interface</span> <span class="n">resets</span>
+        <span class="mi">0</span> <span class="n">babbles</span><span class="p">,</span> <span class="mi">0</span> <span class="n">late</span> <span class="n">collision</span><span class="p">,</span> <span class="mi">0</span> <span class="n">deferred</span>
+        <span class="mi">0</span> <span class="n">lost</span> <span class="n">carrier</span><span class="p">,</span> <span class="mi">0</span> <span class="n">no</span> <span class="n">carrier</span><span class="p">,</span> <span class="mi">0</span> <span class="n">PAUSE</span> <span class="n">output</span>
+        <span class="mi">0</span> <span class="n">output</span> <span class="n">buffer</span> <span class="n">failures</span><span class="p">,</span> <span class="mi">0</span> <span class="n">output</span> <span class="n">buffers</span> <span class="n">swapped</span> <span class="n">out</span>
+</pre></div>
+</div>
+<p>The first line indicates the layer1 and layer2 status of the interface.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="15%" />
+<col width="68%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Layer 1</th>
+<th class="head">Layer 2</th>
+<th class="head">Status</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>up</td>
+<td>up</td>
+<td>Ok</td>
+</tr>
+<tr class="row-odd"><td>up</td>
+<td>down</td>
+<td>Connection issues, not receiving the L2 keepalive</td>
+</tr>
+<tr class="row-even"><td>down</td>
+<td>down (notconnect)</td>
+<td>Cable is not connected to at least one switch, or other switch port disabled.</td>
+</tr>
+<tr class="row-odd"><td>down</td>
+<td>down</td>
+<td>Layer 1 issue or other switch port administratively shut down.</td>
+</tr>
+<tr class="row-even"><td>adinistratively down</td>
+<td>down</td>
+<td>Interface administratively shut down</td>
+</tr>
+</tbody>
+</table>
+<p>The last block gives statistics on the packets.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="81%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>runts</td>
+<td>Frame too small and bad CRC (&lt;46 bytes for ethernet)</td>
+</tr>
+<tr class="row-odd"><td>giants</td>
+<td>Frame too big and bad CRC (&gt;1518 bytes for non-jumbo ethernet)</td>
+</tr>
+<tr class="row-even"><td>input errors</td>
+<td>Sum of input errors (runts, giants, CRC etc)</td>
+</tr>
+<tr class="row-odd"><td>output errors</td>
+<td>Sum of packets that haven’t been transmitted because of errors</td>
+</tr>
+<tr class="row-even"><td>collisions</td>
+<td>Number of collisions that occurred (in half duplex mode)</td>
+</tr>
+<tr class="row-odd"><td>late collisions</td>
+<td>Number of collisions that happened after the slot time</td>
+</tr>
+<tr class="row-even"><td>CRC</td>
+<td>Incorrect CRC. CRC is a type of FCS</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="common-errors">
+<h2>Common errors<a class="headerlink" href="#common-errors" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="duplex-mismatch">
+<h3>Duplex mismatch<a class="headerlink" href="#duplex-mismatch" title="Permalink to this headline">¶</a></h3>
+<p>It’s easy to get a duplex mismatch, if one swith is trying to autonegociate
+the duplex mode and the other switch is fixed either to half or full duplex.</p>
+<p>One of the tell-tale symptoms is having lots of CRC errors on the full-duplex side,
+and lots of late collisions on the half-duplex side.</p>
+</div>
+</div>
+<div class="section" id="clear-counters">
+<h2>Clear counters<a class="headerlink" href="#clear-counters" title="Permalink to this headline">¶</a></h2>
+<p>After solving (or trying to solve) an issue, clear the error counters.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#clear counters</span>
+<span class="n">Clear</span> <span class="s2">&quot;show interface&quot;</span> <span class="n">counters</span> <span class="n">on</span> <span class="nb">all</span> <span class="n">interfaces</span> <span class="p">[</span><span class="n">confirm</span><span class="p">]</span>
+<span class="mi">00</span><span class="p">:</span><span class="mi">31</span><span class="p">:</span><span class="mi">40</span><span class="p">:</span> <span class="o">%</span><span class="n">CLEAR</span><span class="o">-</span><span class="mi">5</span><span class="o">-</span><span class="n">COUNTERS</span><span class="p">:</span> <span class="n">Clear</span> <span class="n">counter</span> <span class="n">on</span> <span class="nb">all</span> <span class="n">interfaces</span> <span class="n">by</span> <span class="n">console</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="vlan-troubleshooting">
+<h2>VLAN troubleshooting<a class="headerlink" href="#vlan-troubleshooting" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="n">show</span> <span class="n">vlan</span> <span class="n">brief</span>
+
+<span class="n">VLAN</span> <span class="n">Name</span>                             <span class="n">Status</span>    <span class="n">Ports</span>
+<span class="o">----</span> <span class="o">--------------------------------</span> <span class="o">---------</span> <span class="o">-------------------------------</span>
+<span class="mi">1</span>    <span class="n">default</span>                          <span class="n">active</span>    <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">3</span>
+                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">5</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">6</span>
+                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">7</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">9</span>
+                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">10</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">11</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">12</span>
+                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">13</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">14</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">15</span>
+                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">16</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">17</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">18</span>
+                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">19</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">20</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">21</span>
+                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">22</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">23</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">24</span>
+                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">25</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">26</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">27</span>
+                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">28</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">29</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">30</span>
+                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">31</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">32</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">33</span>
+                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">34</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">35</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">36</span>
+                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">37</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">38</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">39</span>
+                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">40</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">41</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">42</span>
+                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">43</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">44</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">45</span>
+                                                <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">46</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">47</span><span class="p">,</span> <span class="n">Fa1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">48</span>
+                                                <span class="n">Gi1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="n">Gi1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">Gi1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">3</span>
+                                                <span class="n">Gi1</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">4</span>
+<span class="mi">100</span>  <span class="n">ADMIN</span>                            <span class="n">active</span>
+<span class="mi">1002</span> <span class="n">fddi</span><span class="o">-</span><span class="n">default</span>                     <span class="n">act</span><span class="o">/</span><span class="n">unsup</span>
+<span class="mi">1003</span> <span class="n">token</span><span class="o">-</span><span class="n">ring</span><span class="o">-</span><span class="n">default</span>               <span class="n">act</span><span class="o">/</span><span class="n">unsup</span>
+<span class="mi">1004</span> <span class="n">fddinet</span><span class="o">-</span><span class="n">default</span>                  <span class="n">act</span><span class="o">/</span><span class="n">unsup</span>
+<span class="mi">1005</span> <span class="n">trnet</span><span class="o">-</span><span class="n">default</span>                    <span class="n">act</span><span class="o">/</span><span class="n">unsup</span>
+</pre></div>
+</div>
+<p>In the example above, the VLAN&nbsp;100 exists, but no port is assigned.
+That could be the sign of an error if some machines can’t communicate together.</p>
+<p>If you delete a VLAN that has ports assigned to it, the ports are no longer assigned
+to any VLAN and they’re not going to be able to communicate.</p>
+<p>Before deleting a VLAN, make sure you remove any port assigned to this VLAN.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../other/index.html" class="btn btn-neutral float-right" title="Other" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="spanning-tree.html" class="btn btn-neutral" title="Spanning Tree" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Antoine d&#39;Otreppe
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
