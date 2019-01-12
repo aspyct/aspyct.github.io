@@ -96,7 +96,7 @@ Make the bootable SD card
 
 ::
 
-    $ gzid -d $ gzip -d openwrt-18.06.1-brcm2708-bcm2710-rpi-3-ext4-factory.img.gz
+    $ gzip -d openwrt-18.06.1-brcm2708-bcm2710-rpi-3-ext4-factory.img.gz
     $ sudo dd if=openwrt-18.06.1-brcm2708-bcm2710-rpi-3-ext4-factory.img of=/dev/sdb bs=1M status=progress; sync
 
 First login

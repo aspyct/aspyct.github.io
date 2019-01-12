@@ -243,7 +243,7 @@ However a quick check of the fingerprint won’t hurt.</p>
 <p class="last">Make sure to write to the correct device.
 Use <code class="docutils literal notranslate"><span class="pre">dmesg</span> <span class="pre">|</span> <span class="pre">tail</span></code> to figure out which device you just inserted.</p>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ gzid -d $ gzip -d openwrt-18.06.1-brcm2708-bcm2710-rpi-3-ext4-factory.img.gz
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ gzip -d openwrt-18.06.1-brcm2708-bcm2710-rpi-3-ext4-factory.img.gz
 $ sudo dd if=openwrt-18.06.1-brcm2708-bcm2710-rpi-3-ext4-factory.img of=/dev/sdb bs=1M status=progress; sync
 </pre></div>
 </div>
