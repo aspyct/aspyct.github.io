@@ -1,4 +1,4 @@
-..title:: Cisco Catalyst basic troubleshooting
+.. title:: Cisco Catalyst basic troubleshooting
 
 Basic troubleshooting
 =====================
