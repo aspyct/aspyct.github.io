@@ -106,7 +106,7 @@ The device will need a minute or two to boot. Wait until your computer gets an I
 
 .. WARNING::
     The device will act as a DHCP server once powered up.
-    You migth want to keep it off you existing network until it's configured.
+    You might want to keep it off your existing network until it's configured.
 
 SSH into the device and change the root password.
 

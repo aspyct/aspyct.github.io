@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Nitrokey Storage 2 &mdash; aspyct.org</title>
+  <title>GPG SmartCard &mdash; aspyct.org</title>
   
 
   
@@ -28,8 +28,8 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="OpenWRT" href="../openwrt/index.html" />
-    <link rel="prev" title="GPG SmartCard" href="smartcards.html" /> 
+    <link rel="next" title="Nitrokey Storage 2" href="nitrokey.html" />
+    <link rel="prev" title="GPG" href="index.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -85,11 +85,13 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../debian/index.html">Debian 9.6</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">GPG</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="smartcards.html">GPG SmartCard</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Nitrokey Storage 2</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#verify-and-install-firmware-update">Verify and install firmware update</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">GPG SmartCard</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#verify-that-a-card-is-detected">Verify that a card is detected</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#change-the-user-and-admin-pin-code">Change the user and admin PIN code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#generate-a-private-key-on-the-card">Generate a private key on the card</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="nitrokey.html">Nitrokey Storage 2</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../openwrt/index.html">OpenWRT</a></li>
@@ -143,7 +145,7 @@
         
           <li><a href="index.html">GPG</a> &raquo;</li>
         
-      <li>Nitrokey Storage 2</li>
+      <li>GPG SmartCard</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -160,35 +162,95 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="nitrokey-storage-2">
-<h1>Nitrokey Storage 2<a class="headerlink" href="#nitrokey-storage-2" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="verify-and-install-firmware-update">
-<h2>Verify and install firmware update<a class="headerlink" href="#verify-and-install-firmware-update" title="Permalink to this headline">¶</a></h2>
-<ol class="arabic simple">
-<li>Get the latest release, shasum and sig files from
-<a class="reference external" href="https://github.com/Nitrokey/nitrokey-storage-firmware/releases">https://github.com/Nitrokey/nitrokey-storage-firmware/releases</a></li>
-<li>Verify the sha sum</li>
-</ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sha256sum -c storage-firmware-V0.53-0-g905976e.hex.sha256sum
-storage-firmware-V0.53-0-g905976e.hex: OK
+  <div class="section" id="gpg-smartcard">
+<h1>GPG SmartCard<a class="headerlink" href="#gpg-smartcard" title="Permalink to this headline">¶</a></h1>
+<p>The commands below have been tested with gpg (GnuPG) 2.1.18 and a smartcard v3.3.</p>
+<div class="section" id="verify-that-a-card-is-detected">
+<h2>Verify that a card is detected<a class="headerlink" href="#verify-that-a-card-is-detected" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ gpg --card-status
 </pre></div>
 </div>
-<ol class="arabic simple" start="3">
-<li>Verify the signature</li>
-</ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ gpg --verify storage-firmware-V0.53-0-g905976e.hex.sig
-gpg: assuming signed data in &#39;storage-firmware-V0.53-0-g905976e.hex&#39;
-gpg: Signature made Fri 23 Nov 2018 12:03:06 PM CET
-gpg:                using RSA key 868184069239FF65DE0BCD7DD9BAE35991DE5B22
+<p>This command will output a card status. If a “No such device” message appears,
+then something is wrong with your system.</p>
+</div>
+<div class="section" id="change-the-user-and-admin-pin-code">
+<h2>Change the user and admin PIN code<a class="headerlink" href="#change-the-user-and-admin-pin-code" title="Permalink to this headline">¶</a></h2>
+<p>This is the output when using a card reader with a physical pin pad.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ gpg --change-pin
+gpg: OpenPGP card no. D2760001240103030005000067A80000 detected
+
+1 - change PIN
+2 - unblock PIN
+3 - change Admin PIN
+4 - set the Reset Code
+Q - quit
+
+Your selection? 1
+PIN changed.
 </pre></div>
 </div>
-<p>Also manually check the RSA key fingerprint.</p>
-<ol class="arabic simple" start="4">
-<li>Update the firmware</li>
-</ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo dfu-programmer at32uc3a3256s erase
-$ sudo dfu-programmer at32uc3a3256s flash --suppress-bootloader-mem storage-firmware-V0.53-0-g905976e.hex
-$ sudo dfu-programmer at32uc3a3256s start
+</div>
+<div class="section" id="generate-a-private-key-on-the-card">
+<h2>Generate a private key on the card<a class="headerlink" href="#generate-a-private-key-on-the-card" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ gpg --edit-card
+
+Reader ...........: ...
+Application ID ...: ...
+Version ..........: 3.3
+Manufacturer .....: ...
+Serial number ....: ...
+Name of cardholder: [not set]
+Language prefs ...: de
+Sex ..............: unspecified
+URL of public key : [not set]
+Login data .......: [not set]
+Signature PIN ....: forced
+Key attributes ...: rsa2048 rsa2048 rsa2048
+Max. PIN lengths .: 64 64 64
+PIN retry counter : 3 0 3
+Signature counter : 0
+Signature key ....: [none]
+Encryption key....: [none]
+Authentication key: [none]
+General key info..: [none]
+
+gpg/card&gt; admin
+Admin commands are allowed
+
+gpg/card&gt; name
+Cardholder&#39;s surname: &lt;your surname&gt;
+Cardholder&#39;s given name: &lt;your first name&gt;
+
+gpg/card&gt; generate
+Make off-card backup of encryption key? (Y/n) n
+What keysize do you want for the Signature key? (2048) 4096
+The card will now be re-configured to generate a key of 4096 bits
+Note: There is no guarantee that the card supports the requested size.
+    If the key generation does not succeed, please check the
+    documentation of your card to see what sizes are allowed.
+What keysize do you want for the Encryption key? (2048) 4096
+The card will now be re-configured to generate a key of 4096 bits
+What keysize do you want for the Authentication key? (2048) 4096
+The card will now be re-configured to generate a key of 4096 bits
+Please specify how long the key should be valid.
+        0 = key does not expire
+    &lt;n&gt;  = key expires in n days
+    &lt;n&gt;w = key expires in n weeks
+    &lt;n&gt;m = key expires in n months
+    &lt;n&gt;y = key expires in n years
+Key is valid for? (0) 1y
+Key expires at Thu 09 Jan 2020 07:54:41 PM CET
+Is this correct? (y/N) y
+
+GnuPG needs to construct a user ID to identify your key.
+
+Real name: &lt;your name&gt;
+Email address: &lt;your email&gt;
+Comment:
+You selected this USER-ID:
+    &quot;&lt;your name&gt; &lt;your email&gt;&quot;
+
+Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? o
 </pre></div>
 </div>
 </div>
@@ -202,10 +264,10 @@ $ sudo dfu-programmer at32uc3a3256s start
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../openwrt/index.html" class="btn btn-neutral float-right" title="OpenWRT" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="nitrokey.html" class="btn btn-neutral float-right" title="Nitrokey Storage 2" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="smartcards.html" class="btn btn-neutral" title="GPG SmartCard" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral" title="GPG" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
