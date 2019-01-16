@@ -185,28 +185,30 @@
 </div>
 <div class="section" id="packet-captures">
 <h2>Packet captures<a class="headerlink" href="#packet-captures" title="Permalink to this headline">¶</a></h2>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#instant-tcp-rst-in-repsonse-to-syn" id="id1">Instant TCP RST in repsonse to SYN</a></li>
+</ul>
+</div>
 <div class="section" id="instant-tcp-rst-in-repsonse-to-syn">
-<h3>Instant TCP RST in repsonse to SYN<a class="headerlink" href="#instant-tcp-rst-in-repsonse-to-syn" title="Permalink to this headline">¶</a></h3>
-<table border="1" class="colwidths-given docutils">
-<colgroup>
-<col width="20%" />
-<col width="80%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td>pcap</td>
-<td><a class="reference external" href="/networking/troubleshooting/firewall-tcp-rst.pcapng">download</a></td>
-</tr>
-<tr class="row-even"><td>symptom</td>
-<td>Impossible to establish a TCP connection. A RST reply is received very quickly.</td>
-</tr>
-<tr class="row-odd"><td>issue</td>
-<td>Firewall was configured to reject this connection.</td>
-</tr>
-<tr class="row-even"><td>solution</td>
-<td>Allow the necessary port in the firewall, if appropriate.</td>
-</tr>
-</tbody>
-</table>
+<h3><a class="toc-backref" href="#id1">Instant TCP RST in repsonse to SYN</a><a class="headerlink" href="#instant-tcp-rst-in-repsonse-to-syn" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>Symptom (<a class="reference external" href="/networking/troubleshooting/firewall-tcp-rst.pcapng">pcap</a>)</dt>
+<dd>Impossible to establish a TCP connection. A RST reply is received very quickly.</dd>
+<dt>Diagnostic</dt>
+<dd><p class="first">Capture packets on various interfaces:</p>
+<ol class="arabic simple">
+<li>workstation output</li>
+<li>firewall lan input</li>
+<li>firewall wan output</li>
+</ol>
+<p class="last">The packet was visible on 1 and 2, but never on 3.</p>
+</dd>
+<dt>Issue</dt>
+<dd>The firewall was configured to reject this connection.</dd>
+<dt>Solution</dt>
+<dd>Allow the necessary port in the firewall, if appropriate.</dd>
+</dl>
 </div>
 </div>
 </div>

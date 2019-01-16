@@ -18,16 +18,27 @@ Capture through SSH
 Packet captures
 ---------------
 
+.. contents::
+   :local:
+
 Instant TCP RST in repsonse to SYN
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. table::
-   :widths: 20, 80
+Symptom (`pcap </networking/troubleshooting/firewall-tcp-rst.pcapng>`_)
+    Impossible to establish a TCP connection. A RST reply is received very quickly.
 
-   ======== ===============================================================================
-   pcap     `download </networking/troubleshooting/firewall-tcp-rst.pcapng>`_
-   symptom  Impossible to establish a TCP connection. A RST reply is received very quickly.
-   issue    Firewall was configured to reject this connection.
-   solution Allow the necessary port in the firewall, if appropriate.
-   ======== ===============================================================================
+Diagnostic
+    Capture packets on various interfaces:
+     
+    1. workstation output
+    2. firewall lan input
+    3. firewall wan output
+   
+    The packet was visible on 1 and 2, but never on 3.
+
+Issue
+    The firewall was configured to reject this connection.
+
+Solution
+    Allow the necessary port in the firewall, if appropriate.
 
