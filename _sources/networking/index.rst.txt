@@ -9,3 +9,5 @@ Networking
     subnetting
     vlan-trunk
     spanning-tree-protocol
+    troubleshooting
+

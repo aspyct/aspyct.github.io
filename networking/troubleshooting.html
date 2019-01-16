@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>VLANs and trunking &mdash; aspyct.org</title>
+  <title>Network troubleshooting &mdash; aspyct.org</title>
   
 
   
@@ -28,8 +28,8 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Spanning Tree Protocol (STP)" href="spanning-tree-protocol.html" />
-    <link rel="prev" title="Subnetting" href="subnetting.html" /> 
+    <link rel="next" title="Cisco" href="../cisco/index.html" />
+    <link rel="prev" title="Spanning Tree Protocol (STP)" href="spanning-tree-protocol.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -90,15 +90,19 @@
 <li class="toctree-l2"><a class="reference internal" href="basics.html">Networking Basics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ip-overview.html">IP Routing overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="subnetting.html">Subnetting</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">VLANs and trunking</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#vlan">VLAN</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#trunk">Trunk</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#native-vlan">Native VLAN</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#router-on-a-stick">Router on a stick</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vlan-trunk.html">VLANs and trunking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="spanning-tree-protocol.html">Spanning Tree Protocol (STP)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Network troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#wireshark">Wireshark</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#capture-through-ssh">Capture through SSH</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="spanning-tree-protocol.html">Spanning Tree Protocol (STP)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html">Network troubleshooting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#packet-captures">Packet captures</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#instant-tcp-rst-in-repsonse-to-syn">Instant TCP RST in repsonse to SYN</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../cisco/index.html">Cisco</a></li>
@@ -150,7 +154,7 @@
         
           <li><a href="index.html">Networking</a> &raquo;</li>
         
-      <li>VLANs and trunking</li>
+      <li>Network troubleshooting</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -167,40 +171,43 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="vlans-and-trunking">
-<h1>VLANs and trunking<a class="headerlink" href="#vlans-and-trunking" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="vlan">
-<h2>VLAN<a class="headerlink" href="#vlan" title="Permalink to this headline">¶</a></h2>
-<p>VLANs effectively separate a switch into several network segments.
-Ports can be affected to a specific VLAN, and machines from other VLANs
-can’t access each other without going through a router.
-Each VLAN is usually assigned its own subnet.</p>
-<p>Using VLANs can improve performance by separating broadcast domains,
-and also increase security by preventing certain ports from accessing
-other networks.</p>
+  <div class="section" id="network-troubleshooting">
+<h1>Network troubleshooting<a class="headerlink" href="#network-troubleshooting" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="wireshark">
+<h2>Wireshark<a class="headerlink" href="#wireshark" title="Permalink to this headline">¶</a></h2>
+<p>Wireshark is the essential network analyzer.</p>
+<div class="section" id="capture-through-ssh">
+<h3>Capture through SSH<a class="headerlink" href="#capture-through-ssh" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ssh root@192.168.91.1 tcpdump -i eth0 -U -s0 -w - | wireshark -k -i -
+</pre></div>
 </div>
-<div class="section" id="trunk">
-<h2>Trunk<a class="headerlink" href="#trunk" title="Permalink to this headline">¶</a></h2>
-<p>Normally, each port of the switch is assigned to a specific VLAN.
-It would thus take multiple links between switches to carry multiple VLANS.</p>
-<p>Trunks bring an answer to that scalability problem by allowing transit
-of multiple VLANs across one link. Several encapsulations exist,
-but 802.1Q is the recommendation.</p>
-<p>802.1Q adds 4 bytes to the regular ethernet frame, of which 12 bits identify the VLAN,
-and 3 bits specify the frame priority for QoS.</p>
 </div>
-<div class="section" id="native-vlan">
-<h2>Native VLAN<a class="headerlink" href="#native-vlan" title="Permalink to this headline">¶</a></h2>
-<p>The native VLAN is the VLAN for which frames are <strong>not</strong> tagged by 802.1Q.
-Switches on both sides of a trunk must agree on the native VLAN, otherwise
-they’ll send the frames to the wrong ports.</p>
-<p>The switches will print out warnings when CDP discovers native VLAN mismatch.</p>
 </div>
-<div class="section" id="router-on-a-stick">
-<h2>Router on a stick<a class="headerlink" href="#router-on-a-stick" title="Permalink to this headline">¶</a></h2>
-<p>Unless you have Layer3 switches, a router is needed to route traffic between
-VLANs. A router on a stick is a router connected to a switch via a trunk, and
-is used to route between VLANs.</p>
+<div class="section" id="packet-captures">
+<h2>Packet captures<a class="headerlink" href="#packet-captures" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="instant-tcp-rst-in-repsonse-to-syn">
+<h3>Instant TCP RST in repsonse to SYN<a class="headerlink" href="#instant-tcp-rst-in-repsonse-to-syn" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>pcap</td>
+<td><a class="reference external" href="/networking/troubleshooting/firewall-tcp-rst.pcapng">download</a></td>
+</tr>
+<tr class="row-even"><td>symptom</td>
+<td>Impossible to establish a TCP connection. A RST reply is received very quickly.</td>
+</tr>
+<tr class="row-odd"><td>issue</td>
+<td>Firewall was configured to reject this connection.</td>
+</tr>
+<tr class="row-even"><td>solution</td>
+<td>Allow the necessary port in the firewall, if appropriate.</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 
@@ -212,10 +219,10 @@ is used to route between VLANs.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="spanning-tree-protocol.html" class="btn btn-neutral float-right" title="Spanning Tree Protocol (STP)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../cisco/index.html" class="btn btn-neutral float-right" title="Cisco" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="subnetting.html" class="btn btn-neutral" title="Subnetting" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="spanning-tree-protocol.html" class="btn btn-neutral" title="Spanning Tree Protocol (STP)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
