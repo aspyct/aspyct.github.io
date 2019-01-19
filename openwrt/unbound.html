@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>OpenWRT &mdash; aspyct.org</title>
+  <title>OpenWRT unbound configuration &mdash; aspyct.org</title>
   
 
   
@@ -28,8 +28,8 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="OpenWRT on Raspberry Pi 3B/3B+" href="raspberry-pi.html" />
-    <link rel="prev" title="Nitrokey Storage 2" href="../gpg/nitrokey.html" /> 
+    <link rel="next" title="Networking" href="../networking/index.html" />
+    <link rel="prev" title="OpenWRT on Raspberry Pi 3B/3B+" href="raspberry-pi.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -85,9 +85,12 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../debian/index.html">Debian 9.6</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../gpg/index.html">GPG</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">OpenWRT</a><ul>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">OpenWRT</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="raspberry-pi.html">OpenWRT on Raspberry Pi 3B/3B+</a></li>
-<li class="toctree-l2"><a class="reference internal" href="unbound.html">Unbound configuration</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Unbound configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#add-custom-host-entry">Add custom host entry</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../networking/index.html">Networking</a></li>
@@ -138,7 +141,9 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>OpenWRT</li>
+          <li><a href="index.html">OpenWRT</a> &raquo;</li>
+        
+      <li>OpenWRT unbound configuration</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -155,24 +160,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="openwrt">
-<h1>OpenWRT<a class="headerlink" href="#openwrt" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="raspberry-pi.html">OpenWRT on Raspberry Pi 3B/3B+</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="raspberry-pi.html#update-rpi-firmware">Update rpi firmware</a></li>
-<li class="toctree-l2"><a class="reference internal" href="raspberry-pi.html#get-signing-keys">Get signing keys</a></li>
-<li class="toctree-l2"><a class="reference internal" href="raspberry-pi.html#download-verify-image">Download/verify image</a></li>
-<li class="toctree-l2"><a class="reference internal" href="raspberry-pi.html#make-the-bootable-sd-card">Make the bootable SD card</a></li>
-<li class="toctree-l2"><a class="reference internal" href="raspberry-pi.html#first-login">First login</a></li>
-<li class="toctree-l2"><a class="reference internal" href="raspberry-pi.html#external-links">External links</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="unbound.html">Unbound configuration</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="unbound.html#add-custom-host-entry">Add custom host entry</a></li>
-</ul>
-</li>
-</ul>
+  <div class="section" id="unbound-configuration">
+<h1>Unbound configuration<a class="headerlink" href="#unbound-configuration" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="add-custom-host-entry">
+<h2>Add custom host entry<a class="headerlink" href="#add-custom-host-entry" title="Permalink to this headline">¶</a></h2>
+<p>Edit the file at <code class="docutils literal notranslate"><span class="pre">/etc/unbound/unbound_srv.conf</span></code> and add one line per host:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">local</span><span class="o">-</span><span class="n">data</span><span class="p">:</span> <span class="s2">&quot;myserver.local IN A 192.168.0.4&quot;</span>
+</pre></div>
+</div>
 </div>
 </div>
 
@@ -184,10 +179,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="raspberry-pi.html" class="btn btn-neutral float-right" title="OpenWRT on Raspberry Pi 3B/3B+" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../networking/index.html" class="btn btn-neutral float-right" title="Networking" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../gpg/nitrokey.html" class="btn btn-neutral" title="Nitrokey Storage 2" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="raspberry-pi.html" class="btn btn-neutral" title="OpenWRT on Raspberry Pi 3B/3B+" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -5,3 +5,4 @@ OpenWRT
     :maxdepth: 2
 
     raspberry-pi
+    unbound
