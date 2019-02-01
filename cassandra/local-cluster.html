@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Cisco &mdash; aspyct.org</title>
+  <title>DIY Local Cassandra cluster &mdash; aspyct.org</title>
   
 
   
@@ -28,8 +28,8 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Connecting to console" href="connecting-console.html" />
-    <link rel="prev" title="Network troubleshooting" href="../networking/troubleshooting.html" /> 
+    <link rel="next" title="GPG" href="../gpg/index.html" />
+    <link rel="prev" title="Cassandra" href="index.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -84,15 +84,14 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../debian/index.html">Debian 9.6</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../cassandra/index.html">Cassandra</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Cassandra</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">DIY Local Cassandra cluster</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../gpg/index.html">GPG</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../openwrt/index.html">OpenWRT</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../networking/index.html">Networking</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Cisco</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="connecting-console.html">Connecting to console</a></li>
-<li class="toctree-l2"><a class="reference internal" href="catalyst/index.html">Cisco Catalyst</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../cisco/index.html">Cisco</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../other/index.html">Other</a></li>
 </ul>
 
@@ -139,7 +138,9 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Cisco</li>
+          <li><a href="index.html">Cassandra</a> &raquo;</li>
+        
+      <li>DIY Local Cassandra cluster</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -156,22 +157,42 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="cisco">
-<h1>Cisco<a class="headerlink" href="#cisco" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="connecting-console.html">Connecting to console</a></li>
-<li class="toctree-l1"><a class="reference internal" href="catalyst/index.html">Cisco Catalyst</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="catalyst/command-modes.html">Command modes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="catalyst/administrative-access.html">Administrative access</a></li>
-<li class="toctree-l2"><a class="reference internal" href="catalyst/port-configuration.html">Basic port configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="catalyst/mac-address-table.html">Mac Address Table</a></li>
-<li class="toctree-l2"><a class="reference internal" href="catalyst/vlans-trunks.html">VLANs and trunking</a></li>
-<li class="toctree-l2"><a class="reference internal" href="catalyst/spanning-tree.html">Spanning Tree</a></li>
-<li class="toctree-l2"><a class="reference internal" href="catalyst/basic-troubleshooting.html">Basic troubleshooting</a></li>
-</ul>
-</li>
-</ul>
+  <div class="section" id="diy-local-cassandra-cluster">
+<h1>DIY Local Cassandra cluster<a class="headerlink" href="#diy-local-cassandra-cluster" title="Permalink to this headline">¶</a></h1>
+<p>It’s easy to run a local cassandra cluster with docker,
+provided that you have enough memory on your system.</p>
+<p>The standard docker container will consume 4G of memory,
+but you can easily reduce that down to 1G with the following Dockerfile.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FROM</span> <span class="n">cassandra</span>
+
+<span class="n">RUN</span> <span class="n">sed</span> <span class="o">-</span><span class="n">i</span><span class="s1">&#39;&#39;</span> <span class="s1">&#39;s/#-Xms4G/-Xms1G/&#39;</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">cassandra</span><span class="o">/</span><span class="n">jvm</span><span class="o">.</span><span class="n">options</span>
+<span class="n">RUN</span> <span class="n">sed</span> <span class="o">-</span><span class="n">i</span><span class="s1">&#39;&#39;</span> <span class="s1">&#39;s/#-Xmx4G/-Xmx1G/&#39;</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">cassandra</span><span class="o">/</span><span class="n">jvm</span><span class="o">.</span><span class="n">options</span>
+</pre></div>
+</div>
+<p>Build the container and tag it as <code class="docutils literal notranslate"><span class="pre">small-cassandra:latest</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo docker build . -t &#39;small-cassandra:latest&#39;
+</pre></div>
+</div>
+<p>Then start the first node of your cluster.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo docker run --name cassandra1 -d small-cassandra
+</pre></div>
+</div>
+<p>And add nodes at will. Make sure to change the name each time.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo docker run --name cassandra2 -d --link cassandra1:cassandra small-cassandra
+</pre></div>
+</div>
+<p>Allow ample time for the cluster to settle.
+You can get the cluster status with <code class="docutils literal notranslate"><span class="pre">nodetool</span> <span class="pre">status</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo docker exec -it cassandra1 bash
+root@497929a901a9:/# nodetool status
+Datacenter: datacenter1
+=======================
+Status=Up/Down
+|/ State=Normal/Leaving/Joining/Moving
+--  Address     Load       Tokens       Owns (effective)  Host ID                               Rack
+UN  172.17.0.3  92.5 KiB   256          100.0%            0e0d319f-4767-4a81-9632-45b8cc0ed441  rack1
+UN  172.17.0.2  108.63 KiB  256          100.0%            ebc07dc6-9c35-4ab6-9799-4be9e8358aff  rack1
+</pre></div>
 </div>
 </div>
 
@@ -183,10 +204,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="connecting-console.html" class="btn btn-neutral float-right" title="Connecting to console" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../gpg/index.html" class="btn btn-neutral float-right" title="GPG" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../networking/troubleshooting.html" class="btn btn-neutral" title="Network troubleshooting" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral" title="Cassandra" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

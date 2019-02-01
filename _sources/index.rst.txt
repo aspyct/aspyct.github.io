@@ -18,6 +18,7 @@ Found an error? Please send me an email at contact@aspyct.org
     :maxdepth: 2
 
     debian/index
+    cassandra/index
     gpg/index
     openwrt/index
     networking/index
